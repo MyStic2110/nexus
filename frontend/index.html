@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus IPL | Premium Match Predictions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <h1>NEXUS <span style="font-weight: 300;">IPL 2026</span></h1>
+        </div>
+        <div id="user-profile" class="hidden">
+            <div id="user-stats" style="margin-right: 1.5rem; display: flex; align-items: center; gap: 1.5rem;">
+                <div id="nexus-links" class="hidden" style="display: flex; gap: 1.5rem; font-size: 0.7rem; font-weight: 800; letter-spacing: 1px;">
+                    <a href="#" onclick="switchNexusView('dashboard')" style="color: var(--nexus-primary); text-decoration: none;">ARENA</a>
+                    <a href="#" onclick="switchNexusView('changelog')" style="color: white; text-decoration: none; opacity: 0.6;">CHANGELOG</a>
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span class="nexus-chip" style="background: rgba(244, 114, 182, 0.1); color: var(--nexus-accent); font-weight: 800; padding: 0.4rem 0.8rem; border-radius: 8px; border: 1px solid rgba(244, 114, 182, 0.2);">
+                        <span id="user-points">0</span> PTS
+                    </span>
+                    <span id="username" style="font-weight: 700; color: white;"></span>
+                </div>
+            </div>
+            <button id="logout-btn">SIGN OUT</button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Auth View -->
+        <section id="login-section" class="login-container">
+            <div class="hero-chip" style="background: rgba(56, 189, 248, 0.1); color: var(--nexus-primary); padding: 0.5rem 1rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; margin-bottom: 2rem;">AI-POWERED PREDICTION ENGINE</div>
+            <h2>Predict the Death Overs. <br> Rule the Leaderboard.</h2>
+            <p style="max-width: 600px; margin: 0 auto 3rem; font-size: 1.1rem; color: var(--nexus-text-muted);">Step into the AI-driven nexus of cricket analytics. Secure your predictions for the high-stakes final 12 balls of every match and dominate global standings.</p>
+            
+            <div class="auth-box">
+                <div id="g_id_onload"
+                    data-client_id="1069339886211-enuj59sf1ng4v6e7u9pcogagnqbc3mpd.apps.googleusercontent.com"
+                    data-context="signin"
+                    data-ux_mode="popup"
+                    data-callback="handleCredentialResponse"
+                    data-auto_prompt="false">
+                </div>
+                <div class="g_id_signin" 
+                    data-type="standard" 
+                    data-shape="pill" 
+                    data-theme="outline" 
+                    data-text="signin_with" 
+                    data-size="large" 
+                    data-logo_alignment="left">
+                </div>
+            </div>
+        </section>
+
+        <!-- Match Dashboard -->
+        <section id="dashboard" class="hidden">
+            <div class="dashboard-header" style="margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: flex-end;">
+                <div>
+                    <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem;">Arena</h2>
+                    <p style="color: var(--nexus-text-muted);">Current live and scheduled matches</p>
+                </div>
+                <div style="background: rgba(56, 189, 248, 0.05); padding: 0.75rem 1.5rem; border-radius: 12px; border: 1px solid var(--nexus-border);">
+                    <span id="live-count" style="font-weight: 700; color: var(--nexus-primary);">0 LIVE</span>
+                </div>
+            </div>
+
+            <!-- Arena Tabs -->
+            <div class="arena-tabs" style="margin-bottom: 2rem; display: flex; gap: 1rem; border-bottom: 1px solid var(--nexus-border); padding-bottom: 1rem;">
+                <button class="arena-tab active" onclick="switchArenaTab('all')">ALL MATCHES</button>
+                <button class="arena-tab" onclick="switchArenaTab('LIVE')">LIVE NOW</button>
+                <button class="arena-tab" onclick="switchArenaTab('UPCOMING')">UPCOMING</button>
+                <button class="arena-tab" onclick="switchArenaTab('COMPLETED')">COMPLETED</button>
+            </div>
+
+            <div id="matches-container" class="matches-grid">
+                <!-- Matches injected via JS -->
+            </div>
+
+            <!-- Global Leaderboard -->
+            <div class="global-leaderboard-section" style="margin-top: 5rem; animation: fadeIn 1s ease-out;">
+                <div style="border-top: 1px solid var(--nexus-border); padding-top: 4rem; margin-bottom: 2.5rem;">
+                    <h2 style="font-size: 2.2rem; font-weight: 900; background: linear-gradient(to right, white, var(--nexus-text-muted)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">NEXUS GLOBAL STANDINGS</h2>
+                    <p style="color: var(--nexus-text-muted);">Real-time performance metrics for the current season</p>
+                </div>
+                
+                <div style="background: var(--nexus-card-bg); border: 1px solid var(--nexus-border); border-radius: 20px; padding: 1.5rem; backdrop-filter: var(--glass-blur);">
+                    <table style="width: 100%; border-collapse: separate; border-spacing: 0 0.75rem;">
+                        <thead>
+                            <tr style="text-align: left; color: var(--nexus-text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">
+                                <th style="padding: 1rem;">Rank</th>
+                                <th style="padding: 1rem;">Nexus Identity</th>
+                                <th style="padding: 1rem; text-align: right;">Performance Points</th>
+                            </tr>
+                        </thead>
+                        <tbody id="global-leaderboard-body">
+                            <!-- Leaderboard injected via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+        <!-- Changelog View -->
+        <section id="changelog-section" class="hidden">
+            <div style="margin-bottom: 3rem; text-align: center;">
+                <h2 style="font-size: 2rem; font-weight: 900; background: linear-gradient(to right, white, var(--nexus-text-muted)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">NEXUS EVOLUTION</h2>
+                <p style="color: var(--nexus-text-muted);">System iterations and lifecycle updates</p>
+            </div>
+
+            <div class="timeline" style="max-width: 800px; margin: 0 auto;">
+                <div class="timeline-item" style="border-left: 2px solid var(--nexus-primary); padding-left: 2rem; margin-bottom: 2rem; position: relative;">
+                    <div style="position: absolute; left: -9px; top: 0; width: 16px; height: 16px; border-radius: 50%; background: var(--nexus-primary);"></div>
+                    <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">V2 : AUTONOMOUS INTELLIGENCE</h3>
+                    <p style="color: var(--nexus-text-muted); font-size: 0.9rem;">Cricbuzz Fallback Surveillance, Real-time Arena Tabulation & Smart Refresh Logic.</p>
+                </div>
+
+                <div class="timeline-item" style="border-left: 2px solid var(--nexus-border); padding-left: 2rem; margin-bottom: 2rem; position: relative; opacity: 0.7;">
+                    <div style="position: absolute; left: -9px; top: 0; width: 16px; height: 16px; border-radius: 50%; background: var(--nexus-border);"></div>
+                    <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">DAY 2 : INFRASTRUCTURE & SPEED</h3>
+                    <p style="color: var(--nexus-text-muted); font-size: 0.9rem;">Redis Caching, Nexus Production Logger & Death Over Governance.</p>
+                </div>
+
+                <div class="timeline-item" style="border-left: 2px solid var(--nexus-border); padding-left: 2rem; position: relative; opacity: 0.5;">
+                    <div style="position: absolute; left: -9px; top: 0; width: 16px; height: 16px; border-radius: 50%; background: var(--nexus-border);"></div>
+                    <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">DAY 1 : THE FOUNDATION</h3>
+                    <p style="color: var(--nexus-text-muted); font-size: 0.9rem;">Google OAuth2 Migration, MongoDB Warehouse & Nexus Design System.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Prediction Modal -->
+    <div id="prediction-modal" class="nexus-modal hidden">
+        <div class="nexus-modal-content">
+            <button class="close-btn" onclick="closePredictionModal()" style="position: absolute; top: 2rem; right: 2rem; background: none; border: none; color: var(--nexus-text-muted); font-size: 1.5rem; cursor: pointer;">&times;</button>
+            <h3 id="modal-match-title" style="font-size: 1.8rem; font-weight: 800; margin-bottom: 0.5rem; color: white;">Predict Match</h3>
+            <p id="modal-match-subtitle" style="color: var(--nexus-text-muted); font-size: 0.9rem; margin-bottom: 2rem;">Secure your predictions for the next 12 balls.</p>
+            
+            <div id="prediction-form" class="prediction-grid">
+                <!-- Inputs generated dynamically -->
+            </div>
+            
+            <button id="submit-prediction" class="btn-nexus" style="margin-top: 1rem;">Lock All Predictions</button>
+        </div>
+    </div>
+
+    <!-- Breakdown Analytics Modal -->
+    <div id="breakdown-modal" class="nexus-modal hidden">
+        <div class="nexus-modal-content" style="max-width: 800px; max-height: 90vh; overflow-y: auto;">
+            <button class="close-btn" onclick="document.getElementById('breakdown-modal').classList.add('hidden')" style="position: absolute; top: 2rem; right: 2rem; background: none; border: none; color: var(--nexus-text-muted); font-size: 1.5rem; cursor: pointer;">&times;</button>
+            <h3 style="font-size: 1.8rem; font-weight: 800; margin-bottom: 0.5rem; color: white;">Nexus Analytical Insight</h3>
+            <p style="color: var(--nexus-text-muted); font-size: 0.9rem; margin-bottom: 2rem;">Scientific breakdown of your prediction performance.</p>
+            
+            <div id="breakdown-content">
+                <!-- Analysis table injected via JS -->
+            </div>
+            
+            <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(56, 189, 248, 0.05); border-radius: 16px; border: 1px solid rgba(56, 189, 248, 0.1);">
+                <h4 style="font-size: 0.8rem; margin-bottom: 1rem; color: var(--nexus-primary); font-weight: 800; text-transform: uppercase;">Scoring Logic</h4>
+                <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
+                    <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem;">
+                        <span class="ball-indicator indicator-hit">H</span> <span>Wicket Match (+25) / Run Match (+10)</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; opacity: 0.5;">
+                        <span class="ball-indicator indicator-miss">M</span> <span>Mismatch (+0)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
