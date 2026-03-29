@@ -3,12 +3,15 @@ import os
 import httpx
 from bs4 import BeautifulSoup
 import re
-from datetime import datetime
+from datetime import datetime, timedelta
+import pytz
 from motor.motor_asyncio import AsyncIOMotorClient
 from dotenv import load_dotenv
 
 load_dotenv()
 MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017")
+DB_NAME = os.getenv("DB_NAME", "ipl_game")
+IST = pytz.timezone("Asia/Kolkata")
 
 # Global counter for sequential failures
 over_data_failure_count = 0
@@ -98,14 +101,59 @@ async def handle_summary_fallback(db, match_id, summary_url):
         except Exception as e:
             print(f"[{datetime.now().strftime('%H:%M:%S')}] \033[91mNexus Fallback failed: {e}\033[0m")
 
+# ─── LEVEL 1: Time-Window Validator ──────────────────────────────────────────
+def is_match_in_window(match: dict) -> bool:
+    """
+    Returns True only if current IST time is within the match window.
+    Window: match start time (from DB) -30min to +4 hours.
+    This ensures only the correct match record accepts data at the right time.
+    """
+    try:
+        match_date = match.get("date")  # "YYYY-MM-DD"
+        match_time = match.get("time")  # "07:30 PM"
+        if not match_date or not match_time:
+            return True  # If no time stored, don't block (safe default)
+
+        match_dt_str = f"{match_date} {match_time}"
+        match_dt = IST.localize(datetime.strptime(match_dt_str, "%Y-%m-%d %I:%M %p"))
+        now_ist = datetime.now(IST)
+
+        window_start = match_dt - timedelta(minutes=30)
+        window_end = match_dt + timedelta(hours=4)
+
+        return window_start <= now_ist <= window_end
+    except Exception as e:
+        print(f"[TIME-VALIDATOR] Error: {e}. Allowing by default.")
+        return True
+
+# ─── LEVEL 2: Cricbuzz ID Cross-Validator ────────────────────────────────────
+async def validate_cricbuzz_id(db, match_id: str, c_id: str) -> bool:
+    """
+    Cross-validates that the cricbuzz_id being used by the agent
+    matches exactly what is stored in the database for this match_id.
+    Blocks any data write if the ID is mismatched, preventing ghost records.
+    """
+    db_match = await db.matches.find_one({"match_id": match_id})
+    if not db_match:
+        print(f"[ID-VALIDATOR] BLOCKED: match_id {match_id} does not exist in DB.")
+        return False
+
+    db_cid = str(db_match.get("cricbuzz_id", ""))
+    if db_cid != str(c_id):
+        print(f"[ID-VALIDATOR] BLOCKED: CID mismatch for {match_id}. "
+              f"Agent using [{c_id}], DB expects [{db_cid}]. Aborting write.")
+        return False
+
+    return True
+
 async def run_cricbuzz_pulse():
     global over_data_failure_count
     client_db = AsyncIOMotorClient(MONGO_URI)
-    db = client_db.ipl_game
+    db = client_db[DB_NAME]
     match_data_collection = db["live_match_overs"]
     
     # Dynamic Match Discovery: Find matches that are LIVE or UPCOMING today
-    ist_date = datetime.now().strftime("%Y-%m-%d")
+    ist_date = datetime.now(IST).strftime("%Y-%m-%d")
     cursor = db.matches.find({"$or": [{"status": "LIVE"}, {"date": ist_date}]})
     active_matches = await cursor.to_list(10)
     
@@ -117,12 +165,25 @@ async def run_cricbuzz_pulse():
     async with httpx.AsyncClient() as client:
         for match in active_matches:
             c_id = match.get("cricbuzz_id")
-            if not c_id: continue
-            
+            match_id = match["match_id"]
+            if not c_id:
+                print(f"[{datetime.now().strftime('%H:%M:%S')}] \033[90mNEXUS: {match_id} has no Cricbuzz ID. Skipping.\033[0m")
+                continue
+
+            # ── LEVEL 1: Time Window Check ────────────────────────────────────
+            if not is_match_in_window(match):
+                print(f"[{datetime.now().strftime('%H:%M:%S')}] \033[90mNEXUS L1-BLOCKED: {match_id} is outside its time window. Skipping.\033[0m")
+                continue
+
+            # ── LEVEL 2: Cricbuzz ID Cross-Validation ─────────────────────────
+            if not await validate_cricbuzz_id(db, match_id, c_id):
+                print(f"[{datetime.now().strftime('%H:%M:%S')}] \033[91mNEXUS L2-BLOCKED: {match_id} CID mismatch. No data written.\033[0m")
+                continue
+
             over_url = f"https://m.cricbuzz.com/live-cricket-over-by-over/{c_id}/match-slug"
             summary_url = f"https://m.cricbuzz.com/live-cricket-scores/{c_id}/match-slug"
             
-            print(f"[{datetime.now().strftime('%H:%M:%S')}] \033[94mNEXUS: Syncing {match['match_id']} ({match['team1']} vs {match['team2']}) via CID {c_id}\033[0m")
+            print(f"[{datetime.now().strftime('%H:%M:%S')}] \033[94mNEXUS: Syncing {match_id} ({match['team1']} vs {match['team2']}) via CID {c_id}\033[0m")
             
             try:
                 response = await client.get(over_url, headers={'User-Agent': 'Mozilla/5.0'})
@@ -132,7 +193,7 @@ async def run_cricbuzz_pulse():
                 if not all_overs:
                     over_data_failure_count += 1
                     if over_data_failure_count >= 20:
-                        await handle_summary_fallback(db, match["match_id"], summary_url)
+                        await handle_summary_fallback(db, match_id, summary_url)
                         over_data_failure_count = 0
                     continue
 
@@ -141,22 +202,34 @@ async def run_cricbuzz_pulse():
                 session_id = max(detect_innings(response.text), db_innings)
                 
                 for over_data in all_overs:
-                    over_data["match_id"] = match["match_id"]
+                    over_data["match_id"] = match_id
                     over_data["session_id"] = session_id
-                    existing = await match_data_collection.find_one({"match_id": match["match_id"], "session_id": session_id, "over": over_data["over"]})
+                    existing = await match_data_collection.find_one({"match_id": match_id, "session_id": session_id, "over": over_data["over"]})
                     if not (existing and len([b for b in existing.get("balls", []) if b not in ['Wd', 'Nb']]) >= 6):
-                        await match_data_collection.update_one({"match_id": match["match_id"], "session_id": session_id, "over": over_data["over"]}, {"$set": over_data}, upsert=True)
+                        await match_data_collection.update_one(
+                            {"match_id": match_id, "session_id": session_id, "over": over_data["over"]},
+                            {"$set": over_data}, upsert=True
+                        )
                 
-                await db.matches.update_one({"match_id": match["match_id"]}, {"$set": {"current_score": all_overs[0]["current_score"], "current_over": all_overs[0]["current_over"], "innings": session_id, "status": "LIVE"}})
+                await db.matches.update_one(
+                    {"match_id": match_id},
+                    {"$set": {
+                        "current_score": all_overs[0]["current_score"],
+                        "current_over": all_overs[0]["current_over"],
+                        "innings": session_id,
+                        "status": "LIVE"
+                    }}
+                )
                 
             except Exception as e:
-                print(f"[{datetime.now().strftime('%H:%M:%S')}] \033[91mPulse failed for {match['match_id']}: {e}\033[0m")
+                print(f"[{datetime.now().strftime('%H:%M:%S')}] \033[91mPulse failed for {match_id}: {e}\033[0m")
 
     client_db.close()
 
 async def continuously_poll():
     print("\n\033[96m====================================================\033[0m")
-    print("\033[96m NEXUS MULTI-MATCH SURVEILLANCE ENGINE V3 ACTIVE    \033[0m")
+    print("\033[96m NEXUS MULTI-MATCH SURVEILLANCE ENGINE V4 ACTIVE   \033[0m")
+    print("\033[96m  [L1: Time-Window] [L2: ID Cross-Validation]       \033[0m")
     print("\033[96m====================================================\033[0m\n")
     while True:
         await run_cricbuzz_pulse()
@@ -165,3 +238,4 @@ async def continuously_poll():
 if __name__ == "__main__":
     try: asyncio.run(continuously_poll())
     except KeyboardInterrupt: print("\n\033[91mNEXUS: Terminated.\033[0m")
+
