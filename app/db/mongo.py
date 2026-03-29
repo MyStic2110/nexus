@@ -2,13 +2,17 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from app.config import settings
 from app.logger import db_logger
 
-if not settings.MONGO_URI:
-    db_logger.error("MONGO_URI is not set! Check your environment variables.")
-    raise ValueError("MONGO_URI environment variable is required")
+raw_uri = settings.MONGO_URI.strip().strip("'").strip('"')
+
+if not raw_uri or not (raw_uri.startswith("mongodb://") or raw_uri.startswith("mongodb+srv://")):
+    masked_uri = (raw_uri[:10] + "...") if raw_uri else "EMPTY"
+    db_logger.error(f"Invalid MONGO_URI detected (Length: {len(raw_uri)}): {masked_uri}")
+    db_logger.error("Ensure your Railway environment variable MONGO_URI starts with 'mongodb://' or 'mongodb+srv://' and has no quotes.")
+    raise ValueError(f"Invalid MONGO_URI scheme. Received: {masked_uri}")
 
 db_logger.info(f"Connecting to MongoDB cluster: {settings.DB_NAME}")
 try:
-    client = AsyncIOMotorClient(settings.MONGO_URI, serverSelectionTimeoutMS=5000)
+    client = AsyncIOMotorClient(raw_uri, serverSelectionTimeoutMS=5000)
     db = client[settings.DB_NAME]
 except Exception as e:
     db_logger.error(f"Failed to initialize MongoDB client: {str(e)}")

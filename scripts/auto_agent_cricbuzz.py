@@ -147,14 +147,16 @@ async def validate_cricbuzz_id(db, match_id: str, c_id: str) -> bool:
 
     return True
 
-async def run_cricbuzz_pulse():
     global over_data_failure_count
-    if not MONGO_URI:
-        print(f"[{datetime.now().strftime('%H:%M:%S')}] \033[91mNEXUS ERROR: MONGO_URI not set! Check environment variables.\033[0m")
+    raw_uri = settings.MONGO_URI.strip().strip("'").strip('"')
+    
+    if not raw_uri or not (raw_uri.startswith("mongodb://") or raw_uri.startswith("mongodb+srv://")):
+        masked_uri = (raw_uri[:10] + "...") if raw_uri else "EMPTY"
+        print(f"[{datetime.now().strftime('%H:%M:%S')}] \033[91mNEXUS ERROR: Invalid MONGO_URI (Length: {len(raw_uri)}): {masked_uri}\033[0m")
         return
 
     try:
-        client_db = AsyncIOMotorClient(MONGO_URI)
+        client_db = AsyncIOMotorClient(raw_uri)
         db = client_db[DB_NAME]
     except Exception as e:
         print(f"[{datetime.now().strftime('%H:%M:%S')}] \033[91mNEXUS ERROR: Failed to connect to MongoDB: {e}\033[0m")
