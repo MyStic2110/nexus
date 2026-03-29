@@ -15,8 +15,9 @@ class Settings(BaseSettings):
 
     GOOGLE_CLIENT_ID: str = "YOUR_GOOGLE_CLIENT_ID_HERE"
 
+    # Optional: External Cricket API (fetches scores for match sessions)
     CRICKET_API_BASE: str = "https://api.cricketapi.com/v1"
-    CRICKET_API_KEY: str = "YOUR_API_KEY"
+    CRICKET_API_KEY: str = "PROVISION_ME_FOR_REAL_TIME_SCORES"
 
     POLL_INTERVAL_SECONDS: int = 5
     SCORING_EXACT: int = 10
