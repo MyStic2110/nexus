@@ -13,3 +13,5 @@ python-jose
 pytest
 pytest-asyncio
 websockets
+pytz
+python-multipart
