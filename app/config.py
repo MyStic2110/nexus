@@ -15,8 +15,8 @@ class Settings(BaseSettings):
 
     GOOGLE_CLIENT_ID: str = "YOUR_GOOGLE_CLIENT_ID_HERE"
 
-    CRICKET_API_BASE: str
-    CRICKET_API_KEY: str
+    CRICKET_API_BASE: str = "https://api.cricketapi.com/v1"
+    CRICKET_API_KEY: str = "YOUR_API_KEY"
 
     POLL_INTERVAL_SECONDS: int = 5
     SCORING_EXACT: int = 10
