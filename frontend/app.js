@@ -110,6 +110,10 @@ async function fetchMatches() {
     try {
         const res = await fetch(`${API_BASE}/matches`);
         const matches = await res.json();
+        if (!Array.isArray(matches)) {
+            console.error('Invalid matches type', matches);
+            return;
+        }
         cachedMatches = matches;
         filterAndRenderMatches();
         document.getElementById('live-count').textContent = `${matches.filter(m => m.status === 'LIVE').length} LIVE`;
