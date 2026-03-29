@@ -289,9 +289,21 @@ function renderMatches(matches) {
         return;
     }
 
+    // Priority Sort: LIVE > UPCOMING > COMPLETED
+    const statusPriority = { 'LIVE': 1, 'UPCOMING': 2, 'COMPLETED': 3 };
+    matches.sort((a, b) => {
+        if (statusPriority[a.status] !== statusPriority[b.status]) {
+            return statusPriority[a.status] - statusPriority[b.status];
+        }
+        return new Date(a.date + ' ' + a.time) - new Date(b.date + ' ' + b.time);
+    });
+
+    const todayIST = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' });
+
     matches.forEach(match => {
         const card = document.createElement('div');
-        card.className = 'match-card';
+        const isToday = match.date === todayIST;
+        card.className = `match-card ${isToday ? 'ipl-today-highlight' : ''}`;
         
         const t1 = match.team1 || 'T1';
         const t2 = match.team2 || 'T2';
@@ -303,6 +315,7 @@ function renderMatches(matches) {
         const displayTime = match.time || 'TBD';
 
         card.innerHTML = `
+            ${isToday ? '<div class="today-label">MATCH TODAY</div>' : ''}
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.75rem;">
                 <div data-badge-id="${match.match_id}" class="status-badge" style="background: ${isCompleted ? '#a855f7' : (isLocked ? 'var(--nexus-accent)' : (isLive ? '#22c55e' : 'var(--nexus-secondary)'))}; margin: 0;">
                     ${isCompleted ? 'COMPLETED' : (isLocked ? 'LOCKED' : match.status)}
