@@ -308,6 +308,7 @@ function renderMatches(matches) {
         const t1 = match.team1 || 'T1';
         const t2 = match.team2 || 'T2';
         const isLive = match.status === 'LIVE';
+        const isCompleted = match.status === 'COMPLETED';
         const isLocked = (match.current_over || 0) >= 15.0 || isCompleted;
         
         const dateStr = match.date ? new Date(match.date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }) : 'TODAY';
