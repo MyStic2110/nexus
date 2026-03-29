@@ -383,16 +383,19 @@ window.openNexusModal = async (matchId, t1, t2, over, sessionId) => {
     for (let i = 1; i <= 12; i++) {
         const div = document.createElement('div');
         div.className = 'ball-input';
+        div.setAttribute('data-ball', i);
+        div.setAttribute('data-value', '0'); // Default
         div.innerHTML = `
-            <label>BALL ${i}</label>
-            <select name="ball_${i}" ${isLocked ? 'disabled' : ''} style="background: rgba(15, 23, 42, 0.9); cursor: pointer;">
-                <option value="0" style="background: var(--nexus-surface);">0 RUNS</option>
-                <option value="1" style="background: var(--nexus-surface);">1 RUN</option>
-                <option value="2" style="background: var(--nexus-surface);">2 RUNS</option>
-                <option value="4" style="background: var(--nexus-surface);">4 RUNS</option>
-                <option value="6" style="background: var(--nexus-surface);">6 RUNS</option>
-                <option value="W" style="background: var(--nexus-surface);">WICKET</option>
-            </select>
+            <div style="display: flex; flex-direction: column; width: 100%;">
+                <label style="margin-bottom: 0.5rem; display: block; font-size: 0.65rem; letter-spacing: 1px; font-weight: 800;">BALL ${i}</label>
+                <div class="run-selector">
+                    ${['0', '1', '2', '4', '6', 'W'].map(val => `
+                        <button type="button" class="run-btn ${val === '0' ? 'active' : ''}" data-value="${val}" ${isLocked ? 'disabled' : ''} onclick="selectRun(this, ${i})">
+                            ${val}
+                        </button>
+                    `).join('')}
+                </div>
+            </div>
         `;
         form.appendChild(div);
     }
@@ -416,8 +419,11 @@ window.openNexusModal = async (matchId, t1, t2, over, sessionId) => {
                 const data = await res.json();
                 if (data.status === 'success' && data.predictions) {
                     data.predictions.forEach(p => {
-                        const sel = form.querySelector(`select[name="ball_${p.ball}"]`);
-                        if (sel) sel.value = p.runs;
+                        const ballInput = form.querySelector(`.ball-input[data-ball="${p.ball}"]`);
+                        if (ballInput) {
+                            const btn = ballInput.querySelector(`.run-btn[data-value="${p.runs}"]`);
+                            if (btn) selectRun(btn, p.ball);
+                        }
                     });
                 }
             }
@@ -429,22 +435,40 @@ window.openNexusModal = async (matchId, t1, t2, over, sessionId) => {
     connectNexusWS(matchId);
 };
 
+window.selectRun = (btn, ballNum) => {
+    const parent = btn.parentElement;
+    parent.querySelectorAll('.run-btn').forEach(b => {
+        b.classList.remove('active');
+        b.classList.remove('active-wicket');
+    });
+    
+    if (btn.dataset.value === 'W') {
+        btn.classList.add('active-wicket');
+    } else {
+        btn.classList.add('active');
+    }
+    
+    // Store value on the parent ball-input
+    const ballInput = btn.closest('.ball-input');
+    ballInput.dataset.value = btn.dataset.value;
+};
+
 async function submitNexusPredictions(matchId, sessionId) {
     const form = document.getElementById('prediction-form');
-    const selects = form.querySelectorAll('select');
+    const ballInputs = form.querySelectorAll('.ball-input');
     
     let totalRuns = 0;
     let totalWickets = 0;
 
-    const predictions = Array.from(selects).map((s, idx) => {
-        const val = s.value;
+    const predictions = Array.from(ballInputs).map((bi, idx) => {
+        const val = bi.dataset.value;
         if (val === 'W') {
             totalWickets += 1;
         } else {
             totalRuns += parseInt(val, 10);
         }
         return {
-            ball: idx + 1,
+            ball: parseInt(bi.dataset.ball, 10),
             runs: val.toString(),
             innings: sessionId
         };

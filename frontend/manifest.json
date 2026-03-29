@@ -1,0 +1,17 @@
+{
+  "name": "IPL Nexus 2026",
+  "short_name": "Nexus IPL",
+  "description": "Premium IPL Death Over Prediction Engine",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#38bdf8",
+  "icons": [
+    {
+      "src": "/static/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

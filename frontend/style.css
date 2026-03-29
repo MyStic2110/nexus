@@ -332,11 +332,56 @@ main {
 .ball-input label { font-size: 0.8rem; color: var(--nexus-text-muted); font-weight: 600; }
 
 .ball-input select {
-    background: transparent;
-    border: none;
-    color: white;
-    font-weight: 700;
     width: 100%;
+}
+
+/* Run Selector UI */
+.run-selector {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+}
+
+.run-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid var(--nexus-border);
+    background: rgba(255,255,255,0.03);
+    color: var(--nexus-text-muted);
+    font-weight: 800;
+    font-size: 0.7rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.run-btn:hover:not(:disabled) {
+    background: rgba(56, 189, 248, 0.1);
+    border-color: var(--nexus-primary);
+    color: white;
+}
+
+.run-btn.active {
+    background: var(--nexus-primary);
+    border-color: var(--nexus-primary);
+    color: var(--nexus-bg);
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+}
+
+.run-btn.active-wicket {
+    background: var(--nexus-accent);
+    border-color: var(--nexus-accent);
+    color: white;
+    box-shadow: 0 0 12px rgba(244, 114, 182, 0.4);
+}
+
+.run-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
 }
 
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
