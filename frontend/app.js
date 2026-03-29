@@ -308,7 +308,6 @@ function renderMatches(matches) {
         const t1 = match.team1 || 'T1';
         const t2 = match.team2 || 'T2';
         const isLive = match.status === 'LIVE';
-        const isCompleted = match.status === 'COMPLETED';
         const isLocked = (match.current_over || 0) >= 15.0 || isCompleted;
         
         const dateStr = match.date ? new Date(match.date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }) : 'TODAY';
@@ -340,18 +339,32 @@ function renderMatches(matches) {
                     <div style="font-weight: 700; font-size: 0.8rem;">${t2}</div>
                 </div>
             </div>
-            <div class="match-details" style="flex-direction: column; gap: 0.25rem; align-items: center; border-top: 1px solid var(--nexus-border); padding-top: 1rem;">
-                <div data-status-id="${match.match_id}" style="font-size: 1.1rem; font-weight: 800; color: white;">
-                    ${isCompleted ? 'FINAL SCORE' : (isLive ? 'MATCH STARTED' : 'UPCOMING FIXTURE')}
-                </div>
-                <div style="font-size: 1.25rem; font-weight: 900; color: var(--nexus-primary);">
-                    <span data-score-id="${match.match_id}">${isLive || isCompleted ? (match.current_score || '0/0') : (match.time || '--:--')}</span>
-                    <span style="font-size: 0.8rem; color: white; opacity: 0.7;">
-                        <span data-over-id="${match.match_id}">${isCompleted ? 'MATCH OVER' : (isLive ? 'OV ' + (match.current_over || '0.0') : 'IST')}</span>
-                    </span>
-                </div>
-                <div data-last-updated="${match.match_id}" style="font-size: 0.85rem; font-weight: 700; color: var(--nexus-accent); margin-top: 0.5rem; text-align: center;">
-                    ${isLive || isCompleted ? 'Refreshed: ' + new Date().toLocaleTimeString() : (match.api_status || match.result || 'Waiting for Updates')}
+            <div class="match-details" style="flex-direction: column; gap: 0.25rem; align-items: center; border-top: 1px solid var(--nexus-border); padding-top: 1rem; position: relative;">
+                ${isCompleted && match.team1_final_score ? `
+                    <div style="width: 100%; display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem;">
+                        <div class="score-row ${match.winner_team === match.team1 ? 'winner' : ''}">
+                            <span class="team-name">${t1}</span>
+                            <span class="final-score-val">${match.team1_final_score}</span>
+                        </div>
+                        <div class="score-row ${match.winner_team === match.team2 ? 'winner' : ''}">
+                            <span class="team-name">${t2}</span>
+                            <span class="final-score-val">${match.team2_final_score}</span>
+                        </div>
+                        <div class="result-banner-nexus">${match.api_status || 'MATCH FINALIZED'}</div>
+                    </div>
+                ` : `
+                    <div data-status-id="${match.match_id}" style="font-size: 1.1rem; font-weight: 800; color: white;">
+                        ${isCompleted ? 'FINAL SCORE' : (isLive ? 'MATCH STARTED' : 'UPCOMING FIXTURE')}
+                    </div>
+                    <div style="font-size: 1.25rem; font-weight: 900; color: var(--nexus-primary);">
+                        <span data-score-id="${match.match_id}">${isLive || isCompleted ? (match.current_score || '0/0') : (match.time || '--:--')}</span>
+                        <span style="font-size: 0.8rem; color: white; opacity: 0.7;">
+                            <span data-over-id="${match.match_id}">${isCompleted ? 'MATCH OVER' : (isLive ? 'OV ' + (match.current_over || '0.0') : 'IST')}</span>
+                        </span>
+                    </div>
+                `}
+                <div data-last-updated="${match.match_id}" style="font-size: 0.75rem; font-weight: 700; color: var(--nexus-accent); margin-top: 0.5rem; text-align: center; opacity: 0.8;">
+                    ${isLive ? 'Live Update: ' + new Date().toLocaleTimeString() : (isCompleted ? '' : 'Waiting for match to start')}
                 </div>
             </div>
 

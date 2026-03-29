@@ -58,16 +58,15 @@ async def fetch_overs_from_api(client, match_id, innings_id, timestamp=None):
         print(f"[API-FETCH] Error fetching {url}: {e}")
         return None
 
-async def get_match_header_from_api(client, match_id):
-    """Fetches match state and header info from the Commentary API."""
+async def get_match_data_from_api(client, match_id):
+    """Fetches full match data (header and miniscore) from the Commentary API."""
     url = f"{CRICBUZZ_COMM_API}/{match_id}"
     try:
         response = await client.get(url, headers=HEADERS, timeout=10.0)
         response.raise_for_status()
-        data = response.json()
-        return data.get("matchHeader", {})
+        return response.json()
     except Exception as e:
-        print(f"[API-HEADER] Error fetching status for {match_id}: {e}")
+        print(f"[API-DATA] Error fetching data for {match_id}: {e}")
         return {}
 
 async def sync_innings_data(db, match_id, innings_id, client):
@@ -210,23 +209,44 @@ async def run_cricbuzz_pulse():
         
         async with httpx.AsyncClient() as client:
             # ─── DYNAMIC STATUS CHECK ───
-            header = await get_match_header_from_api(client, c_id)
-            match_state = header.get("state") # "Preview", "Live", "Complete"
-            official_status = header.get("status") # e.g. "MI won by 6 wkts"
+            data = await get_match_data_from_api(client, c_id)
+            header = data.get("matchHeader", {})
+            miniscore = data.get("miniscore", {})
             
+            match_state = header.get("state")
+            official_status = header.get("status")
+            winning_team = header.get("result", {}).get("winningTeam")
+            
+            # Extract Individual Innings Scores
+            score_details = miniscore.get("matchScoreDetails", {})
+            inn_list = score_details.get("inningsScoreList", [])
+            
+            t1_score_str = ""
+            t2_score_str = ""
+            
+            for inn in inn_list:
+                s = f"{inn.get('score')}/{inn.get('wickets')} ({inn.get('overs')})"
+                if inn.get('inningsId') == 1:
+                    t1_score_str = s
+                elif inn.get('inningsId') == 2:
+                    t2_score_str = s
+
             if match_state == "Complete":
-                print(f"[{datetime.now().strftime('%H:%M:%S')}] \033[92mNEXUS: Match {match_id} officially COMPLETE according to API. Closing.\033[0m")
+                print(f"[{datetime.now().strftime('%H:%M:%S')}] \033[92mNEXUS: Match {match_id} officially COMPLETE. Recording scores & closing.\033[0m")
                 await db.matches.update_one(
                     {"match_id": match_id},
                     {"$set": {
                         "status": "COMPLETED",
-                        "api_status": official_status
+                        "api_status": official_status,
+                        "team1_final_score": t1_score_str,
+                        "team2_final_score": t2_score_str,
+                        "winner_team": winning_team
                     }}
                 )
-                # Final backfill to ensure we have everything before stopping
+                # Final backfill
                 await sync_innings_data(db, match_id, 1, client)
                 await sync_innings_data(db, match_id, 2, client)
-                continue # Move to next match
+                continue
 
             # We synchronize both innings (1 and 2) if they exist
             for inn_id in [1, 2]:

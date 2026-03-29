@@ -409,6 +409,49 @@ main {
     100% { opacity: 0.5; }
 }
 
+/* Premium Completed Card Styles */
+.match-card.completed {
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), var(--nexus-card-bg));
+    border-color: rgba(168, 85, 247, 0.3);
+}
+
+.score-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    font-size: 0.85rem;
+}
+
+.score-row.winner {
+    color: white;
+    font-weight: 800;
+}
+
+.score-row.winner .team-name::after {
+    content: ' 👑';
+    font-size: 0.7rem;
+}
+
+.final-score-val {
+    font-family: monospace;
+    color: var(--nexus-primary);
+}
+
+.result-banner-nexus {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--nexus-border);
+    border-radius: 12px;
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--nexus-accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
 @media (max-width: 768px) {

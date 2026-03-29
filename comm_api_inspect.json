@@ -1,0 +1,932 @@
+{
+    "matchCommentary": {
+        "1774806353122": {
+            "matchId": 149629,
+            "commType": "commentary",
+            "commText": "<b>Ajinkya Rahane | KKR captain:</b> Feeling okay, just a lot of cramps to my calf and both the calves actually. So hopefully I'll be okay. I mean, just a lot of cramps. It was really tough. I thought 220-225 was a good total. We batted really well, but again, the inexperienced bowling attack.\u00a0Playing against Mumbai Indians, strong batting lineup, it's a really learning curve for us. Apart from Vaibhav, Karthik, Muzarabani, haven't been used to IPL, two experienced spinners, but I thought Mumbai Indians batted well. So our bowlers will definitely learn. (On his batting) I'm still young, 37, I'm still young, feeling good, but yeah, struggling with my cramps. Happens in Mumbai, a lot of humidity, but really happy the way I'm batting at the moment. (On the bowling) I think when Green starts to bowl soon, the combination will slightly be different. At the moment, we have to see the balance, guys who can bowl well for us, batting-wise, as I said, we batted really well, but finding that balance with the ball is really important. So hopefully, Green starts to bowl soon. <b>(Why Green can't bowl?) That's the question you need to ask to Cricket Australia</b>.\u00a0 A lot of positives from the batting side. I thought Kartik bowled well, played a game after a while. I thought he was really good. So yes, as I said, a lot of positives and lots to learn as well.",
+            "inningsId": 2,
+            "event": [
+                "none",
+                "all"
+            ],
+            "teamName": "MI",
+            "timestamp": 1774806353122,
+            "overSeparator": null,
+            "batsmanDetails": {
+                "playerId": 0,
+                "playerName": ""
+            },
+            "bowlerDetails": {
+                "playerId": 0,
+                "playerName": ""
+            }
+        },
+        "1774806353112": {
+            "matchId": 149629,
+            "commType": "commentary",
+            "commText": "<b>23:15 Local Time, 17:45 GMT, 23:15 IST:</b> Two games, two dominant chases. Royal Challengers Bengaluru set the tone last night and now Mumbai Indians have taken it a step further, making a 220 chase look ridiculously easy. When Kolkata Knight Riders piled up that total, it felt like a close finish was inevitable. Instead, MI blew the game open early. Rohit Sharma and Ryan Rickelton came out swinging, cashing in big time during the powerplay, mirroring KKR\u2019s own aggressive start. KKR\u2019s inexperienced attack was under pressure straight away and Ajinkya Rahane\u2019s injury only made things worse. Both Rohit and Rickelton brought up fluent fifties, putting MI firmly in control well before the halfway mark. Rohit\u2019s brilliant 78 ended with a superb catch from Anukul Roy in the deep, but Rickelton kept the pressure on following his partner's departure. MI did lose a few wickets along the way, but the platform laid by Rohit Sharma and Ryan Rickelton meant the chase was always under control and they were set to get it done comfortably. The bowling from both sides was largely ordinary, but it was Shardul Thakur\u2019s three wickets and Bumrah\u2019s tight overs towards the closing stages, that ultimately made the difference. Fireworks light up the Wankhede as a delighted Mumbai crowd soaks in a sweet win.",
+            "inningsId": 2,
+            "event": [
+                "none",
+                "all"
+            ],
+            "teamName": "MI",
+            "timestamp": 1774806353112,
+            "overSeparator": null,
+            "batsmanDetails": {
+                "playerId": 0,
+                "playerName": ""
+            },
+            "bowlerDetails": {
+                "playerId": 0,
+                "playerName": ""
+            }
+        },
+        "1774806132732": {
+            "commType": "snippet",
+            "eventType": "Plugin:video",
+            "itemId": 168124,
+            "headline": "Cricbuzz Live: MI v KKR, IPL 2026: Post match show",
+            "videoUrl": "http://www.cricbuzz.com/cricket-videos/168124/cricbuzz-live-mi-v-kkr-ipl-2026-post-match-show",
+            "geo": [
+                "ALL"
+            ],
+            "planId": 0,
+            "isLive": true,
+            "isPremiumFree": false,
+            "videoType": "Analysis",
+            "matchVideo": false,
+            "timestamp": 1774806132732,
+            "inningsId": 2,
+            "imageDetails": {
+                "imageId": "888594",
+                "alt": "cricbuzz-live-mi-v-kkr-ipl-2026-post-match-show",
+                "src": "imagesrc",
+                "w": 540,
+                "h": 303,
+                "aspect": "16:9",
+                "imageType": "det",
+                "priority": false
+            }
+        },
+        "1774806132731": {
+            "matchId": 149629,
+            "commType": "commentary",
+            "commText": "Anukul Roy to Naman Dhir, <b>FOUR</b>, <b>Mumbai Indians win their first game of the season after a long, long time - they've broken the jinx finally.</b> A flatter one around off, Naman Dhir stays put and bludgeons it over mid-off. A convincing 6-wicket win for Mumbai Indians with 5 balls to spare",
+            "inningsId": 2,
+            "event": [
+                "four",
+                "all"
+            ],
+            "ballMetric": 19.1,
+            "teamName": "MI",
+            "timestamp": 1774806132731,
+            "overSeparator": null,
+            "batsmanDetails": {
+                "playerId": 36139,
+                "playerName": "Naman Dhir"
+            },
+            "bowlerDetails": {
+                "playerId": 12344,
+                "playerName": "Anukul Roy"
+            }
+        },
+        "1774806086987": {
+            "matchId": 149629,
+            "commType": "commentary",
+            "commText": "<b>Anukul Roy [1.0-0-11-0] is back into the attack</b>",
+            "inningsId": 2,
+            "event": [
+                "none",
+                "all"
+            ],
+            "teamName": "MI",
+            "timestamp": 1774806086987,
+            "overSeparator": null,
+            "batsmanDetails": {
+                "playerId": 36139,
+                "playerName": "Naman Dhir"
+            },
+            "bowlerDetails": {
+                "playerId": 12344,
+                "playerName": "Anukul Roy"
+            }
+        },
+        "1774806048463": {
+            "matchId": 149629,
+            "commType": "commentary",
+            "commText": "Sunil Narine to Hardik Pandya, <b>FOUR</b>, <b>scores level!</b> Hardik Pandya picks the length early, rocks back in the crease and pummels this away towards the wide long-on boundary. Struck it powerfully to beat the fielder chasing it across in the deep",
+            "inningsId": 2,
+            "event": [
+                "over-break",
+                "four",
+                "all"
+            ],
+            "ballMetric": 18.6,
+            "teamName": "MI",
+            "timestamp": 1774806048463,
+            "overSeparator": {
+                "timestamp": 1774806048463,
+                "overNumber": 19,
+                "overSummary": "1 1 1 W 1 4 ",
+                "overRuns": 8,
+                "batTeamObj": {
+                    "teamName": "MI",
+                    "teamScore": "220-4"
+                },
+                "batStrikerObj": {
+                    "playerId": 9647,
+                    "playerName": "Hardik Pandya",
+                    "playerScore": "18(11)"
+                },
+                "batNonStrikerObj": {
+                    "playerId": 36139,
+                    "playerName": "Naman Dhir",
+                    "playerScore": "1(1)"
+                },
+                "bowlerObj": {
+                    "playerId": 2276,
+                    "playerName": "Sunil Narine",
+                    "playerScore": "3-0-30-1"
+                }
+            },
+            "batsmanDetails": {
+                "playerId": 9647,
+                "playerName": "Hardik Pandya"
+            },
+            "bowlerDetails": {
+                "playerId": 2276,
+                "playerName": "Sunil Narine"
+            }
+        },
+        "1774806023830": {
+            "matchId": 149629,
+            "commType": "commentary",
+            "commText": "Sunil Narine to Naman Dhir, 1 run, flatter through the air around off, knocked to long-off for one",
+            "inningsId": 2,
+            "event": [
+                "none",
+                "all"
+            ],
+            "ballMetric": 18.5,
+            "teamName": "MI",
+            "timestamp": 1774806023830,
+            "overSeparator": null,
+            "batsmanDetails": {
+                "playerId": 36139,
+                "playerName": "Naman Dhir"
+            },
+            "bowlerDetails": {
+                "playerId": 2276,
+                "playerName": "Sunil Narine"
+            }
+        },
+        "1774805983551": {
+            "matchId": 149629,
+            "commType": "commentary",
+            "commText": "<b>Naman Dhir, right handed bat, comes to the crease</b>",
+            "inningsId": 2,
+            "event": [
+                "none",
+                "all"
+            ],
+            "teamName": "MI",
+            "timestamp": 1774805983551,
+            "overSeparator": null,
+            "batsmanDetails": {
+                "playerId": 36139,
+                "playerName": "Naman Dhir"
+            },
+            "bowlerDetails": {
+                "playerId": 2276,
+                "playerName": "Sunil Narine"
+            }
+        },
+        "1774805936690": {
+            "matchId": 149629,
+            "commType": "commentary",
+            "commText": "Sunil Narine to Tilak Varma, <b>out</b> Caught by (sub)Manish Pandey!! A wicket for Narine, but it's too late now. This was a slower through the air around off and Tilak Varma tried to smash it away. Loses his shape, miscues it towards long-on, and Manish Pandey in the deep takes a safe catch. <b>Tilak Varma c (sub)Manish Pandey b Sunil Narine 20(14) [4s-4]</b>,",
+            "inningsId": 2,
+            "event": [
+                "wicket",
+                "all"
+            ],
+            "ballMetric": 18.4,
+            "teamName": "MI",
+            "timestamp": 1774805936690,
+            "overSeparator": null,
+            "batsmanDetails": {
+                "playerId": 14504,
+                "playerName": "Tilak Varma"
+            },
+            "bowlerDetails": {
+                "playerId": 2276,
+                "playerName": "Sunil Narine"
+            }
+        },
+        "1774805935465": {
+            "matchId": 149629,
+            "commType": "commentary",
+            "commText": "Sunil Narine to Tilak Varma, <b>THATS OUT!!</b> Caught!!",
+            "inningsId": 2,
+            "event": [
+                "none",
+                "all"
+            ],
+            "teamName": "MI",
+            "timestamp": 1774805935465,
+            "overSeparator": null,
+            "batsmanDetails": {
+                "playerId": 14504,
+                "playerName": "Tilak Varma"
+            },
+            "bowlerDetails": {
+                "playerId": 2276,
+                "playerName": "Sunil Narine"
+            }
+        },
+        "1774805897035": {
+            "matchId": 149629,
+            "commType": "commentary",
+            "commText": "Sunil Narine to Hardik Pandya, 1 run, tries to smash this short ball away, ends up mistiming this through mid-wicket for one",
+            "inningsId": 2,
+            "event": [
+                "none",
+                "all"
+            ],
+            "ballMetric": 18.3,
+            "teamName": "MI",
+            "timestamp": 1774805897035,
+            "overSeparator": null,
+            "batsmanDetails": {
+                "playerId": 9647,
+                "playerName": "Hardik Pandya"
+            },
+            "bowlerDetails": {
+                "playerId": 2276,
+                "playerName": "Sunil Narine"
+            }
+        },
+        "1774805871046": {
+            "matchId": 149629,
+            "commType": "commentary",
+            "commText": "Sunil Narine to Tilak Varma, 1 run, that was pretty short and Tilak Varma clips it towards mid-on for one",
+            "inningsId": 2,
+            "event": [
+                "none",
+                "all"
+            ],
+            "ballMetric": 18.2,
+            "teamName": "MI",
+            "timestamp": 1774805871046,
+            "overSeparator": null,
+            "batsmanDetails": {
+                "playerId": 14504,
+                "playerName": "Tilak Varma"
+            },
+            "bowlerDetails": {
+                "playerId": 2276,
+                "playerName": "Sunil Narine"
+            }
+        },
+        "1774805831363": {
+            "matchId": 149629,
+            "commType": "commentary",
+            "commText": "Sunil Narine to Hardik Pandya, 1 run, absolutely smashes this flat ball to long-off for a single",
+            "inningsId": 2,
+            "event": [
+                "none",
+                "all"
+            ],
+            "ballMetric": 18.1,
+            "teamName": "MI",
+            "timestamp": 1774805831363,
+            "overSeparator": null,
+            "batsmanDetails": {
+                "playerId": 9647,
+                "playerName": "Hardik Pandya"
+            },
+            "bowlerDetails": {
+                "playerId": 2276,
+                "playerName": "Sunil Narine"
+            }
+        },
+        "1774805816988": {
+            "matchId": 149629,
+            "commType": "commentary",
+            "commText": "<b>Sunil Narine [2.0-0-22-0] is back into the attack</b>",
+            "inningsId": 2,
+            "event": [
+                "none",
+                "all"
+            ],
+            "teamName": "MI",
+            "timestamp": 1774805816988,
+            "overSeparator": null,
+            "batsmanDetails": {
+                "playerId": 9647,
+                "playerName": "Hardik Pandya"
+            },
+            "bowlerDetails": {
+                "playerId": 2276,
+                "playerName": "Sunil Narine"
+            }
+        },
+        "1774805772539": {
+            "matchId": 149629,
+            "commType": "commentary",
+            "commText": "Vaibhav Arora to Tilak Varma, <b>FOUR</b>, right into the blockhole, Tilak Varma tries to squeeze it out and ends up getting an inside edge that beats the fielder at short fine leg. Probably smashed into his shoe as well",
+            "inningsId": 2,
+            "event": [
+                "over-break",
+                "four",
+                "all"
+            ],
+            "ballMetric": 17.6,
+            "teamName": "MI",
+            "timestamp": 1774805772539,
+            "overSeparator": {
+                "timestamp": 1774805772539,
+                "overNumber": 18,
+                "overSummary": "0 1 4 1 1 4 ",
+                "overRuns": 11,
+                "batTeamObj": {
+                    "teamName": "MI",
+                    "teamScore": "212-3"
+                },
+                "batStrikerObj": {
+                    "playerId": 14504,
+                    "playerName": "Tilak Varma",
+                    "playerScore": "19(12)"
+                },
+                "batNonStrikerObj": {
+                    "playerId": 9647,
+                    "playerName": "Hardik Pandya",
+                    "playerScore": "12(8)"
+                },
+                "bowlerObj": {
+                    "playerId": 15861,
+                    "playerName": "Vaibhav Arora",
+                    "playerScore": "4-0-52-1"
+                }
+            },
+            "batsmanDetails": {
+                "playerId": 14504,
+                "playerName": "Tilak Varma"
+            },
+            "bowlerDetails": {
+                "playerId": 15861,
+                "playerName": "Vaibhav Arora"
+            }
+        },
+        "1774805731470": {
+            "matchId": 149629,
+            "commType": "commentary",
+            "commText": "Vaibhav Arora to Hardik Pandya, 1 run, short ball outside off, Hardik Pandya carves it through the off-side for one",
+            "inningsId": 2,
+            "event": [
+                "none",
+                "all"
+            ],
+            "ballMetric": 17.5,
+            "teamName": "MI",
+            "timestamp": 1774805731470,
+            "overSeparator": null,
+            "batsmanDetails": {
+                "playerId": 9647,
+                "playerName": "Hardik Pandya"
+            },
+            "bowlerDetails": {
+                "playerId": 15861,
+                "playerName": "Vaibhav Arora"
+            }
+        },
+        "1774805688181": {
+            "matchId": 149629,
+            "commType": "commentary",
+            "commText": "Vaibhav Arora to Tilak Varma, 1 run, low full toss by Vaibhav Arora as Tilak Varma squeezes it down the ground",
+            "inningsId": 2,
+            "event": [
+                "none",
+                "all"
+            ],
+            "ballMetric": 17.4,
+            "teamName": "MI",
+            "timestamp": 1774805688181,
+            "overSeparator": null,
+            "batsmanDetails": {
+                "playerId": 14504,
+                "playerName": "Tilak Varma"
+            },
+            "bowlerDetails": {
+                "playerId": 15861,
+                "playerName": "Vaibhav Arora"
+            }
+        },
+        "1774805647960": {
+            "matchId": 149629,
+            "commType": "commentary",
+            "commText": "Vaibhav Arora to Tilak Varma, <b>FOUR</b>, <b>down to run-a-ball now.</b> Short and wide outside off, Tilak Varma slashes hard at it and the top edge flies over the infield at short third man",
+            "inningsId": 2,
+            "event": [
+                "four",
+                "all"
+            ],
+            "ballMetric": 17.3,
+            "teamName": "MI",
+            "timestamp": 1774805647960,
+            "overSeparator": null,
+            "batsmanDetails": {
+                "playerId": 14504,
+                "playerName": "Tilak Varma"
+            },
+            "bowlerDetails": {
+                "playerId": 15861,
+                "playerName": "Vaibhav Arora"
+            }
+        },
+        "1774805610269": {
+            "matchId": 149629,
+            "commType": "commentary",
+            "commText": "Vaibhav Arora to Hardik Pandya, 1 run, banged in short from round the wicket, Hardik Pandya loses his shape as he goes for a pull with lack of conviction, ends up miscuing it towards mid-wicket for one",
+            "inningsId": 2,
+            "event": [
+                "none",
+                "all"
+            ],
+            "ballMetric": 17.2,
+            "teamName": "MI",
+            "timestamp": 1774805610269,
+            "overSeparator": null,
+            "batsmanDetails": {
+                "playerId": 9647,
+                "playerName": "Hardik Pandya"
+            },
+            "bowlerDetails": {
+                "playerId": 15861,
+                "playerName": "Vaibhav Arora"
+            }
+        },
+        "1774805573189": {
+            "matchId": 149629,
+            "commType": "commentary",
+            "commText": "Vaibhav Arora to Hardik Pandya, no run, short of a length outside off, Hardik Pandya attempts a cut and misses",
+            "inningsId": 2,
+            "event": [
+                "none",
+                "all"
+            ],
+            "ballMetric": 17.1,
+            "teamName": "MI",
+            "timestamp": 1774805573189,
+            "overSeparator": null,
+            "batsmanDetails": {
+                "playerId": 9647,
+                "playerName": "Hardik Pandya"
+            },
+            "bowlerDetails": {
+                "playerId": 15861,
+                "playerName": "Vaibhav Arora"
+            }
+        },
+        "1774805559106": {
+            "matchId": 149629,
+            "commType": "commentary",
+            "commText": "<b>Vaibhav Arora [3.0-0-41-1] is back into the attack</b>",
+            "inningsId": 2,
+            "event": [
+                "none",
+                "all"
+            ],
+            "teamName": "MI",
+            "timestamp": 1774805559106,
+            "overSeparator": null,
+            "batsmanDetails": {
+                "playerId": 9647,
+                "playerName": "Hardik Pandya"
+            },
+            "bowlerDetails": {
+                "playerId": 15861,
+                "playerName": "Vaibhav Arora"
+            }
+        }
+    },
+    "miniscore": {
+        "inningsId": 2,
+        "batTeam": {
+            "teamId": 62,
+            "teamScore": 224,
+            "teamWkts": 4
+        },
+        "status": "Mumbai Indians won by 6 wkts",
+        "batsmanStriker": {
+            "id": 36139,
+            "name": "Naman Dhir",
+            "runs": 5,
+            "balls": 2,
+            "fours": 1,
+            "sixes": 0,
+            "strikeRate": "250.00",
+            "playerUrl": "/profiles/36139/naman-dhir",
+            "playerMatchHighlightsUrl": "/player-match-highlights/149629/2/36139/batting"
+        },
+        "batsmanNonStriker": {
+            "id": 9647,
+            "name": "Hardik Pandya",
+            "runs": 18,
+            "balls": 11,
+            "fours": 3,
+            "sixes": 0,
+            "strikeRate": "163.64",
+            "playerUrl": "/profiles/9647/hardik-pandya",
+            "playerMatchHighlightsUrl": "/player-match-highlights/149629/2/9647/batting"
+        },
+        "bowlerStriker": {
+            "id": 12344,
+            "name": "Anukul Roy",
+            "overs": 1.1,
+            "maidens": 0,
+            "economy": 12.86,
+            "runs": 15,
+            "wickets": 0,
+            "playerUrl": "/profiles/12344/anukul-roy",
+            "playerMatchHighlightsUrl": "/player-match-highlights/149629/2/12344/bowling"
+        },
+        "bowlerNonStriker": {
+            "id": 2276,
+            "name": "Sunil Narine",
+            "overs": 3,
+            "maidens": 0,
+            "economy": 10,
+            "runs": 30,
+            "wickets": 1,
+            "playerUrl": "/profiles/2276/sunil-narine",
+            "playerMatchHighlightsUrl": "/player-match-highlights/149629/2/2276/bowling"
+        },
+        "overs": 19.1,
+        "target": 221,
+        "partnerShip": {
+            "balls": 3,
+            "runs": 9
+        },
+        "currentRunRate": 11.69,
+        "requiredRunRate": 0,
+        "runsPerBall": 0,
+        "requiredRunsPerBall": 0,
+        "matchScoreDetails": {
+            "matchId": 149629,
+            "inningsScoreList": [
+                {
+                    "inningsId": 1,
+                    "batTeamId": 63,
+                    "batTeamName": "KKR",
+                    "score": 220,
+                    "wickets": 4,
+                    "overs": 20,
+                    "isDeclared": false,
+                    "isFollowOn": false,
+                    "ballNbr": 120
+                },
+                {
+                    "inningsId": 2,
+                    "batTeamId": 62,
+                    "batTeamName": "MI",
+                    "score": 224,
+                    "wickets": 4,
+                    "overs": 19.1,
+                    "isDeclared": false,
+                    "isFollowOn": false,
+                    "ballNbr": 115
+                }
+            ],
+            "isMatchNotCovered": false,
+            "matchFormat": "T20",
+            "customStatus": "Mumbai Indians won by 6 wkts",
+            "state": "Complete"
+        },
+        "lastWicket": "Tilak Varma  c (sub)Manish Pandey b Sunil Narine 20(14)  - 215/4 in 18.4 ov.",
+        "remRunsToWin": 0,
+        "responseLastUpdated": 1774807177,
+        "latestPerformance": [
+            {
+                "runs": 45,
+                "wkts": 2,
+                "label": "Last 5 overs"
+            },
+            {
+                "runs": 30,
+                "wkts": 1,
+                "label": "Last 3 overs"
+            }
+        ],
+        "recentOvsStats": "... 1 4 1 1 4  | 1 1 1 W 1 4  | 4",
+        "event": "four",
+        "batTeamScoreObj": {
+            "teamName": "MI",
+            "teamInningsArray": [
+                {
+                    "inningsId": 2,
+                    "batTeamId": 62,
+                    "batTeamName": "MI",
+                    "score": 224,
+                    "wickets": 4,
+                    "overs": 19.1,
+                    "isDeclared": false,
+                    "isFollowOn": false,
+                    "ballNbr": 115
+                }
+            ]
+        },
+        "bowlTeamScoreObj": {
+            "teamName": "KKR",
+            "teamInningsArray": [
+                {
+                    "inningsId": 1,
+                    "batTeamId": 63,
+                    "batTeamName": "KKR",
+                    "score": 220,
+                    "wickets": 4,
+                    "overs": 19.6,
+                    "isDeclared": false,
+                    "isFollowOn": false,
+                    "ballNbr": 120
+                }
+            ]
+        },
+        "matchUdrs": {
+            "matchId": 149629,
+            "inningsId": 2,
+            "timestamp": "2026-03-29T17:30:05.681Z",
+            "team1Id": 62,
+            "team1Remaining": 2,
+            "team1Successful": 0,
+            "team1Unsuccessful": 0,
+            "team2Id": 63,
+            "team2Remaining": 1,
+            "team2Successful": 0,
+            "team2Unsuccessful": 1
+        }
+    },
+    "enableNoContent": false,
+    "matchHeader": {
+        "matchId": 149629,
+        "matchDescription": "2nd Match",
+        "matchFormat": "T20",
+        "matchType": "league",
+        "complete": true,
+        "domestic": false,
+        "matchStartTimestamp": 1774792800000,
+        "matchStartTimeIST": "7:30 PM",
+        "matchStartTimeGMT": "Sun, Mar 29, 2:00:00 PM",
+        "matchStartTimeLocal": "7:30 PM",
+        "matchCompleteTimeIST": "11:12 PM",
+        "matchCompleteTimeGMT": "Sun, Mar 29, 5:42:32 PM",
+        "matchCompleteTimeLocal": "11:12 PM",
+        "dayNight": false,
+        "year": 2026,
+        "state": "Complete",
+        "status": "Mumbai Indians won by 6 wkts",
+        "tossResults": {
+            "tossWinnerId": 62,
+            "tossWinnerName": "Mumbai Indians",
+            "decision": "Bowling"
+        },
+        "result": {
+            "resultType": "win",
+            "winningTeam": "Mumbai Indians",
+            "winningteamId": 62,
+            "winningMargin": 6,
+            "winByRuns": false,
+            "winByInnings": false
+        },
+        "revisedTarget": {},
+        "playersOfTheMatch": [],
+        "playersOfTheSeries": [],
+        "matchTeamInfo": [
+            {
+                "battingTeamId": 63,
+                "battingTeamShortName": "KKR",
+                "bowlingTeamId": 62,
+                "bowlingTeamShortName": "MI"
+            },
+            {
+                "battingTeamId": 62,
+                "battingTeamShortName": "MI",
+                "bowlingTeamId": 63,
+                "bowlingTeamShortName": "KKR"
+            }
+        ],
+        "team1": {
+            "id": 62,
+            "name": "Mumbai Indians",
+            "playerDetails": [],
+            "shortName": "MI"
+        },
+        "team2": {
+            "id": 63,
+            "name": "Kolkata Knight Riders",
+            "playerDetails": [],
+            "shortName": "KKR"
+        },
+        "seriesDesc": "Indian Premier League 2026",
+        "seriesId": 9241,
+        "seriesName": "Indian Premier League 2026",
+        "alertType": "auto",
+        "isMatchNotCovered": false,
+        "livestreamEnabled": false
+    },
+    "matchVideos": [
+        {
+            "id": "168070",
+            "icon": "cbPlayIcon scale-75",
+            "title": "Are Varun & Narine the most lethal spin duo?",
+            "onCardClick": "/cricket-videos/168070/are-varun-narine-the-most-lethal-spin-duo",
+            "isCbPlusContent": false,
+            "isPremiumFree": false,
+            "videoType": "Analysis",
+            "imageObj": {
+                "imageId": "888395",
+                "alt": "are-varun-narine-the-most-lethal-spin-duo",
+                "src": "imagesrc",
+                "w": 170,
+                "h": 90,
+                "aspect": "16:9",
+                "imageType": "thumb",
+                "priority": true
+            }
+        },
+        {
+            "id": "167988",
+            "icon": "cbPlayIcon scale-75",
+            "title": "SKY is Mumbai\u2019s backbone, must maximise his potential: Zaheer Khan",
+            "onCardClick": "/cricket-videos/167988/sky-is-mumbais-backbone-must-maximise-his-potential-zaheer-khan",
+            "isCbPlusContent": false,
+            "isPremiumFree": false,
+            "videoType": "Analysis",
+            "imageObj": {
+                "imageId": "888002",
+                "alt": "sky-is-mumbais-backbone-must-maximise-his-potential-zaheer-khan",
+                "src": "imagesrc",
+                "w": 170,
+                "h": 90,
+                "aspect": "16:9",
+                "imageType": "thumb",
+                "priority": true
+            }
+        },
+        {
+            "id": "167873",
+            "icon": "cbPlayIcon scale-75",
+            "title": "As just a batter, Green's high price tag questionable: Micheal Vaughan",
+            "onCardClick": "/cricket-videos/167873/as-just-a-batter-greens-high-price-tag-questionable-micheal-vaughan",
+            "isCbPlusContent": false,
+            "isPremiumFree": false,
+            "videoType": "Analysis",
+            "imageObj": {
+                "imageId": "887610",
+                "alt": "as-just-a-batter-greens-high-price-tag-questionable-micheal-vaughan",
+                "src": "imagesrc",
+                "w": 170,
+                "h": 90,
+                "aspect": "16:9",
+                "imageType": "thumb",
+                "priority": true
+            }
+        },
+        {
+            "id": "167877",
+            "icon": "cbPlayIcon scale-75",
+            "title": "Rahane, like Virat Kohli, has reinvented his T20 game: Michael Vaughan",
+            "onCardClick": "/cricket-videos/167877/rahane-like-virat-kohli-has-reinvented-his-t20-game-michael-vaughan",
+            "isCbPlusContent": false,
+            "isPremiumFree": false,
+            "videoType": "Analysis",
+            "imageObj": {
+                "imageId": "887586",
+                "alt": "rahane-like-virat-kohli-has-reinvented-his-t20-game-michael-vaughan",
+                "src": "imagesrc",
+                "w": 170,
+                "h": 90,
+                "aspect": "16:9",
+                "imageType": "thumb",
+                "priority": true
+            }
+        },
+        {
+            "id": "167878",
+            "icon": "cbPlayIcon scale-75",
+            "title": "Asymmetric threat! What makes Bumrah intimidating even without bowling?",
+            "onCardClick": "/cricket-videos/167878/asymmetric-threat-what-makes-bumrah-intimidating-even-without-bowling",
+            "isCbPlusContent": false,
+            "isPremiumFree": false,
+            "videoType": "Analysis",
+            "imageObj": {
+                "imageId": "887587",
+                "alt": "asymmetric-threat-what-makes-bumrah-intimidating-even-without-bowling",
+                "src": "imagesrc",
+                "w": 170,
+                "h": 90,
+                "aspect": "16:9",
+                "imageType": "thumb",
+                "priority": true
+            }
+        },
+        {
+            "id": "167864",
+            "icon": "cbPlayIcon scale-75",
+            "title": "Rohit\u2019s white-ball stature demands more than 400-run seasons: Murali Kartik",
+            "onCardClick": "/cricket-videos/167864/rohits-white-ball-stature-demands-more-than-400-run-seasons-murali-kartik",
+            "isCbPlusContent": false,
+            "isPremiumFree": false,
+            "videoType": "Analysis",
+            "imageObj": {
+                "imageId": "887531",
+                "alt": "rohits-white-ball-stature-demands-more-than-400-run-seasons-murali-kartik",
+                "src": "imagesrc",
+                "w": 170,
+                "h": 90,
+                "aspect": "16:9",
+                "imageType": "thumb",
+                "priority": false
+            }
+        },
+        {
+            "id": "167857",
+            "icon": "cbPlayIcon scale-75",
+            "title": "Mumbai can win any tournament, even the T20 World Cup: Michael Vaughan",
+            "onCardClick": "/cricket-videos/167857/mumbai-can-win-any-tournament-even-the-t20-world-cup-michael-vaughan",
+            "isCbPlusContent": false,
+            "isPremiumFree": false,
+            "videoType": "Analysis",
+            "imageObj": {
+                "imageId": "887543",
+                "alt": "mumbai-can-win-any-tournament-even-the-t20-world-cup-michael-vaughan",
+                "src": "imagesrc",
+                "w": 170,
+                "h": 90,
+                "aspect": "16:9",
+                "imageType": "thumb",
+                "priority": false
+            }
+        },
+        {
+            "id": "167810",
+            "icon": "cbPlayIcon scale-75",
+            "title": "Why do teams struggle against Mumbai at Wankhede?",
+            "onCardClick": "/cricket-videos/167810/why-do-teams-struggle-against-mumbai-at-wankhede",
+            "isCbPlusContent": false,
+            "isPremiumFree": false,
+            "videoType": "Analysis",
+            "imageObj": {
+                "imageId": "887261",
+                "alt": "why-do-teams-struggle-against-mumbai-at-wankhede",
+                "src": "imagesrc",
+                "w": 170,
+                "h": 90,
+                "aspect": "16:9",
+                "imageType": "thumb",
+                "priority": false
+            }
+        },
+        {
+            "id": "167741",
+            "icon": "cbPlayIcon scale-75",
+            "title": "Preview: Mumbai v Kolkata: Indian T20 League: Match 2",
+            "onCardClick": "/cricket-videos/167741/preview-mumbai-v-kolkata-indian-t20-league-match-2",
+            "isCbPlusContent": false,
+            "isPremiumFree": false,
+            "videoType": "Analysis",
+            "imageObj": {
+                "imageId": "886971",
+                "alt": "preview-mumbai-v-kolkata-indian-t20-league-match-2",
+                "src": "imagesrc",
+                "w": 170,
+                "h": 90,
+                "aspect": "16:9",
+                "imageType": "thumb",
+                "priority": false
+            }
+        },
+        {
+            "id": "167720",
+            "icon": "cbPlayIcon scale-75",
+            "title": "Preview: Mumbai vs Kolkata",
+            "onCardClick": "/cricket-videos/167720/preview-mumbai-vs-kolkata",
+            "isCbPlusContent": false,
+            "isPremiumFree": false,
+            "videoType": "Analysis",
+            "imageObj": {
+                "imageId": "886873",
+                "alt": "preview-mumbai-vs-kolkata",
+                "src": "imagesrc",
+                "w": 170,
+                "h": 90,
+                "aspect": "16:9",
+                "imageType": "thumb",
+                "priority": false
+            }
+        }
+    ],
+    "page": "commentary",
+    "responseLastUpdated": 1774807177
+}
