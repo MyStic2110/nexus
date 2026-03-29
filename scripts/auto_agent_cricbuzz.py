@@ -6,11 +6,12 @@ import re
 from datetime import datetime, timedelta
 import pytz
 from motor.motor_asyncio import AsyncIOMotorClient
-from dotenv import load_dotenv
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from app.config import settings
 
-load_dotenv()
-MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017")
-DB_NAME = os.getenv("DB_NAME", "ipl_game")
+MONGO_URI = settings.MONGO_URI
+DB_NAME = settings.DB_NAME
 IST = pytz.timezone("Asia/Kolkata")
 
 # Global counter for sequential failures
@@ -148,8 +149,17 @@ async def validate_cricbuzz_id(db, match_id: str, c_id: str) -> bool:
 
 async def run_cricbuzz_pulse():
     global over_data_failure_count
-    client_db = AsyncIOMotorClient(MONGO_URI)
-    db = client_db[DB_NAME]
+    if not MONGO_URI:
+        print(f"[{datetime.now().strftime('%H:%M:%S')}] \033[91mNEXUS ERROR: MONGO_URI not set! Check environment variables.\033[0m")
+        return
+
+    try:
+        client_db = AsyncIOMotorClient(MONGO_URI)
+        db = client_db[DB_NAME]
+    except Exception as e:
+        print(f"[{datetime.now().strftime('%H:%M:%S')}] \033[91mNEXUS ERROR: Failed to connect to MongoDB: {e}\033[0m")
+        return
+        
     match_data_collection = db["live_match_overs"]
     
     # Dynamic Match Discovery: Find matches that are LIVE or UPCOMING today

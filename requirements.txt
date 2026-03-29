@@ -15,3 +15,5 @@ pytest-asyncio
 websockets
 pytz
 python-multipart
+beautifulsoup4
+lxml

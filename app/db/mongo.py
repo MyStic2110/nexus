@@ -2,9 +2,17 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from app.config import settings
 from app.logger import db_logger
 
+if not settings.MONGO_URI:
+    db_logger.error("MONGO_URI is not set! Check your environment variables.")
+    raise ValueError("MONGO_URI environment variable is required")
+
 db_logger.info(f"Connecting to MongoDB cluster: {settings.DB_NAME}")
-client = AsyncIOMotorClient(settings.MONGO_URI, serverSelectionTimeoutMS=5000)
-db = client[settings.DB_NAME]
+try:
+    client = AsyncIOMotorClient(settings.MONGO_URI, serverSelectionTimeoutMS=5000)
+    db = client[settings.DB_NAME]
+except Exception as e:
+    db_logger.error(f"Failed to initialize MongoDB client: {str(e)}")
+    raise e
 
 users_collection = db["users"]
 predictions_collection = db["predictions"]
