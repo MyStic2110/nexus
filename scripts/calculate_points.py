@@ -144,6 +144,14 @@ async def run_for_match(db, match_id: str, session_id: int):
     print(f"[NEXUS] {len(predictions)} users updated for session {session_id}.")
 
 
+async def calculate_all_sessions_for_match(db, match_id: str):
+    """Triggers calculation for both innings of a specific match."""
+    print(f"\n[NEXUS] Triggering full match scoring recalculation for {match_id}...")
+    for session_id in [1, 2]:
+        await run_for_match(db, match_id, session_id)
+    print(f"[NEXUS] Full match scoring complete for {match_id}.")
+
+
 async def calculate_points():
     print("=" * 50)
     print(" NEXUS POINT DISTRIBUTION ENGINE STARTING")

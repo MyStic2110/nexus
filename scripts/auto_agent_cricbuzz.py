@@ -9,6 +9,7 @@ from motor.motor_asyncio import AsyncIOMotorClient
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from app.config import settings
+from scripts.calculate_points import calculate_all_sessions_for_match
 
 MONGO_URI = settings.MONGO_URI
 DB_NAME = settings.DB_NAME
@@ -232,6 +233,17 @@ async def validate_cricbuzz_id(db, match_id: str, c_id: str) -> bool:
                         "status": "LIVE"
                     }}
                 )
+                
+                # --- AUTO-SCORING TRIGGER ---
+                # If any of the just-processed overs is the 20th and satisfies the 'complete' criteria, trigger scoring
+                for od in all_overs:
+                    if od["over"] == 20:
+                        # Check if over is complete (6 legal balls)
+                        legal_balls = [b for b in od.get("balls", []) if b not in ['Wd', 'Nb']]
+                        if len(legal_balls) >= 6:
+                            print(f"[{datetime.now().strftime('%H:%M:%S')}] \033[95mNEXUS AUTO-SCORE: Over 20 detected as complete for {match_id}. Triggering...\033[0m")
+                            await calculate_all_sessions_for_match(db, match_id)
+                            break # Trigger once per pulse
                 
             except Exception as e:
                 print(f"[{datetime.now().strftime('%H:%M:%S')}] \033[91mPulse failed for {match_id}: {e}\033[0m")
