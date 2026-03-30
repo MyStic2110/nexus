@@ -2,8 +2,7 @@ import json
 from fastapi import APIRouter, Depends, HTTPException
 from app.models.prediction import UserPrediction
 from app.auth.dependencies import get_current_user
-from app.db.redis import redis_client
-from app.db.mongo import predictions_collection, matches_collection, users_collection
+from app.db.mongo import predictions_collection, matches_collection, users_collection, session_scores_collection
 from app.logger import match_logger
 from datetime import datetime, timedelta
 import pytz
@@ -62,11 +61,6 @@ async def predict(match_id: str, session_id: int, payload: UserPrediction, user=
         if session_id not in [1, 2]:
             raise HTTPException(status_code=400, detail="Invalid session ID. Must be 1 or 2.")
 
-        # Persistence in Redis (Speed)
-        key = f"match:{match_id}:session:{session_id}:predictions:{user}"
-        await redis_client.set(key, json.dumps([p.dict() for p in payload.predictions]))
-        await redis_client.sadd(f"match:{match_id}:session:{session_id}:users", user)
-
         # Persistence in MongoDB (Safety)
         await predictions_collection.update_one(
             {"match_id": match_id, "user_id": user},
@@ -118,14 +112,15 @@ def mask_email(email: str) -> str:
 async def leaderboard(match_id: str, session_id: int):
     match_logger.info(f"Fetching Nexus Leaderboard for Match: {match_id}, Session: {session_id}")
     try:
-        data = await redis_client.zrevrange(
-            f"match:{match_id}:session:{session_id}:leaderboard",
-            0, 50,
-            withscores=True
-        )
-        return [{"user": mask_email(u), "score": int(s)} for u, s in data]
+        # Fetch directly from MongoDB for Session Leaderboard
+        cursor = session_scores_collection.find(
+            {"match_id": match_id, "session_id": session_id}
+        ).sort("points", -1).limit(50)
+        
+        data = await cursor.to_list(length=50)
+        return [{"user": mask_email(u["user_id"]), "score": int(u.get("points", 0))} for u in data]
     except Exception as e:
-        match_logger.error(f"Failed to fetch leaderboard: {str(e)}")
+        match_logger.error(f"Failed to fetch session leaderboard from MongoDB: {str(e)}")
         return []
 
 @router.get("/leaderboard/global")
@@ -142,9 +137,8 @@ async def global_leaderboard():
 @router.get("/{match_id}/sessions/{session_id}/score-breakdown")
 async def get_score_breakdown(match_id: str, session_id: int, user=Depends(get_current_user)):
     """Nexus Analytical Engine: Fetches detailed score analysis for transparency."""
-    from app.db.mongo import db
     try:
-        score_record = await db.session_scores.find_one({
+        score_record = await session_scores_collection.find_one({
             "match_id": match_id, 
             "session_id": session_id, 
             "user_id": user

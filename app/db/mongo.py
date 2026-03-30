@@ -22,6 +22,7 @@ users_collection = db["users"]
 predictions_collection = db["predictions"]
 leaderboard_collection = db["leaderboard"]
 matches_collection = db["matches"]
+session_scores_collection = db["session_scores"]
 
 async def init_indexes():
     """Initializes database indexes and seeds mock data if empty."""

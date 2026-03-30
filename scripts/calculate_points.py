@@ -111,15 +111,7 @@ async def run_for_match(db, match_id: str, session_id: int):
             upsert=True
         )
 
-        # Sync with Redis for Session-Specific Leaderboard
-        try:
-            from redis import asyncio as aioredis
-            redis_url = os.getenv("REDIS_URL", "redis://localhost:6379/0")
-            r = aioredis.from_url(redis_url)
-            await r.zadd(f"match:{match_id}:session:{session_id}:leaderboard", {user_id: session_points})
-            await r.close()
-        except Exception as e:
-            print(f"[NEXUS ERROR] Redis sync failed for {user_id}: {str(e)}")
+        # Redis sync removed as we have transitioned to a pure MongoDB architecture.
 
     # --- Step 3: Recalculate Global User Scores (Prevent Duplication) ---
     # This phase ensures that the user's total score is the sum of all session_scores,

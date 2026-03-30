@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     MONGO_URI: str
     DB_NAME: str
 
-    REDIS_URL: str = "redis://localhost:6379/0"
+    # REDIS_URL removed - transition to pure MongoDB architecture
 
     GOOGLE_CLIENT_ID: str = "YOUR_GOOGLE_CLIENT_ID_HERE"
 

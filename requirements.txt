@@ -4,7 +4,7 @@ httpx
 pydantic
 pydantic-settings
 python-dotenv
-redis
+# redis removed - transitioned to pure MongoDB
 motor
 google-auth
 google-auth-oauthlib

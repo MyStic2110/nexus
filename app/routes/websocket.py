@@ -1,7 +1,6 @@
 from fastapi import APIRouter, WebSocket
 import json
 from app.auth.google_auth import verify_google_token
-from app.db.redis import redis_client
 from app.logger import ws_logger
 
 router = APIRouter()
@@ -20,16 +19,13 @@ async def ws_endpoint(websocket: WebSocket, match_id: str):
     await websocket.accept()
     ws_logger.info(f"WebSocket established: {user_email} connected to Nexus Match {match_id}")
 
-    pubsub = redis_client.pubsub()
-    await pubsub.subscribe(f"match:{match_id}:channel")
-
     try:
-        async for message in pubsub.listen():
-            if message["type"] == "message":
-                ws_logger.info(f"Relaying live update to {user_email} for match {match_id}")
-                await websocket.send_text(message["data"])
+        # Without Redis, we can either use Mongo Change Streams or just keep the connection alive
+        # For now, we will simply wait for the client to close the connection
+        while True:
+            # Keep connection alive, wait for any message from client (though we don't expect any)
+            await websocket.receive_text()
     except Exception as e:
-        ws_logger.error(f"WebSocket stream interrupted for {user_email}: {str(e)}")
+        ws_logger.info(f"WebSocket session ended for {user_email}: {str(e)}")
     finally:
-        await pubsub.unsubscribe()
         ws_logger.info(f"WebSocket closed: {user_email} disconnected from match {match_id}")
