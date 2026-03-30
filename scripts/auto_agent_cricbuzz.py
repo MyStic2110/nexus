@@ -108,7 +108,27 @@ async def sync_innings_data(db, match_id, innings_id, client):
                 latest_score_data = {
                     "current_score": ovr_item.get("score", "0/0"),
                     "current_over": float(over_num),
-                    "innings": innings_id
+                    "innings": innings_id,
+                    "live_stats": {
+                        "bat_striker": {
+                            "name": ovr_item.get("batStrikerNames", [""])[-1] if ovr_item.get("batStrikerNames") else "",
+                            "runs": ovr_item.get("batStrikerRuns", 0),
+                            "balls": ovr_item.get("batStrikerBalls", 0)
+                        },
+                        "bat_non_striker": {
+                            "name": ovr_item.get("batNonStrikerNames", [""])[-1] if ovr_item.get("batNonStrikerNames") else "",
+                            "runs": ovr_item.get("batNonStrikerRuns", 0),
+                            "balls": ovr_item.get("batNonStrikerBalls", 0)
+                        },
+                        "bowler": {
+                            "name": ovr_item.get("bowlNames", [""])[-1] if ovr_item.get("bowlNames") else "",
+                            "overs": ovr_item.get("bowlOvers", 0),
+                            "maidens": ovr_item.get("bowlMaidens", 0),
+                            "runs": ovr_item.get("bowlRuns", 0),
+                            "wickets": ovr_item.get("bowlWickets", 0)
+                        },
+                        "last_over_summary": ovr_item.get("ovrSummary", "")
+                    }
                 }
 
             balls = parse_ovr_summary(ovr_item.get('ovrSummary', ''))
@@ -123,7 +143,13 @@ async def sync_innings_data(db, match_id, innings_id, client):
                     "total_runs": ovr_item.get("runs", 0),
                     "current_score": ovr_item.get("score", "0/0"),
                     "current_over": float(over_num),
-                    "timestamp": ovr_item.get("timestamp")
+                    "timestamp": ovr_item.get("timestamp"),
+                    "bat_striker": ovr_item.get("batStrikerNames"),
+                    "bat_striker_runs": ovr_item.get("batStrikerRuns"),
+                    "bat_striker_balls": ovr_item.get("batStrikerBalls"),
+                    "bowl_name": ovr_item.get("bowlNames"),
+                    "bowl_wickets": ovr_item.get("bowlWickets"),
+                    "bowl_runs": ovr_item.get("bowlRuns")
                 }
                 
                 await match_data_collection.update_one(
@@ -261,6 +287,7 @@ async def run_cricbuzz_pulse():
                         "current_score": latest_score_data["current_score"],
                         "current_over": latest_score_data["current_over"],
                         "innings": latest_score_data["innings"],
+                        "live_stats": latest_score_data.get("live_stats"),
                         "status": "LIVE"
                     }}
                 )

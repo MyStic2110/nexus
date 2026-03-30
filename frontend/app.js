@@ -169,6 +169,12 @@ async function refreshLiveScores() {
                 if (statusEl) statusEl.textContent = 'MATCH STARTED';
                 if (badgeEl) { badgeEl.textContent = 'LIVE'; badgeEl.style.background = '#22c55e'; }
                 if (lastUpdatedEl) lastUpdatedEl.textContent = `Last update: ${new Date().toLocaleTimeString()}`;
+                
+                // Update Live Stats
+                const statsEl = document.querySelector(`[data-stats-container="${m.match_id}"]`);
+                if (statsEl && m.live_stats) {
+                    statsEl.innerHTML = renderLiveStatsMarkup(m.live_stats);
+                }
             } else if (m.status === 'COMPLETED') {
                 if (scoreEl) scoreEl.textContent = m.current_score || '0/0';
                 if (overEl) overEl.textContent = 'MATCH OVER';
@@ -226,6 +232,10 @@ async function manualRefreshMatch(matchId, btn) {
                 if (statusEl) statusEl.textContent = 'MATCH STARTED';
                 if (badgeEl) { badgeEl.textContent = 'LIVE'; badgeEl.style.background = '#22c55e'; }
                 if (lastUpdatedEl) lastUpdatedEl.textContent = `Refreshed: ${new Date().toLocaleTimeString()}`;
+                const statsEl = document.querySelector(`[data-stats-container="${m.match_id}"]`);
+                if (statsEl && m.live_stats) {
+                    statsEl.innerHTML = renderLiveStatsMarkup(m.live_stats);
+                }
             } else if (m.status === 'COMPLETED') {
                 if (scoreEl) scoreEl.textContent = m.current_score || '0/0';
                 if (overEl) overEl.textContent = 'MATCH OVER';
@@ -369,6 +379,10 @@ function renderMatches(matches) {
                 <div data-last-updated="${match.match_id}" style="font-size: 0.75rem; font-weight: 700; color: var(--nexus-accent); margin-top: 0.5rem; text-align: center; opacity: 0.8;">
                     ${isLive ? 'Live Update: ' + new Date().toLocaleTimeString() : (isCompleted ? '' : 'Waiting for match to start')}
                 </div>
+            </div>
+
+            <div data-stats-container="${match.match_id}" class="live-analytics ${isLive && match.live_stats ? '' : 'hidden'}">
+                ${isLive && match.live_stats ? renderLiveStatsMarkup(match.live_stats) : ''}
             </div>
 
             <div style="display: flex; gap: 0.5rem; width: 100%; margin-top: 1rem;">
@@ -647,6 +661,45 @@ window.closePredictionModal = () => {
     document.getElementById('prediction-modal').classList.add('hidden');
     if (activeWS) activeWS.close();
 };
+
+function renderLiveStatsMarkup(stats) {
+    if (!stats) return '';
+    const { bat_striker, bat_non_striker, bowler, last_over_summary } = stats;
+    
+    return `
+        <div class="stat-row">
+            <div class="player-stat striker">
+                <span class="name">${bat_striker.name || 'Batsman'}</span>
+                <span class="stat-val">${bat_striker.runs}(${bat_striker.balls})</span>
+            </div>
+            <div class="bowler-stat">
+                <span style="opacity: 0.6; font-size: 0.6rem; margin-right: 4px;">BWL</span>
+                ${bowler.name || 'Bowler'} ${bowler.overs}-${bowler.maidens}-${bowler.runs}-${bowler.wickets}
+            </div>
+        </div>
+        <div class="stat-row">
+            <div class="player-stat">
+                <span class="name">${bat_non_striker.name || 'Batsman'}</span>
+                <span class="stat-val">${bat_non_striker.runs}(${bat_non_striker.balls})</span>
+            </div>
+            <div class="over-summary-chips">
+                ${renderOverSummary(last_over_summary)}
+            </div>
+        </div>
+    `;
+}
+
+function renderOverSummary(summary) {
+    if (!summary) return '';
+    const balls = summary.trim().split(' ');
+    return balls.map(b => {
+        let cls = 'summary-ball';
+        if (b === 'W') cls += ' wicket';
+        else if (b === '4' || b === '6') cls += ' boundary';
+        else if (b !== '0' && b !== '.') cls += ' run';
+        return `<div class="${cls}">${b}</div>`;
+    }).join('');
+}
 
 // Logout
 document.getElementById('logout-btn').onclick = () => {

@@ -1,9 +1,273 @@
 {
     "matchCommentary": {
+        "1774808027344": {
+            "commType": "snippet",
+            "eventType": "Plugin:video",
+            "itemId": 168178,
+            "headline": "Rohit\u2019s 'hunger for runs' makes him even lethal: Murali Kartik",
+            "videoUrl": "http://www.cricbuzz.com/cricket-videos/168178/rohits-hunger-for-runs-makes-him-even-lethal-murali-kartik",
+            "geo": [
+                "ALL"
+            ],
+            "planId": 0,
+            "isLive": false,
+            "isPremiumFree": false,
+            "videoType": "Analysis",
+            "matchVideo": false,
+            "timestamp": 1774808027344,
+            "inningsId": 2,
+            "imageDetails": {
+                "imageId": "888947",
+                "alt": "rohits-hunger-for-runs-makes-him-even-lethal-murali-kartik",
+                "src": "imagesrc",
+                "w": 540,
+                "h": 303,
+                "aspect": "16:9",
+                "imageType": "det",
+                "priority": false
+            }
+        },
+        "1774808027334": {
+            "matchId": 149629,
+            "commType": "commentary",
+            "commText": "Mumbai Indians proving far too strong for Kolkata Knight Riders once again. It\u2019s not just a one-off anymore as this matchup is starting to follow a very familiar script, with MI holding a clear and consistent edge. You don\u2019t often see such one-sided dominance in an IPL rivalry. KKR\u2019s problems were visible coming into the season and the injuries have only made things worse. Their bowling looks severely depleted, lacking both quality and control. The batting has enough firepower to keep them competitive, but with an attack like this, it\u2019s hard to see them holding up over a full season. Right now, it looks one of the most vulnerable units in the tournament and with that kind of imbalance, even a playoff push feels unlikely. Mumbai Indians, on the other hand, look sorted. The batting is firing as expected and the concerning bit for the rest is that their bowling hasn\u2019t even peaked yet. The first two games of IPL 2026 have been quite one-sided, but it\u2019s still early days and things should tighten up as the tournament progresses. That\u2019s all from us for now, there's more IPL action coming your way tomorrow as Rajasthan Royals take on Chennai Super Kings. Goodbye and take care!",
+            "inningsId": 2,
+            "event": [
+                "none",
+                "all"
+            ],
+            "teamName": "MI",
+            "timestamp": 1774808027334,
+            "overSeparator": null,
+            "batsmanDetails": {
+                "playerId": 0,
+                "playerName": ""
+            },
+            "bowlerDetails": {
+                "playerId": 0,
+                "playerName": ""
+            }
+        },
+        "1774806353202": {
+            "matchId": 149629,
+            "commType": "commentary",
+            "commText": "<b>Shardul Thakur | Player of the Match:</b> I think have said this before also. I like challenges and this was one of the challenging situations that I had to bowl in, especially sixth over. Boult and Bumrah bowling upfront, Hardik, you'd expect some wickets, but today it didn't happen for us. So coming in and bowling that sixth over, it was a bit challenging. Challenges are what has made me till now and I enjoy it. So I think today was one of those performances. This ground has given me bitter and sweet memories both actually and to come and play for Mumbai Indians, it is special playing on home ground. I was a net bowler and an upcoming boy who has been with the team in 2010, 2011, 2012 seasons. Quietly bowling here, making my mark and since then it was always going to happen, but it finally happened that I am in Mumbai Indians playing for my home team, so it feels special. I will be very happy if I stay here. It's home city and the kind of backing that I had coming here, it was amazing. So, thank you to the entire Mumbai Indians family also for backing me, trading me from LSG and straightaway awarding me in the first game. (Don't mind the <i>Lord</i> memes?) No, I like it because it's a name given by people and when people call me by that name, I feel very happy because that's the way they show love. It's not a meme meme, but actually a positive thing that happens around our lives because every time coming here, playing those tough games, there will be a lot of criticism coming. But with that, when you perform, there will be love shown by people and I think it's just one of those things and it's their way of showing love towards me.",
+            "inningsId": 2,
+            "event": [
+                "none",
+                "all"
+            ],
+            "teamName": "MI",
+            "timestamp": 1774806353202,
+            "overSeparator": null,
+            "batsmanDetails": {
+                "playerId": 0,
+                "playerName": ""
+            },
+            "bowlerDetails": {
+                "playerId": 0,
+                "playerName": ""
+            }
+        },
+        "1774806353192": {
+            "matchId": 149629,
+            "commType": "commentary",
+            "commText": "<b>Hardik Pandya | MI captain:</b> Obviously, it's been a long waiting. 13 years are a very long time. And, you know, every time we have come, we have wanted to win and start the season with a high. Very glad, the whole group is very glad that we were finally able to do it. (On chasing big targets) Yes, I feel the modern cricket, plus at the same point of time, we have seen what this wicket plays like. The kind of powerplay they had, we knew that the wicket is good. So as a bowling group, a lot of credit to the bowlers. They pulled it really back, not letting them fly with 250s, 240s, because I feel in T20 cricket, those are difficult to chase. But 220 is always gettable if you have a good start. And I think the top two batters, Ro and Rickelton were outstanding. The way Ro played some outstanding shots. And at the same point of time, Rickelton was brilliant. And to see that, very nice. (On picking Rickelton over Quinton de Kock) Ryan has done really well for this franchise. Even last year, he's been fantastic. Quinny is a top man, he understood, he knew we are backing the player with the continuity and at the same point of time, so well he did. So, yes, very glad that it paid off right. (On Rohit's batting) It's a treat. I've seen batters play some terrific shots. But whenever I've seen Ro play some shots, I think it opens everyone's mouth. So, nothing short of exceptional, nothing short of brilliant. And I'm so, so happy that Rohit played his knock.\u00a0(On Shardul Thakur) I told him this season, I said, 'enough hopping of the franchises. I want you to be here for the rest of your career.' He's a character. He has a big heart. The way he comes out and kind of always tries to outsmart a batter, simply brilliant and really happy for him.",
+            "inningsId": 2,
+            "event": [
+                "none",
+                "all"
+            ],
+            "teamName": "MI",
+            "timestamp": 1774806353192,
+            "overSeparator": null,
+            "batsmanDetails": {
+                "playerId": 0,
+                "playerName": ""
+            },
+            "bowlerDetails": {
+                "playerId": 0,
+                "playerName": ""
+            }
+        },
+        "1774806353187": {
+            "commType": "snippet",
+            "eventType": "Plugin:video",
+            "itemId": 168125,
+            "headline": "Cricbuzz Live Hindi: MI v KKR, IPL 2026: Post match show",
+            "videoUrl": "https://www.cricbuzz.com/cricket-videos/168125/cricbuzz-live-mi-v-kkr-ipl-2026-post-match-show",
+            "geo": [
+                "ALL"
+            ],
+            "planId": 0,
+            "isLive": false,
+            "isPremiumFree": false,
+            "videoType": "Analysis",
+            "matchVideo": false,
+            "timestamp": 1774806353187,
+            "inningsId": 2,
+            "imageDetails": {
+                "imageId": "888596",
+                "alt": "cricbuzz-live-hindi-mi-v-kkr-ipl-2026-post-match-show",
+                "src": "imagesrc",
+                "w": 540,
+                "h": 303,
+                "aspect": "16:9",
+                "imageType": "det",
+                "priority": false
+            }
+        },
+        "1774806353182": {
+            "matchId": 149629,
+            "commType": "commentary",
+            "commText": "<i>Stats by Shashikant Singh </i>",
+            "inningsId": 2,
+            "event": [
+                "none",
+                "all"
+            ],
+            "teamName": "MI",
+            "timestamp": 1774806353182,
+            "overSeparator": null,
+            "batsmanDetails": {
+                "playerId": 0,
+                "playerName": ""
+            },
+            "bowlerDetails": {
+                "playerId": 0,
+                "playerName": ""
+            }
+        },
+        "1774806353172": {
+            "matchId": 149629,
+            "commType": "commentary",
+            "commText": "<b>Most times successfully chasing 200-plus in IPL</b> <br>8 - PBKS <br>6 - MI*  <br>4 - RR <br>4 - SRH <br>4 - RCB",
+            "inningsId": 2,
+            "event": [
+                "none",
+                "all"
+            ],
+            "teamName": "MI",
+            "timestamp": 1774806353172,
+            "overSeparator": null,
+            "batsmanDetails": {
+                "playerId": 0,
+                "playerName": ""
+            },
+            "bowlerDetails": {
+                "playerId": 0,
+                "playerName": ""
+            }
+        },
+        "1774806353162": {
+            "matchId": 149629,
+            "commType": "commentary",
+            "commText": "<b>Most wins against an opponent at a venue in the IPL </b> <br>11 - MI vs KKR at Wankhede (13 mats)* <br>9 - KKR vs PBKS at Kolkata (14 mats) <br>9 - SRH vs PBKS at Hyderabad (10 mats)",
+            "inningsId": 2,
+            "event": [
+                "none",
+                "all"
+            ],
+            "teamName": "MI",
+            "timestamp": 1774806353162,
+            "overSeparator": null,
+            "batsmanDetails": {
+                "playerId": 0,
+                "playerName": ""
+            },
+            "bowlerDetails": {
+                "playerId": 0,
+                "playerName": ""
+            }
+        },
+        "1774806353152": {
+            "matchId": 149629,
+            "commType": "commentary",
+            "commText": "<b>Most wins against a team in the IPL </b> <br>25 - MI vs KKR (36 mats)*  <br>21 - CSK vs RCB (35 mats) <br>21 - KKR vs PBKS (35 mats) <br>21 - MI vs CSK (39 mats) <br>21 - MI vs DC (37 mats)",
+            "inningsId": 2,
+            "event": [
+                "none",
+                "all"
+            ],
+            "teamName": "MI",
+            "timestamp": 1774806353152,
+            "overSeparator": null,
+            "batsmanDetails": {
+                "playerId": 0,
+                "playerName": ""
+            },
+            "bowlerDetails": {
+                "playerId": 0,
+                "playerName": ""
+            }
+        },
+        "1774806353142": {
+            "matchId": 149629,
+            "commType": "commentary",
+            "commText": "<b>The first win for the Mumbai Indians in the opening game of an IPL season since 2012 after losing 13th successive matches.</b>",
+            "inningsId": 2,
+            "event": [
+                "none",
+                "all"
+            ],
+            "teamName": "MI",
+            "timestamp": 1774806353142,
+            "overSeparator": null,
+            "batsmanDetails": {
+                "playerId": 0,
+                "playerName": ""
+            },
+            "bowlerDetails": {
+                "playerId": 0,
+                "playerName": ""
+            }
+        },
+        "1774806353137": {
+            "matchId": 149629,
+            "commType": "commentary",
+            "commText": "<b>Highest successful IPL run-chases </b> <br>262 - PBKS vs KKR, Kolkata, 2024 <br>246 - SRH vs PBKS, Hyderabad, 2025 <br>228 - RCB vs LSG, Lucknow, 2025 <br>224 - RR vs PBKS, Sharjah, 2020 <br>224 - RR vs KKR, Kolkata, 2024 <br>221 - MI vs KKR, Wankhede, 2026*  <br> <br><i>The previous highest for MI was 219 runs against CSK at Delhi in 2021. The previous highest at Wankhede in IPL was 213 runs by MI vs RR in 2023. </i>",
+            "inningsId": 2,
+            "event": [
+                "none",
+                "all"
+            ],
+            "teamName": "MI",
+            "timestamp": 1774806353137,
+            "overSeparator": null,
+            "batsmanDetails": {
+                "playerId": 0,
+                "playerName": ""
+            },
+            "bowlerDetails": {
+                "playerId": 0,
+                "playerName": ""
+            }
+        },
+        "1774806353132": {
+            "matchId": 149629,
+            "commType": "commentary",
+            "commText": "<b>Ryan Rickelton:</b> Pretty good. Didn't have the best week's preparation coming into this, but to go out there and find the middle of the bat quite early on with Ro was something really special. (On his dismissal) I thought Tilak said yes. I stumbled halfway and then I'm just lazy and I didn't manage to crawl back. Blessing was in the way but certainly not his fault. He was just reacting. So it wasn't the prettiest way to get up and Quinny really scolded me for it. Sherfane came to me on the other side there and said, 'I know you were worried about the nets and struggling going into it, but well played, very happy.' I like to think the same will be for him, but you know, the wickets have just been used for World Cup. It was tough to find rhythm. I am old enough to understand my game. Really happy with the way I started tonight. (On playing ahead of Quinton de Kock) Obviously I felt that pressure. I felt that weight. To have Quinny back, he's a world-beater, he's one of South Africa's greatest and one of the IPL's star performers for many years. So to get the nod ahead, I suppose, was a bit of a relief, but I know that I've got to step up to the plate. To have such a quality player like Quinny behind me is not something I want to restrict me, but also something I want to free me up. Like I said, he's really helpful in trying to obviously get me right. I think he wants the best for me as well, but like I said, it's great to have him back. I'm only getting better playing with him. We get on really well, especially here in this team. We are really close. We spend a lot of time together. He's been extremely helpful in those nets as well and also coaching me with stuff that he sees. He knows my game really well as well. So I enjoy, honestly, having him on the field and off the field. You know, it's really, really nice to just to be back in the changing room with him.",
+            "inningsId": 2,
+            "event": [
+                "none",
+                "all"
+            ],
+            "teamName": "MI",
+            "timestamp": 1774806353132,
+            "overSeparator": null,
+            "batsmanDetails": {
+                "playerId": 0,
+                "playerName": ""
+            },
+            "bowlerDetails": {
+                "playerId": 0,
+                "playerName": ""
+            }
+        },
         "1774806353122": {
             "matchId": 149629,
             "commType": "commentary",
-            "commText": "<b>Ajinkya Rahane | KKR captain:</b> Feeling okay, just a lot of cramps to my calf and both the calves actually. So hopefully I'll be okay. I mean, just a lot of cramps. It was really tough. I thought 220-225 was a good total. We batted really well, but again, the inexperienced bowling attack.\u00a0Playing against Mumbai Indians, strong batting lineup, it's a really learning curve for us. Apart from Vaibhav, Karthik, Muzarabani, haven't been used to IPL, two experienced spinners, but I thought Mumbai Indians batted well. So our bowlers will definitely learn. (On his batting) I'm still young, 37, I'm still young, feeling good, but yeah, struggling with my cramps. Happens in Mumbai, a lot of humidity, but really happy the way I'm batting at the moment. (On the bowling) I think when Green starts to bowl soon, the combination will slightly be different. At the moment, we have to see the balance, guys who can bowl well for us, batting-wise, as I said, we batted really well, but finding that balance with the ball is really important. So hopefully, Green starts to bowl soon. <b>(Why Green can't bowl?) That's the question you need to ask to Cricket Australia</b>.\u00a0 A lot of positives from the batting side. I thought Kartik bowled well, played a game after a while. I thought he was really good. So yes, as I said, a lot of positives and lots to learn as well.",
+            "commText": "<b>Ajinkya Rahane | KKR captain:</b> Feeling okay, just a lot of cramps to my calf and both the calves actually. So hopefully I'll be okay. I mean, just a lot of cramps. It was really tough. I thought 220-225 was a good total. We batted really well, but again, it's an inexperienced bowling attack.\u00a0These boys will learn. Playing against Mumbai Indians, strong batting lineup, it's a really learning curve for us. Apart from Vaibhav, Karthik, Muzarabani new to IPL, two experienced spinners, but I thought Mumbai Indians batted well. So our bowlers will definitely learn. (On his batting) I'm still young, 37, I'm still young, feeling good, but yeah, struggling with my cramps. Happens in Mumbai, a lot of humidity, but really happy the way I'm batting at the moment. (On the bowling department) I think when hopefully Green starts to bowl soon, the combination will slightly be different. At the moment, we have to see the balance, guys who can bowl well for us, batting-wise, as I said, we batted really well, but finding that balance with the ball is really important. So hopefully, Green starts to bowl soon, combination-wise we'll be okay. <b>(Why can't Green bowl yet?) That question you need to ask to Cricket Australia</b>. A lot of positives from the batting side. I thought Kartik Tyagi also bowled well, played a game after a while. I thought he was really good. So yes, as I said, a lot of positives and lots to learn as well.",
             "inningsId": 2,
             "event": [
                 "none",
@@ -24,7 +288,7 @@
         "1774806353112": {
             "matchId": 149629,
             "commType": "commentary",
-            "commText": "<b>23:15 Local Time, 17:45 GMT, 23:15 IST:</b> Two games, two dominant chases. Royal Challengers Bengaluru set the tone last night and now Mumbai Indians have taken it a step further, making a 220 chase look ridiculously easy. When Kolkata Knight Riders piled up that total, it felt like a close finish was inevitable. Instead, MI blew the game open early. Rohit Sharma and Ryan Rickelton came out swinging, cashing in big time during the powerplay, mirroring KKR\u2019s own aggressive start. KKR\u2019s inexperienced attack was under pressure straight away and Ajinkya Rahane\u2019s injury only made things worse. Both Rohit and Rickelton brought up fluent fifties, putting MI firmly in control well before the halfway mark. Rohit\u2019s brilliant 78 ended with a superb catch from Anukul Roy in the deep, but Rickelton kept the pressure on following his partner's departure. MI did lose a few wickets along the way, but the platform laid by Rohit Sharma and Ryan Rickelton meant the chase was always under control and they were set to get it done comfortably. The bowling from both sides was largely ordinary, but it was Shardul Thakur\u2019s three wickets and Bumrah\u2019s tight overs towards the closing stages, that ultimately made the difference. Fireworks light up the Wankhede as a delighted Mumbai crowd soaks in a sweet win.",
+            "commText": "<b>23:15 Local Time, 17:45 GMT:</b> Two games, two dominant chases. Royal Challengers Bengaluru set the tone last night and now Mumbai Indians have taken it a step further, making a 220 chase look ridiculously easy. When Kolkata Knight Riders piled up that total, it felt like a close finish was inevitable. Instead, MI blew the game open early. Rohit Sharma and Ryan Rickelton came out swinging, cashing in big time during the powerplay, mirroring KKR\u2019s own aggressive start. KKR\u2019s inexperienced attack was under pressure straight away and Ajinkya Rahane\u2019s injury only made things worse. Both Rohit and Rickelton brought up fluent fifties, putting MI firmly in control well before the halfway mark. Rohit\u2019s brilliant 78 ended with a superb catch from Anukul Roy in the deep, but Rickelton kept the pressure on following his partner's departure. MI did lose a few wickets along the way, but the platform laid by Rohit Sharma and Ryan Rickelton meant the chase was always under control and they were set to get it done comfortably. The bowling from both sides was largely ordinary, but it was Shardul Thakur\u2019s three wickets and Bumrah\u2019s tight overs towards the closing stages, that ultimately made the difference. Fireworks light up the Wankhede as a delighted Mumbai crowd soaks in a sweet win.",
             "inningsId": 2,
             "event": [
                 "none",
@@ -52,7 +316,7 @@
                 "ALL"
             ],
             "planId": 0,
-            "isLive": true,
+            "isLive": false,
             "isPremiumFree": false,
             "videoType": "Analysis",
             "matchVideo": false,
@@ -266,249 +530,6 @@
                 "playerId": 2276,
                 "playerName": "Sunil Narine"
             }
-        },
-        "1774805871046": {
-            "matchId": 149629,
-            "commType": "commentary",
-            "commText": "Sunil Narine to Tilak Varma, 1 run, that was pretty short and Tilak Varma clips it towards mid-on for one",
-            "inningsId": 2,
-            "event": [
-                "none",
-                "all"
-            ],
-            "ballMetric": 18.2,
-            "teamName": "MI",
-            "timestamp": 1774805871046,
-            "overSeparator": null,
-            "batsmanDetails": {
-                "playerId": 14504,
-                "playerName": "Tilak Varma"
-            },
-            "bowlerDetails": {
-                "playerId": 2276,
-                "playerName": "Sunil Narine"
-            }
-        },
-        "1774805831363": {
-            "matchId": 149629,
-            "commType": "commentary",
-            "commText": "Sunil Narine to Hardik Pandya, 1 run, absolutely smashes this flat ball to long-off for a single",
-            "inningsId": 2,
-            "event": [
-                "none",
-                "all"
-            ],
-            "ballMetric": 18.1,
-            "teamName": "MI",
-            "timestamp": 1774805831363,
-            "overSeparator": null,
-            "batsmanDetails": {
-                "playerId": 9647,
-                "playerName": "Hardik Pandya"
-            },
-            "bowlerDetails": {
-                "playerId": 2276,
-                "playerName": "Sunil Narine"
-            }
-        },
-        "1774805816988": {
-            "matchId": 149629,
-            "commType": "commentary",
-            "commText": "<b>Sunil Narine [2.0-0-22-0] is back into the attack</b>",
-            "inningsId": 2,
-            "event": [
-                "none",
-                "all"
-            ],
-            "teamName": "MI",
-            "timestamp": 1774805816988,
-            "overSeparator": null,
-            "batsmanDetails": {
-                "playerId": 9647,
-                "playerName": "Hardik Pandya"
-            },
-            "bowlerDetails": {
-                "playerId": 2276,
-                "playerName": "Sunil Narine"
-            }
-        },
-        "1774805772539": {
-            "matchId": 149629,
-            "commType": "commentary",
-            "commText": "Vaibhav Arora to Tilak Varma, <b>FOUR</b>, right into the blockhole, Tilak Varma tries to squeeze it out and ends up getting an inside edge that beats the fielder at short fine leg. Probably smashed into his shoe as well",
-            "inningsId": 2,
-            "event": [
-                "over-break",
-                "four",
-                "all"
-            ],
-            "ballMetric": 17.6,
-            "teamName": "MI",
-            "timestamp": 1774805772539,
-            "overSeparator": {
-                "timestamp": 1774805772539,
-                "overNumber": 18,
-                "overSummary": "0 1 4 1 1 4 ",
-                "overRuns": 11,
-                "batTeamObj": {
-                    "teamName": "MI",
-                    "teamScore": "212-3"
-                },
-                "batStrikerObj": {
-                    "playerId": 14504,
-                    "playerName": "Tilak Varma",
-                    "playerScore": "19(12)"
-                },
-                "batNonStrikerObj": {
-                    "playerId": 9647,
-                    "playerName": "Hardik Pandya",
-                    "playerScore": "12(8)"
-                },
-                "bowlerObj": {
-                    "playerId": 15861,
-                    "playerName": "Vaibhav Arora",
-                    "playerScore": "4-0-52-1"
-                }
-            },
-            "batsmanDetails": {
-                "playerId": 14504,
-                "playerName": "Tilak Varma"
-            },
-            "bowlerDetails": {
-                "playerId": 15861,
-                "playerName": "Vaibhav Arora"
-            }
-        },
-        "1774805731470": {
-            "matchId": 149629,
-            "commType": "commentary",
-            "commText": "Vaibhav Arora to Hardik Pandya, 1 run, short ball outside off, Hardik Pandya carves it through the off-side for one",
-            "inningsId": 2,
-            "event": [
-                "none",
-                "all"
-            ],
-            "ballMetric": 17.5,
-            "teamName": "MI",
-            "timestamp": 1774805731470,
-            "overSeparator": null,
-            "batsmanDetails": {
-                "playerId": 9647,
-                "playerName": "Hardik Pandya"
-            },
-            "bowlerDetails": {
-                "playerId": 15861,
-                "playerName": "Vaibhav Arora"
-            }
-        },
-        "1774805688181": {
-            "matchId": 149629,
-            "commType": "commentary",
-            "commText": "Vaibhav Arora to Tilak Varma, 1 run, low full toss by Vaibhav Arora as Tilak Varma squeezes it down the ground",
-            "inningsId": 2,
-            "event": [
-                "none",
-                "all"
-            ],
-            "ballMetric": 17.4,
-            "teamName": "MI",
-            "timestamp": 1774805688181,
-            "overSeparator": null,
-            "batsmanDetails": {
-                "playerId": 14504,
-                "playerName": "Tilak Varma"
-            },
-            "bowlerDetails": {
-                "playerId": 15861,
-                "playerName": "Vaibhav Arora"
-            }
-        },
-        "1774805647960": {
-            "matchId": 149629,
-            "commType": "commentary",
-            "commText": "Vaibhav Arora to Tilak Varma, <b>FOUR</b>, <b>down to run-a-ball now.</b> Short and wide outside off, Tilak Varma slashes hard at it and the top edge flies over the infield at short third man",
-            "inningsId": 2,
-            "event": [
-                "four",
-                "all"
-            ],
-            "ballMetric": 17.3,
-            "teamName": "MI",
-            "timestamp": 1774805647960,
-            "overSeparator": null,
-            "batsmanDetails": {
-                "playerId": 14504,
-                "playerName": "Tilak Varma"
-            },
-            "bowlerDetails": {
-                "playerId": 15861,
-                "playerName": "Vaibhav Arora"
-            }
-        },
-        "1774805610269": {
-            "matchId": 149629,
-            "commType": "commentary",
-            "commText": "Vaibhav Arora to Hardik Pandya, 1 run, banged in short from round the wicket, Hardik Pandya loses his shape as he goes for a pull with lack of conviction, ends up miscuing it towards mid-wicket for one",
-            "inningsId": 2,
-            "event": [
-                "none",
-                "all"
-            ],
-            "ballMetric": 17.2,
-            "teamName": "MI",
-            "timestamp": 1774805610269,
-            "overSeparator": null,
-            "batsmanDetails": {
-                "playerId": 9647,
-                "playerName": "Hardik Pandya"
-            },
-            "bowlerDetails": {
-                "playerId": 15861,
-                "playerName": "Vaibhav Arora"
-            }
-        },
-        "1774805573189": {
-            "matchId": 149629,
-            "commType": "commentary",
-            "commText": "Vaibhav Arora to Hardik Pandya, no run, short of a length outside off, Hardik Pandya attempts a cut and misses",
-            "inningsId": 2,
-            "event": [
-                "none",
-                "all"
-            ],
-            "ballMetric": 17.1,
-            "teamName": "MI",
-            "timestamp": 1774805573189,
-            "overSeparator": null,
-            "batsmanDetails": {
-                "playerId": 9647,
-                "playerName": "Hardik Pandya"
-            },
-            "bowlerDetails": {
-                "playerId": 15861,
-                "playerName": "Vaibhav Arora"
-            }
-        },
-        "1774805559106": {
-            "matchId": 149629,
-            "commType": "commentary",
-            "commText": "<b>Vaibhav Arora [3.0-0-41-1] is back into the attack</b>",
-            "inningsId": 2,
-            "event": [
-                "none",
-                "all"
-            ],
-            "teamName": "MI",
-            "timestamp": 1774805559106,
-            "overSeparator": null,
-            "batsmanDetails": {
-                "playerId": 9647,
-                "playerName": "Hardik Pandya"
-            },
-            "bowlerDetails": {
-                "playerId": 15861,
-                "playerName": "Vaibhav Arora"
-            }
         }
     },
     "miniscore": {
@@ -606,7 +627,7 @@
         },
         "lastWicket": "Tilak Varma  c (sub)Manish Pandey b Sunil Narine 20(14)  - 215/4 in 18.4 ov.",
         "remRunsToWin": 0,
-        "responseLastUpdated": 1774807177,
+        "responseLastUpdated": 1774879644,
         "latestPerformance": [
             {
                 "runs": 45,
@@ -700,7 +721,28 @@
             "winByInnings": false
         },
         "revisedTarget": {},
-        "playersOfTheMatch": [],
+        "playersOfTheMatch": [
+            {
+                "id": 8683,
+                "name": "Shardul Thakur",
+                "fullName": "Shardul Thakur",
+                "nickName": "Shardul Thakur",
+                "captain": false,
+                "keeper": false,
+                "substitute": false,
+                "faceImageId": 352487,
+                "imageDetails": {
+                    "imageId": "352487",
+                    "alt": "shardul-thakur",
+                    "src": "imagesrc",
+                    "w": 48,
+                    "h": 48,
+                    "aspect": "16:9",
+                    "imageType": "gthumb",
+                    "priority": true
+                }
+            }
+        ],
         "playersOfTheSeries": [],
         "matchTeamInfo": [
             {
@@ -737,6 +779,101 @@
     },
     "matchVideos": [
         {
+            "id": "168203",
+            "icon": "cbPlayIcon scale-75",
+            "title": "In-form Ryan Rickelton is reminiscent of peak Quinton de Kock: Murali Kartik",
+            "onCardClick": "/cricket-videos/168203/in-form-ryan-rickelton-is-reminiscent-of-peak-quinton-de-kock-murali-kartik",
+            "isCbPlusContent": false,
+            "isPremiumFree": false,
+            "videoType": "Analysis",
+            "imageObj": {
+                "imageId": "888877",
+                "alt": "in-form-ryan-rickelton-is-reminiscent-of-peak-quinton-de-kock-murali-kartik",
+                "src": "imagesrc",
+                "w": 170,
+                "h": 90,
+                "aspect": "16:9",
+                "imageType": "thumb",
+                "priority": true
+            }
+        },
+        {
+            "id": "168199",
+            "icon": "cbPlayIcon scale-75",
+            "title": "Preview: Rajasthan v Chennai (\u0939\u093f\u0928\u094d\u0926\u0940)",
+            "onCardClick": "/cricket-videos/168199/preview-rajasthan-v-chennai",
+            "isCbPlusContent": false,
+            "isPremiumFree": false,
+            "videoType": "Analysis",
+            "imageObj": {
+                "imageId": "888857",
+                "alt": "preview-rajasthan-v-chennai",
+                "src": "imagesrc",
+                "w": 170,
+                "h": 90,
+                "aspect": "16:9",
+                "imageType": "thumb",
+                "priority": true
+            }
+        },
+        {
+            "id": "168186",
+            "icon": "cbPlayIcon scale-75",
+            "title": "Sunil Narine not completing his quota is baffling: Joy Bhattacharjya",
+            "onCardClick": "/cricket-videos/168186/sunil-narine-not-completing-his-quota-is-baffling-joy-bhattacharjya",
+            "isCbPlusContent": false,
+            "isPremiumFree": false,
+            "videoType": "Analysis",
+            "imageObj": {
+                "imageId": "888800",
+                "alt": "sunil-narine-not-completing-his-quota-is-baffling-joy-bhattacharjya",
+                "src": "imagesrc",
+                "w": 170,
+                "h": 90,
+                "aspect": "16:9",
+                "imageType": "thumb",
+                "priority": true
+            }
+        },
+        {
+            "id": "168178",
+            "icon": "cbPlayIcon scale-75",
+            "title": "Rohit\u2019s 'hunger for runs' makes him even lethal: Murali Kartik",
+            "onCardClick": "/cricket-videos/168178/rohits-hunger-for-runs-makes-him-even-lethal-murali-kartik",
+            "isCbPlusContent": false,
+            "isPremiumFree": false,
+            "videoType": "Analysis",
+            "imageObj": {
+                "imageId": "888947",
+                "alt": "rohits-hunger-for-runs-makes-him-even-lethal-murali-kartik",
+                "src": "imagesrc",
+                "w": 170,
+                "h": 90,
+                "aspect": "16:9",
+                "imageType": "thumb",
+                "priority": true
+            }
+        },
+        {
+            "id": "168177",
+            "icon": "cbPlayIcon scale-75",
+            "title": "Can see the glint in Rohit's eyes, wants to win it all: Michael Vaughan",
+            "onCardClick": "/cricket-videos/168177/can-see-the-glint-in-rohits-eyes-wants-to-win-it-all-michael-vaughan",
+            "isCbPlusContent": false,
+            "isPremiumFree": false,
+            "videoType": "Analysis",
+            "imageObj": {
+                "imageId": "888767",
+                "alt": "can-see-the-glint-in-rohits-eyes-wants-to-win-it-all-michael-vaughan",
+                "src": "imagesrc",
+                "w": 170,
+                "h": 90,
+                "aspect": "16:9",
+                "imageType": "thumb",
+                "priority": true
+            }
+        },
+        {
             "id": "168070",
             "icon": "cbPlayIcon scale-75",
             "title": "Are Varun & Narine the most lethal spin duo?",
@@ -752,7 +889,7 @@
                 "h": 90,
                 "aspect": "16:9",
                 "imageType": "thumb",
-                "priority": true
+                "priority": false
             }
         },
         {
@@ -771,7 +908,7 @@
                 "h": 90,
                 "aspect": "16:9",
                 "imageType": "thumb",
-                "priority": true
+                "priority": false
             }
         },
         {
@@ -790,7 +927,7 @@
                 "h": 90,
                 "aspect": "16:9",
                 "imageType": "thumb",
-                "priority": true
+                "priority": false
             }
         },
         {
@@ -809,7 +946,7 @@
                 "h": 90,
                 "aspect": "16:9",
                 "imageType": "thumb",
-                "priority": true
+                "priority": false
             }
         },
         {
@@ -828,105 +965,10 @@
                 "h": 90,
                 "aspect": "16:9",
                 "imageType": "thumb",
-                "priority": true
-            }
-        },
-        {
-            "id": "167864",
-            "icon": "cbPlayIcon scale-75",
-            "title": "Rohit\u2019s white-ball stature demands more than 400-run seasons: Murali Kartik",
-            "onCardClick": "/cricket-videos/167864/rohits-white-ball-stature-demands-more-than-400-run-seasons-murali-kartik",
-            "isCbPlusContent": false,
-            "isPremiumFree": false,
-            "videoType": "Analysis",
-            "imageObj": {
-                "imageId": "887531",
-                "alt": "rohits-white-ball-stature-demands-more-than-400-run-seasons-murali-kartik",
-                "src": "imagesrc",
-                "w": 170,
-                "h": 90,
-                "aspect": "16:9",
-                "imageType": "thumb",
-                "priority": false
-            }
-        },
-        {
-            "id": "167857",
-            "icon": "cbPlayIcon scale-75",
-            "title": "Mumbai can win any tournament, even the T20 World Cup: Michael Vaughan",
-            "onCardClick": "/cricket-videos/167857/mumbai-can-win-any-tournament-even-the-t20-world-cup-michael-vaughan",
-            "isCbPlusContent": false,
-            "isPremiumFree": false,
-            "videoType": "Analysis",
-            "imageObj": {
-                "imageId": "887543",
-                "alt": "mumbai-can-win-any-tournament-even-the-t20-world-cup-michael-vaughan",
-                "src": "imagesrc",
-                "w": 170,
-                "h": 90,
-                "aspect": "16:9",
-                "imageType": "thumb",
-                "priority": false
-            }
-        },
-        {
-            "id": "167810",
-            "icon": "cbPlayIcon scale-75",
-            "title": "Why do teams struggle against Mumbai at Wankhede?",
-            "onCardClick": "/cricket-videos/167810/why-do-teams-struggle-against-mumbai-at-wankhede",
-            "isCbPlusContent": false,
-            "isPremiumFree": false,
-            "videoType": "Analysis",
-            "imageObj": {
-                "imageId": "887261",
-                "alt": "why-do-teams-struggle-against-mumbai-at-wankhede",
-                "src": "imagesrc",
-                "w": 170,
-                "h": 90,
-                "aspect": "16:9",
-                "imageType": "thumb",
-                "priority": false
-            }
-        },
-        {
-            "id": "167741",
-            "icon": "cbPlayIcon scale-75",
-            "title": "Preview: Mumbai v Kolkata: Indian T20 League: Match 2",
-            "onCardClick": "/cricket-videos/167741/preview-mumbai-v-kolkata-indian-t20-league-match-2",
-            "isCbPlusContent": false,
-            "isPremiumFree": false,
-            "videoType": "Analysis",
-            "imageObj": {
-                "imageId": "886971",
-                "alt": "preview-mumbai-v-kolkata-indian-t20-league-match-2",
-                "src": "imagesrc",
-                "w": 170,
-                "h": 90,
-                "aspect": "16:9",
-                "imageType": "thumb",
-                "priority": false
-            }
-        },
-        {
-            "id": "167720",
-            "icon": "cbPlayIcon scale-75",
-            "title": "Preview: Mumbai vs Kolkata",
-            "onCardClick": "/cricket-videos/167720/preview-mumbai-vs-kolkata",
-            "isCbPlusContent": false,
-            "isPremiumFree": false,
-            "videoType": "Analysis",
-            "imageObj": {
-                "imageId": "886873",
-                "alt": "preview-mumbai-vs-kolkata",
-                "src": "imagesrc",
-                "w": 170,
-                "h": 90,
-                "aspect": "16:9",
-                "imageType": "thumb",
                 "priority": false
             }
         }
     ],
     "page": "commentary",
-    "responseLastUpdated": 1774807177
+    "responseLastUpdated": 1774879644
 }
