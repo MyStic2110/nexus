@@ -80,6 +80,7 @@ async def sync_innings_data(db, match_id, innings_id, client):
     Ensures no gaps exist in the database.
     """
     match_data_collection = db["live_match_overs"]
+    history_collection = db["match_over_history"]
     
     # Check CID from match_id first to use in API calls
     match_doc = await db.matches.find_one({"match_id": match_id})
@@ -161,6 +162,21 @@ async def sync_innings_data(db, match_id, innings_id, client):
                     {"$set": over_record},
                     upsert=True
                 )
+
+                # Store full raw detail in history collection as requested
+                history_record = {
+                    "match_id": match_id,
+                    "cricbuzz_id": c_id,
+                    "session_id": innings_id,
+                    "over": over_num,
+                    "raw_data": ovr_item,
+                    "synced_at": datetime.now(IST)
+                }
+                await history_collection.update_one(
+                    {"match_id": match_id, "session_id": innings_id, "over": over_num},
+                    {"$set": history_record},
+                    upsert=True
+                )
                 total_recovered += 1
 
         next_url = data.get('nextPaginationURL')
@@ -204,6 +220,11 @@ async def run_cricbuzz_pulse():
     try:
         client_db = AsyncIOMotorClient(raw_uri)
         db = client_db[DB_NAME]
+        # Ensure indexes for the history collection
+        await db.match_over_history.create_index(
+            [("match_id", 1), ("session_id", 1), ("over", 1)],
+            unique=True
+        )
     except Exception as e:
         print(f"[{datetime.now().strftime('%H:%M:%S')}] \033[91mNEXUS ERROR: DB Connection Failed: {e}\033[0m")
         return
