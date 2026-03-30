@@ -53,7 +53,12 @@ async def fetch_overs_from_api(client, match_id, innings_id, timestamp=None):
     try:
         response = await client.get(url, headers=HEADERS, timeout=10.0)
         response.raise_for_status()
+        if not response.text:
+            return None
         return response.json()
+    except ValueError as e:
+        # Match likely not started, over-by-over returns non-JSON empty string or HTML 404
+        return None
     except Exception as e:
         print(f"[API-FETCH] Error fetching {url}: {e}")
         return None
@@ -156,21 +161,8 @@ async def get_existing_balls(collection, match_id, session_id, over_num):
 # ─── CORE AGENT LOGIC ────────────────────────────────────────────────────────
 
 def is_match_in_window(match: dict) -> bool:
-    try:
-        match_date = match.get("date")
-        match_time = match.get("time")
-        if not match_date or not match_time: return True
-
-        match_dt_str = f"{match_date} {match_time}"
-        match_dt = IST.localize(datetime.strptime(match_dt_str, "%Y-%m-%d %I:%M %p"))
-        now_ist = datetime.now(IST)
-
-        window_start = match_dt - timedelta(hours=24) # Relaxed for backfills
-        window_end = match_dt + timedelta(hours=72) # Relaxed for backfills
-
-        return window_start <= now_ist <= window_end
-    except Exception as e:
-        return True
+    """Always return True to allow syncing today's matches."""
+    return True
 
 async def run_cricbuzz_pulse():
     raw_uri = settings.MONGO_URI.strip().strip("'").strip('"')
@@ -210,16 +202,16 @@ async def run_cricbuzz_pulse():
         async with httpx.AsyncClient() as client:
             # ─── DYNAMIC STATUS CHECK ───
             data = await get_match_data_from_api(client, c_id)
-            header = data.get("matchHeader", {})
-            miniscore = data.get("miniscore", {})
+            header = data.get("matchHeader") or {}
+            miniscore = data.get("miniscore") or {}
             
             match_state = header.get("state")
             official_status = header.get("status")
             winning_team = header.get("result", {}).get("winningTeam")
             
             # Extract Individual Innings Scores
-            score_details = miniscore.get("matchScoreDetails", {})
-            inn_list = score_details.get("inningsScoreList", [])
+            score_details = miniscore.get("matchScoreDetails") or {}
+            inn_list = score_details.get("inningsScoreList") or []
             
             t1_score_str = ""
             t2_score_str = ""
@@ -247,6 +239,12 @@ async def run_cricbuzz_pulse():
                 await sync_innings_data(db, match_id, 1, client)
                 await sync_innings_data(db, match_id, 2, client)
                 continue
+
+            # Extract state and only sync if relevant
+            match_state = header.get("state")
+            if match_state not in ["Live", "Complete"]:
+                 print(f"[{datetime.now().strftime('%H:%M:%S')}] \033[90mNEXUS: Match {match_id} state is '{match_state}'. Skipping over-by-over sync.\033[0m")
+                 continue
 
             # We synchronize both innings (1 and 2) if they exist
             for inn_id in [1, 2]:

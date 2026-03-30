@@ -118,10 +118,12 @@ async function fetchMatches() {
         filterAndRenderMatches();
         document.getElementById('live-count').textContent = `${matches.filter(m => m.status === 'LIVE').length} LIVE`;
     } catch (err) {
+        console.error('Nexus Sync Error:', err);
         container.innerHTML = `
             <div style="grid-column: 1/-1; text-align: center; padding: 4rem; background: rgba(239, 68, 68, 0.05); border-radius: 20px; border: 1px solid rgba(239, 68, 68, 0.2);">
                 <p style="color: #ef4444; font-weight: 700;">CONNECTION INTERRUPTED</p>
                 <p style="font-size: 0.8rem; color: var(--nexus-text-muted); margin-top: 0.5rem;">Failed to synchronize with Nexus backend.</p>
+                <p style="font-size: 0.6rem; color: var(--nexus-accent); font-family: monospace; opacity: 0.7; margin-top: 1rem;">ERR_SIG: ${err.message}</p>
             </div>`;
     }
 }
