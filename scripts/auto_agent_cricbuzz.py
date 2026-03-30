@@ -247,17 +247,20 @@ async def run_cricbuzz_pulse():
                  continue
 
             # We synchronize both innings (1 and 2) if they exist
+            latest_score_data = None
             for inn_id in [1, 2]:
                 score_update = await sync_innings_data(db, match_id, inn_id, client)
+                if score_update:
+                    latest_score_data = score_update
             
-            if score_update:
+            if latest_score_data:
                 # Update main match status with the latest score from the sync
                 await db.matches.update_one(
                     {"match_id": match_id},
                     {"$set": {
-                        "current_score": score_update["current_score"],
-                        "current_over": score_update["current_over"],
-                        "innings": score_update["innings"],
+                        "current_score": latest_score_data["current_score"],
+                        "current_over": latest_score_data["current_over"],
+                        "innings": latest_score_data["innings"],
                         "status": "LIVE"
                     }}
                 )
