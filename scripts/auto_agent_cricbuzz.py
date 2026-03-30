@@ -242,7 +242,7 @@ async def run_cricbuzz_pulse():
 
             # Extract state and only sync if relevant
             match_state = header.get("state")
-            if match_state not in ["Live", "Complete"]:
+            if match_state not in ["Live", "Complete", "In Progress"]:
                  print(f"[{datetime.now().strftime('%H:%M:%S')}] \033[90mNEXUS: Match {match_id} state is '{match_state}'. Skipping over-by-over sync.\033[0m")
                  continue
 
