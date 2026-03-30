@@ -286,9 +286,13 @@ async def run_cricbuzz_pulse():
                         "winner_team": winning_team
                     }}
                 )
-                # Final backfill
+                # Final backfill for both innings
                 await sync_innings_data(db, match_id, 1, client)
                 await sync_innings_data(db, match_id, 2, client)
+                
+                # Trigger point distribution for completed match
+                print(f"[{datetime.now().strftime('%H:%M:%S')}] \033[95mNEXUS AUTO-SCORE: Match {match_id} completed. Triggering final distribution...\033[0m")
+                await calculate_all_sessions_for_match(db, match_id)
                 continue
 
             # Extract state and only sync if relevant

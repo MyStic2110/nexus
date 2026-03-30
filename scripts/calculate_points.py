@@ -40,8 +40,8 @@ async def run_for_match(db, match_id: str, session_id: int):
     overs = await overs_cursor.to_list(length=2)
 
     if not overs:
-        print(f"[NEXUS] Death overs (19/20) not found for session {session_id}. Skipping.")
-        return
+        print(f"[NEXUS] Death overs (19/20) not found for session {session_id}. Proceeding with 0 actual balls.")
+        # No return here, let it proceed to update session_scores with 0 points
 
     # Build a flat sequence of balls from Over 19 and 20
     actual_balls = []
@@ -56,10 +56,10 @@ async def run_for_match(db, match_id: str, session_id: int):
         actual_balls.extend(legal)
 
     total_actual_balls = len(actual_balls)
-    print(f"[NEXUS] Target balls recovered (Overs 19/20): {total_actual_balls} for session {session_id}")
+    print(f"[NEXUS] Points processing: {total_actual_balls} legal balls recovered for session {session_id}")
 
     if total_actual_balls == 0:
-        return
+        print(f"[NEXUS] No actual balls recorded for session {session_id}. Users will receive 0 points.")
 
     # --- Step 2: Fetch all user predictions for this match+session ---
     field_path = f"sessions.{session_id}"
