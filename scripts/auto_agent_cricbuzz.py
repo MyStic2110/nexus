@@ -105,8 +105,10 @@ async def sync_innings_data(db, match_id, innings_id, client):
             if over_num is None: continue
             
             if latest_score_data is None:
+                current_runs = ovr_item.get("score", 0)
+                current_wickets = ovr_item.get("wickets", 0)
                 latest_score_data = {
-                    "current_score": ovr_item.get("score", "0/0"),
+                    "current_score": f"{current_runs}/{current_wickets}",
                     "current_over": float(over_num),
                     "innings": innings_id,
                     "live_stats": {
@@ -135,13 +137,15 @@ async def sync_innings_data(db, match_id, innings_id, client):
             
             existing_balls = await get_existing_balls(match_data_collection, match_id, innings_id, over_num)
             if over_num not in set(await match_data_collection.distinct("over", {"match_id": match_id, "session_id": innings_id})) or not is_over_complete(existing_balls):
+                current_runs = ovr_item.get("score", 0)
+                current_wickets = ovr_item.get("wickets", 0)
                 over_record = {
                     "match_id": match_id,
                     "session_id": innings_id,
                     "over": over_num,
                     "balls": balls,
                     "total_runs": ovr_item.get("runs", 0),
-                    "current_score": ovr_item.get("score", "0/0"),
+                    "current_score": f"{current_runs}/{current_wickets}",
                     "current_over": float(over_num),
                     "timestamp": ovr_item.get("timestamp"),
                     "bat_striker": ovr_item.get("batStrikerNames"),
