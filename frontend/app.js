@@ -321,9 +321,12 @@ async function fetchUserHistory() {
     emptyState.classList.add('hidden');
     
     try {
-        const res = await fetch(`${API_BASE}/users/me/history`, {
+        const res = await fetch(`${API_BASE}/matches/users/me/history`, {
             headers: { 'Authorization': `Bearer ${authToken}` }
         });
+        
+        if (!res.ok) throw new Error("API returned " + res.status);
+        
         const data = await res.json();
         
         if (data.length === 0) {
