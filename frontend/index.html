@@ -23,8 +23,9 @@
         <div id="user-profile" class="hidden">
             <div id="user-stats" style="margin-right: 1.5rem; display: flex; align-items: center; gap: 1.5rem;">
                 <div id="nexus-links" class="hidden" style="display: flex; gap: 1.5rem; font-size: 0.7rem; font-weight: 800; letter-spacing: 1px;">
-                    <a href="#" onclick="switchNexusView('dashboard')" style="color: var(--nexus-primary); text-decoration: none;">ARENA</a>
-                    <a href="#" onclick="switchNexusView('changelog')" style="color: white; text-decoration: none; opacity: 0.6;">CHANGELOG</a>
+                    <a href="#" id="nav-arena" onclick="switchNexusView('dashboard')" style="color: var(--nexus-primary); text-decoration: none;">ARENA</a>
+                    <a href="#" id="nav-history" onclick="switchNexusView('history-section')" style="color: white; text-decoration: none; opacity: 0.6;">HISTORY</a>
+                    <a href="#" id="nav-changelog" onclick="switchNexusView('changelog')" style="color: white; text-decoration: none; opacity: 0.6;">CHANGELOG</a>
                 </div>
                 <div style="display: flex; align-items: center; gap: 0.5rem;">
                     <span class="nexus-chip" style="background: rgba(244, 114, 182, 0.1); color: var(--nexus-accent); font-weight: 800; padding: 0.4rem 0.8rem; border-radius: 8px; border: 1px solid rgba(244, 114, 182, 0.2);">
@@ -110,6 +111,37 @@
                 </div>
             </div>
         </section>
+
+        <!-- User Performance History -->
+        <section id="history-section" class="hidden">
+            <div class="dashboard-header" style="margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: flex-end;">
+                <div>
+                    <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem;">My Performance</h2>
+                    <p style="color: var(--nexus-text-muted);">Historical analysis of your predictions and results</p>
+                </div>
+            </div>
+
+            <div id="history-container" style="background: var(--nexus-card-bg); border: 1px solid var(--nexus-border); border-radius: 20px; padding: 1.5rem; backdrop-filter: var(--glass-blur);">
+                <table style="width: 100%; border-collapse: separate; border-spacing: 0 0.75rem;">
+                    <thead>
+                        <tr style="text-align: left; color: var(--nexus-text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">
+                            <th style="padding: 1rem;">Match</th>
+                            <th style="padding: 1rem;">Date</th>
+                            <th style="padding: 1rem;">Session</th>
+                            <th style="padding: 1rem; text-align: right;">Points</th>
+                            <th style="padding: 1rem; text-align: right;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="user-history-body">
+                        <!-- History injected via JS -->
+                    </tbody>
+                </table>
+                <div id="history-empty" class="hidden" style="text-align: center; padding: 4rem 2rem;">
+                    <p style="color: var(--nexus-text-muted); font-size: 1.1rem;">You haven't participated in any match simulations yet.</p>
+                </div>
+            </div>
+        </section>
+
         <!-- Changelog View -->
         <section id="changelog-section" class="hidden">
             <div style="margin-bottom: 3rem; text-align: center;">
@@ -118,9 +150,17 @@
             </div>
 
             <div class="timeline" style="max-width: 800px; margin: 0 auto;">
-                <!-- Current Session Milestone -->
+                <!-- Day 4: Consolidating Performance & Purity -->
                 <div class="timeline-item" style="border-left: 2px solid var(--nexus-primary); padding-left: 2rem; margin-bottom: 2.5rem; position: relative;">
                     <div style="position: absolute; left: -9px; top: 0; width: 16px; height: 16px; border-radius: 50%; background: var(--nexus-primary); box-shadow: 0 0 10px var(--nexus-primary);"></div>
+                    <div class="timeline-chip" style="display: inline-block; background: rgba(56, 189, 248, 0.1); color: var(--nexus-primary); padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.6rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: 1px;">DEPLOYED TODAY</div>
+                    <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">DAY 4 : NEXUS PURITY</h3>
+                    <p style="color: var(--nexus-text-muted); font-size: 0.9rem;">Architectural shift to a pure MongoDB stack; removed Redis for simplified reliability. Implemented autonomous scoring for early-finish matches and launched the "My Performance" historical analysis engine.</p>
+                </div>
+
+                <!-- Current Session Milestone -->
+                <div class="timeline-item" style="border-left: 2px solid var(--nexus-border); padding-left: 2rem; margin-bottom: 2.5rem; position: relative; opacity: 0.8;">
+                    <div style="position: absolute; left: -9px; top: 0; width: 16px; height: 16px; border-radius: 50%; background: var(--nexus-border);"></div>
                     <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">DAY 3 : NEXUS RESILIENCE</h3>
                     <p style="color: var(--nexus-text-muted); font-size: 0.9rem;">API inconsistencies bypassed via autonomous scripting & sub-agents; implemented fluid UI/UX for optimized mobile & desktop fluidity.</p>
                 </div>

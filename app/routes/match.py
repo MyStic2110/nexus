@@ -134,6 +134,35 @@ async def global_leaderboard():
         match_logger.error(f"Failed to fetch global leaderboard: {str(e)}")
         return []
 
+@router.get("/users/me/history")
+async def get_user_history(user=Depends(get_current_user)):
+    """Nexus Historical Engine: Aggregates match-by-match performance for the user."""
+    try:
+        # Find all session scores for this user
+        cursor = session_scores_collection.find({"user_id": user}).sort("updated_at", -1)
+        history = await cursor.to_list(length=100)
+        
+        results = []
+        for h in history:
+            match_id = h.get("match_id")
+            match_data = await matches_collection.find_one({"match_id": match_id})
+            
+            if match_data:
+                results.append({
+                    "match_id": match_id,
+                    "session_id": h.get("session_id"),
+                    "points": h.get("points", 0),
+                    "match_name": f"{match_data.get('team1')} vs {match_data.get('team2')}",
+                    "date": match_data.get("date"),
+                    "breakdown": h.get("breakdown", []),
+                    "updated_at": h.get("updated_at")
+                })
+        
+        return results
+    except Exception as e:
+        match_logger.error(f"Failed to fetch user history for {user}: {str(e)}")
+        return []
+
 @router.get("/{match_id}/sessions/{session_id}/score-breakdown")
 async def get_score_breakdown(match_id: str, session_id: int, user=Depends(get_current_user)):
     """Nexus Analytical Engine: Fetches detailed score analysis for transparency."""

@@ -6,11 +6,9 @@ A futuristic, high-performance backend and frontend for IPL matches prediction, 
 - **FastAPI Backend**: Asynchronous, production-ready REST & WebSocket API.
 - **Nexus UI**: Futuristic glassmorphism design with dark mode and smooth animations.
 - **Google OAuth2**: Seamless, secure authentication using Google One Tap and Sign-In.
-- **MongoDB Atlas**: Scalable persistence for users and prediction history.
-- **Redis Integration**: 
-  - Ultra-fast leaderboard using sorted sets.
-  - Real-time live updates via Pub/Sub and WebSockets.
+- **MongoDB Atlas**: Scalable persistence for users, prediction history, and real-time leaderboards.
 - **Production Logging**: Integrated logging system for real-time monitoring and debugging.
+
 
 ## Setup Instructions
 
@@ -19,7 +17,6 @@ A futuristic, high-performance backend and frontend for IPL matches prediction, 
    ```bash
    GOOGLE_CLIENT_ID=your_client_id_here
    MONGO_URI=your_mongodb_uri
-   REDIS_URL=redis://localhost:6379/0
    ```
 
 2. **Backend Installation**:

@@ -69,6 +69,7 @@ function showDashboard() {
 window.switchNexusView = (view) => {
     const dashboard = document.getElementById('dashboard');
     const changelog = document.getElementById('changelog-section');
+    const history = document.getElementById('history-section');
     const navLinks = document.querySelectorAll('#nexus-links a');
     
     // Reset state
@@ -77,21 +78,39 @@ window.switchNexusView = (view) => {
         l.style.color = 'white';
     });
 
+    dashboard.classList.add('hidden');
+    changelog.classList.add('hidden');
+    if (history) history.classList.add('hidden');
+
     if (view === 'dashboard') {
         dashboard.classList.remove('hidden');
-        changelog.classList.add('hidden');
-        navLinks[0].style.opacity = '1';
-        navLinks[0].style.color = 'var(--nexus-primary)';
+        if (navLinks[0]) {
+            navLinks[0].style.opacity = '1';
+            navLinks[0].style.color = 'var(--nexus-primary)';
+        }
         window.scrollTo({ top: 0, behavior: 'smooth' });
         // Resume polling when back on Arena
         if (!liveScoreInterval) {
             liveScoreInterval = setInterval(refreshLiveScores, 10000);
         }
+    } else if (view === 'history-section') {
+        if (history) history.classList.remove('hidden');
+        if (navLinks[1]) {
+            navLinks[1].style.opacity = '1';
+            navLinks[1].style.color = 'var(--nexus-primary)';
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        fetchUserHistory();
+        if (liveScoreInterval) {
+            clearInterval(liveScoreInterval);
+            liveScoreInterval = null;
+        }
     } else if (view === 'changelog') {
-        dashboard.classList.add('hidden');
         changelog.classList.remove('hidden');
-        navLinks[1].style.opacity = '1';
-        navLinks[1].style.color = 'var(--nexus-primary)';
+        if (navLinks[2]) {
+            navLinks[2].style.opacity = '1';
+            navLinks[2].style.color = 'var(--nexus-primary)';
+        }
         window.scrollTo({ top: 0, behavior: 'smooth' });
         // Pause polling when not on Arena
         if (liveScoreInterval) {
@@ -289,6 +308,51 @@ async function fetchGlobalLeaderboard() {
         tbody.innerHTML = newContent;
     } catch (err) {
         console.error('Leaderboard Sync Error:', err);
+    }
+}
+
+async function fetchUserHistory() {
+    const tbody = document.getElementById('user-history-body');
+    const emptyState = document.getElementById('history-empty');
+    
+    if (!tbody || !emptyState) return;
+    
+    tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 2rem; color: var(--nexus-text-muted);">Retrieving Nexus Archives...</td></tr>';
+    emptyState.classList.add('hidden');
+    
+    try {
+        const res = await fetch(`${API_BASE}/users/me/history`, {
+            headers: { 'Authorization': `Bearer ${authToken}` }
+        });
+        const data = await res.json();
+        
+        if (data.length === 0) {
+            tbody.innerHTML = '';
+            emptyState.classList.remove('hidden');
+            return;
+        }
+
+        let newContent = '';
+        data.forEach((row) => {
+            const dateStr = row.date ? new Date(row.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Unknown Date';
+            newContent += `
+                <tr style="background: rgba(255, 255, 255, 0.02); border-radius: 12px; transition: all 0.2s;">
+                    <td style="padding: 1.25rem; font-weight: 800; color: white;">${row.match_name}</td>
+                    <td style="padding: 1.25rem; color: var(--nexus-text-muted);">${dateStr}</td>
+                    <td style="padding: 1.25rem; font-weight: 800; color: var(--nexus-secondary);">S-${row.session_id}</td>
+                    <td style="padding: 1.25rem; text-align: right; font-weight: 900; color: ${row.points > 0 ? 'var(--nexus-primary)' : 'var(--nexus-text-muted)'};">${row.points}</td>
+                    <td style="padding: 1.25rem; text-align: right;">
+                        <button class="btn-nexus" style="padding: 0.4rem 1rem; font-size: 0.7rem; background: rgba(56, 189, 248, 0.1); border: 1px solid var(--nexus-primary); color: var(--nexus-primary);" onclick="showNexusBreakdown('${row.match_id}', ${row.session_id})">
+                            ANALYSIS
+                        </button>
+                    </td>
+                </tr>
+            `;
+        });
+        tbody.innerHTML = newContent;
+    } catch (err) {
+        console.error('History Sync Error:', err);
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 2rem; color: #ef4444;">Failed to sync with Nexus Archives</td></tr>';
     }
 }
 
