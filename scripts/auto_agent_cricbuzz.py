@@ -9,7 +9,7 @@ import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from app.config import settings
-from scripts.calculate_points import calculate_all_sessions_for_match
+from scripts.calculate_points import calculate_all_sessions_for_match, run_for_match
 
 MONGO_URI = settings.MONGO_URI
 DB_NAME = settings.DB_NAME
@@ -428,8 +428,8 @@ async def run_cricbuzz_pulse():
                     "match_id": match_id, "session_id": inn_id, "over": 20
                 })
                 if current_over_data and is_over_complete(current_over_data.get("balls", [])):
-                    print(f"[{datetime.now().strftime('%H:%M:%S')}] \033[95mNEXUS AUTO-SCORE: Innings {inn_id} complete for {match_id}. Triggering distribution...\033[0m")
-                    await calculate_all_sessions_for_match(db, match_id)
+                    print(f"[{datetime.now().strftime('%H:%M:%S')}] \033[95mNEXUS AUTO-SCORE: Innings {inn_id} complete for {match_id}. Triggering session distribution...\033[0m")
+                    await run_for_match(db, match_id, inn_id)
 
     client_db.close()
 

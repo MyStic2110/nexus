@@ -39,6 +39,25 @@ def calculate_ball_points(predicted: str, actual: str) -> int:
 
 
 async def run_for_match(db, match_id: str, session_id: int):
+    # Governance: Check if session is truly finished before calculating points.
+    # Finshed = Match status COMPLETED OR session has finished over 20.
+    match_doc = await db.matches.find_one({"match_id": match_id})
+    if not match_doc:
+        return
+
+    is_ready = (match_doc.get("status") == "COMPLETED")
+    if not is_ready:
+        over_20 = await db.live_match_overs.find_one({"match_id": match_id, "session_id": session_id, "over": 20})
+        if over_20:
+            balls = over_20.get("balls", [])
+            legal = [b for b in balls if "Wd" not in str(b) and "Nb" not in str(b)]
+            if len(legal) >= 6:
+                is_ready = True
+
+    if not is_ready:
+        print(f"[NEXUS] Session {session_id} for match {match_id} is still in progress. Skipping points sync.")
+        return
+
     print(f"\n[NEXUS] Calculating points for match={match_id} session={session_id}")
 
     # --- Step 1: Pull ONLY Overs 19 & 20 from live_match_overs ---
