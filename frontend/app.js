@@ -198,10 +198,11 @@ async function refreshLiveScores() {
                 if (badgeEl) { badgeEl.textContent = 'LIVE'; badgeEl.style.background = '#22c55e'; }
                 if (lastUpdatedEl) lastUpdatedEl.textContent = `Last update: ${new Date().toLocaleTimeString()}`;
                 
-                // Update Live Stats
+                // Update Live Stats & Insights
                 const statsEl = document.querySelector(`[data-stats-container="${m.match_id}"]`);
                 if (statsEl && m.live_stats) {
-                    statsEl.innerHTML = renderLiveStatsMarkup(m.live_stats);
+                    statsEl.innerHTML = renderLiveStatsMarkup(m.live_stats, m.nexus_insights);
+                    statsEl.classList.remove('hidden');
                 }
             } else if (m.status === 'COMPLETED') {
                 if (scoreEl) scoreEl.textContent = m.current_score || '0/0';
@@ -262,7 +263,8 @@ async function manualRefreshMatch(matchId, btn) {
                 if (lastUpdatedEl) lastUpdatedEl.textContent = `Refreshed: ${new Date().toLocaleTimeString()}`;
                 const statsEl = document.querySelector(`[data-stats-container="${m.match_id}"]`);
                 if (statsEl && m.live_stats) {
-                    statsEl.innerHTML = renderLiveStatsMarkup(m.live_stats);
+                    statsEl.innerHTML = renderLiveStatsMarkup(m.live_stats, m.nexus_insights);
+                    statsEl.classList.remove('hidden');
                 }
             } else if (m.status === 'COMPLETED') {
                 if (scoreEl) scoreEl.textContent = m.current_score || '0/0';
@@ -457,8 +459,8 @@ function renderMatches(matches) {
                 </div>
             </div>
 
-            <div data-stats-container="${match.match_id}" class="live-analytics ${isLive && match.live_stats ? '' : 'hidden'}">
-                ${isLive && match.live_stats ? renderLiveStatsMarkup(match.live_stats) : ''}
+            <div data-stats-container="${match.match_id}" class="live-analytics ${isLive && (match.live_stats || match.nexus_insights) ? '' : 'hidden'}">
+                ${isLive && match.live_stats ? renderLiveStatsMarkup(match.live_stats, match.nexus_insights) : ''}
             </div>
 
             <div style="display: flex; gap: 0.5rem; width: 100%; margin-top: 1rem;">
@@ -738,15 +740,34 @@ window.closePredictionModal = () => {
     if (activeWS) activeWS.close();
 };
 
-function renderLiveStatsMarkup(stats) {
+function renderLiveStatsMarkup(stats, insights) {
     if (!stats) return '';
     const { bat_striker, bat_non_striker, bowler, last_over_summary } = stats;
     
+    let insightsHtml = '';
+    if (insights && insights.length > 0) {
+        insightsHtml = `
+            <div class="nexus-insights-container">
+                <div class="insight-ticker">Nexus Insights</div>
+                ${insights.map(str => {
+                    const isStreak = str.includes('🔥') || str.includes('🚀') || str.includes('📈');
+                    return `<div class="insight-pill ${isStreak ? 'streak-fire' : ''}">
+                        <span>${str}</span>
+                    </div>`;
+                }).join('')}
+            </div>
+        `;
+    }
+
+    // Highlighting Logic for Striker
+    const strikerSR = parseFloat(bat_striker.strikeRate || 0);
+    const isStrikerHot = strikerSR > 150 && parseInt(bat_striker.runs || 0) > 15;
+
     return `
         <div class="stat-row">
-            <div class="player-stat striker">
-                <span class="name">${bat_striker.name || 'Batsman'}</span>
-                <span class="stat-val">${bat_striker.runs}(${bat_striker.balls})</span>
+            <div class="player-stat striker ${isStrikerHot ? 'streak-fire' : ''}">
+                <span class="name ${isStrikerHot ? 'highlight-text' : ''}">${bat_striker.name || 'Batsman'}</span>
+                <span class="stat-val ${isStrikerHot ? 'highlight-text' : ''}">${bat_striker.runs}(${bat_striker.balls})</span>
             </div>
             <div class="bowler-stat">
                 <span style="opacity: 0.6; font-size: 0.6rem; margin-right: 4px;">BWL</span>
@@ -762,6 +783,7 @@ function renderLiveStatsMarkup(stats) {
                 ${renderOverSummary(last_over_summary)}
             </div>
         </div>
+        ${insightsHtml}
     `;
 }
 

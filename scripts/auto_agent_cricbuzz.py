@@ -204,6 +204,60 @@ async def get_existing_balls(collection, match_id, session_id, over_num):
     doc = await collection.find_one({"match_id": match_id, "session_id": session_id, "over": over_num})
     return doc.get("balls", []) if doc else []
 
+def extract_nexus_insights(miniscore, match_comm):
+    """
+    Analyzes live match data to generate interesting 'Nexus Insights'.
+    Focuses on player streaks, high-scoring overs, and commentary facts.
+    """
+    insights = []
+    
+    # 1. Player Streaks (Strike Rate > 150 or High Runs)
+    for key in ['batsmanStriker', 'batsmanNonStriker']:
+        player = miniscore.get(key)
+        if player:
+            name = player.get('name', 'Batsman')
+            try:
+                sr = float(player.get('strikeRate', 0))
+                runs = int(player.get('runs', 0))
+                if sr > 150 and runs > 15:
+                    insights.append(f"🔥 {name} is on fire! SR: {sr}")
+                elif runs >= 50:
+                    insights.append(f"🏏 Incredible half-century for {name}!")
+            except:
+                pass
+
+    # 2. High Scoring Overs (>15 runs)
+    recent_ovs = miniscore.get('recentOvsStats', '')
+    if recent_ovs:
+        # Example: "... 1 | 1 1 4 Wd 6 1 1 | 6 4 4 4"
+        overs = recent_ovs.split('|')
+        last_over = overs[-1].strip() if overs else ""
+        if last_over:
+            runs_in_ov = 0
+            for part in last_over.split():
+                if part.isdigit(): runs_in_ov += int(part)
+                elif '4' in part: runs_in_ov += 4
+                elif '6' in part: runs_in_ov += 6
+                elif 'Wd' in part or 'Nb' in part: runs_in_ov += 1
+            
+            if runs_in_ov >= 20:
+                insights.append(f"🚀 MONSTER OVER! {runs_in_ov} runs hammered.")
+            elif runs_in_ov >= 15:
+                insights.append(f"📈 Power hitting! {runs_in_ov} runs in that over.")
+
+    # 3. Interesting Facts from Commentary (Keyword Matching)
+    comm_list = match_comm.get('commList', [])
+    keywords = ["record", "career", "milestone", "highest", "first person", "history", "landmark"]
+    for comm in comm_list[:5]: # Check recent 5 for noise reduction
+        text = comm.get('commText', '')
+        if any(kw in text.lower() for kw in keywords):
+            # Basic cleanup of HTML tags
+            clean_text = text.replace('<b>', '').replace('</b>', '').replace('<i>', '').replace('</i>', '')
+            if len(clean_text) < 150:
+                insights.append(f"💡 {clean_text}")
+
+    return list(dict.fromkeys(insights))[:5] # Unique, max 5
+
 # ─── CORE AGENT LOGIC ────────────────────────────────────────────────────────
 
 def is_match_in_window(match: dict) -> bool:
@@ -255,9 +309,13 @@ async def run_cricbuzz_pulse():
             data = await get_match_data_from_api(client, c_id)
             header = data.get("matchHeader") or {}
             miniscore = data.get("miniscore") or {}
+            match_comm = data.get("matchCommentary") or {}
             
             match_state = header.get("state")
             official_status = header.get("status")
+            
+            # Generate Performance Highlights & Insights
+            nexus_insights = extract_nexus_insights(miniscore, match_comm)
             winning_team = header.get("result", {}).get("winningTeam")
             
             # Extract Individual Innings Scores
@@ -325,7 +383,8 @@ async def run_cricbuzz_pulse():
                         "api_status": official_status,
                         "team1_final_score": t1_score_str,
                         "team2_final_score": t2_score_str,
-                        "winner_team": db_winner
+                        "winner_team": db_winner,
+                        "nexus_insights": nexus_insights
                     }}
                 )
                 # Final backfill for both innings
@@ -359,6 +418,7 @@ async def run_cricbuzz_pulse():
                         "current_over": latest_score_data["current_over"],
                         "innings": latest_score_data["innings"],
                         "live_stats": latest_score_data.get("live_stats"),
+                        "nexus_insights": nexus_insights,
                         "status": "LIVE"
                     }}
                 )
