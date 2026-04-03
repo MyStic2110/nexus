@@ -46,7 +46,10 @@ async def run_for_match(db, match_id: str, session_id: int):
         return
 
     is_ready = (match_doc.get("status") == "COMPLETED")
-    if not is_ready:
+    
+    # For Session 1, we allow calculation if the innings is done (Over 20 finished)
+    # For Session 2, we ONLY allow calculation if the whole match is COMPLETED.
+    if not is_ready and int(session_id) == 1:
         over_20 = await db.live_match_overs.find_one({"match_id": match_id, "session_id": session_id, "over": 20})
         if over_20:
             balls = over_20.get("balls", [])
@@ -55,7 +58,8 @@ async def run_for_match(db, match_id: str, session_id: int):
                 is_ready = True
 
     if not is_ready:
-        print(f"[NEXUS] Session {session_id} for match {match_id} is still in progress. Skipping points sync.")
+        suffix = "(Match not COMPLETED)" if int(session_id) == 2 else "(Innings not finished)"
+        print(f"[NEXUS] Session {session_id} for match {match_id} is not ready for scoring {suffix}. Skipping.")
         return
 
     print(f"\n[NEXUS] Calculating points for match={match_id} session={session_id}")

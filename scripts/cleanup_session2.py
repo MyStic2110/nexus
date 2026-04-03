@@ -18,9 +18,14 @@ async def cleanup():
     
     # 1. Remove from session_scores
     result = await db.session_scores.delete_many({"match_id": match_id, "session_id": session_id})
-    print(f"  -> Deleted {result.deleted_count} session score records.")
+    print(f"  -> Deleted {result.deleted_count} session score records from 'session_scores'.")
+
+    # 2. Remove incorrect match overs from live_match_overs
+    # This is crucial as it prevents calculate_points from re-triggering based on stale data.
+    ovr_result = await db.live_match_overs.delete_many({"match_id": match_id, "session_id": session_id})
+    print(f"  -> Deleted {ovr_result.deleted_count} stale over records from 'live_match_overs'.")
     
-    # 2. Recalculate global user scores to reflect the removal
+    # 3. Recalculate global user scores to reflect the removal
     print("  -> Recalculating global user standings...")
     users_cursor = db.users.find({})
     async for user in users_cursor:
