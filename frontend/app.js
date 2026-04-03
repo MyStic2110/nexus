@@ -56,6 +56,15 @@ function showDashboard() {
     document.getElementById('user-points').textContent = currentUser.score || 0;
     
     document.getElementById('nexus-links').classList.remove('hidden');
+
+    // Play Welcome Sound for first-time login
+    if (currentUser.is_new_user) {
+        console.log('[Nexus] First-time login detected. Playing welcome sound...');
+        const welcomeAudio = new Audio('/static/ipl_horn_2010.mp3');
+        welcomeAudio.play().catch(err => {
+            console.warn('[Nexus] Audio autoplay blocked or failed:', err.message);
+        });
+    }
     
     fetchMatches();
     fetchGlobalLeaderboard();

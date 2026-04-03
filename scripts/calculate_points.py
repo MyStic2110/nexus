@@ -26,6 +26,14 @@ def calculate_ball_points(predicted: str, actual: str) -> int:
         if p == "W":
             return POINTS_EXACT_WICKET
         return POINTS_EXACT_RUN
+        
+    # Relaxed matching for wickets with runs (e.g. 1|W, W)
+    if p == "W" and "W" in a:
+        return POINTS_EXACT_WICKET
+        
+    # Relaxed matching for runs with byes/leg-byes (e.g. 1Lb, 4B)
+    if p != "W" and "W" not in a and p in a:
+        return POINTS_EXACT_RUN
 
     return 0
 
@@ -52,7 +60,7 @@ async def run_for_match(db, match_id: str, session_id: int):
     for o_num in [19, 20]:
         balls = over_data.get(o_num, [])
         # Exclude extras to get the 6 legal balls
-        legal = [b for b in balls if b not in ["Wd", "Nb"]]
+        legal = [b for b in balls if "Wd" not in str(b) and "Nb" not in str(b)]
         actual_balls.extend(legal)
 
     total_actual_balls = len(actual_balls)
@@ -83,16 +91,18 @@ async def run_for_match(db, match_id: str, session_id: int):
 
         session_points = 0
         breakdown = []
-        for i, pred in enumerate(user_preds):
-            if i >= total_actual_balls:
-                break
-            actual = actual_balls[i]
+        for pred in user_preds:
+            ball_num = int(pred.get("ball", 0))
+            if ball_num < 1 or (ball_num - 1) >= total_actual_balls:
+                continue
+                
+            actual = actual_balls[ball_num - 1]
             predicted = pred.get("runs", "0")
             pts = calculate_ball_points(predicted, actual)
             session_points += pts
             
             breakdown.append({
-                "ball_num": i + 1,
+                "ball_num": ball_num,
                 "predicted": predicted,
                 "actual": actual,
                 "points": pts

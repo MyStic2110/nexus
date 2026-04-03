@@ -14,18 +14,20 @@ async def inspect_comm_api(match_id):
         res = await client.get(url, headers=HEADERS)
         data = res.json()
         
-        # Save to temp file for manual inspection if needed
-        temp_path = os.path.join(os.getcwd(), "comm_api_inspect.json")
-        with open(temp_path, "w") as f:
-            json.dump(data, f, indent=4)
-            
-        print("Match Header Keys:", data.get("matchHeader", {}).keys())
-        print("Miniscore Info:")
+        header = data.get("matchHeader", {})
         miniscore = data.get("miniscore", {})
-        print("  State:", miniscore.get("matchScoreDetails", {}).get("state"))
-        print("  Inn 1 Score:", miniscore.get("matchScoreDetails", {}).get("innScore1"))
-        print("  Inn 2 Score:", miniscore.get("matchScoreDetails", {}).get("innScore2"))
-        print("  Custom Status:", miniscore.get("matchScoreDetails", {}).get("customStatus"))
+        score_details = miniscore.get("matchScoreDetails", {})
+        inn_list = score_details.get("inningsScoreList", [])
+        
+        print(f"Match: {header.get('team1', {}).get('shortName')} vs {header.get('team2', {}).get('shortName')}")
+        print(f"Result: {header.get('result', {}).get('winningTeam')}")
+        print(f"Match Status: {header.get('status')}")
+        print("\nInnings Score List Metadata:")
+        for inn in inn_list:
+            print(f"  Innings ID: {inn.get('inningsId')}")
+            print(f"  Bat Team Name: {inn.get('batTeamName')}")
+            print(f"  Score: {inn.get('score')}/{inn.get('wickets')} ({inn.get('overs')})")
+            print("-" * 15)
 
 if __name__ == "__main__":
-    asyncio.run(inspect_comm_api("149629"))
+    asyncio.run(inspect_comm_api("149618"))

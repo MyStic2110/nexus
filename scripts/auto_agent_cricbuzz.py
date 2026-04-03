@@ -261,21 +261,63 @@ async def run_cricbuzz_pulse():
             winning_team = header.get("result", {}).get("winningTeam")
             
             # Extract Individual Innings Scores
+            # FIX: Use batTeamName to assign scores correctly — NOT inningsId.
+            # inningsId is batting ORDER (determined by toss), NOT the DB team order.
+            # If team2 bats first, their score was wrongly stored in team1_final_score.
             score_details = miniscore.get("matchScoreDetails") or {}
             inn_list = score_details.get("inningsScoreList") or []
             
-            t1_score_str = ""
-            t2_score_str = ""
-            
+            # Build a name-indexed score map from the API
+            innings_score_by_team = {}  # { "KKR": "220/4 (20)", "MI": "224/4 (19.1)" }
             for inn in inn_list:
-                s = f"{inn.get('score')}/{inn.get('wickets')} ({inn.get('overs')})"
-                if inn.get('inningsId') == 1:
-                    t1_score_str = s
-                elif inn.get('inningsId') == 2:
-                    t2_score_str = s
+                bat_team_name = (inn.get('batTeamName') or "").strip().upper()
+                if bat_team_name:
+                    s = f"{inn.get('score')}/{inn.get('wickets')} ({inn.get('overs')})"
+                    innings_score_by_team[bat_team_name] = s
+            
+            # Now look up team1/team2 from the DB record and match to their score
+            db_t1 = (match.get('team1') or "").strip().upper()
+            db_t2 = (match.get('team2') or "").strip().upper()
+            db_t1_full = (match.get('team1_full') or "").strip().upper()
+            db_t2_full = (match.get('team2_full') or "").strip().upper()
+            
+            def find_score_for_team(short_name, full_name, opponent_short, opponent_full):
+                # 1. Exact matches (highest priority)
+                if short_name in innings_score_by_team: return innings_score_by_team[short_name]
+                if full_name in innings_score_by_team: return innings_score_by_team[full_name]
+                
+                # 2. Heuristic: Find a key in innings_score_by_team that BEST matches this team
+                # and DOES NOT match the opponent better.
+                best_match = None
+                for api_name, score in innings_score_by_team.items():
+                    # If api_name matches our short_name or full_name
+                    if api_name == short_name or api_name == full_name or short_name in api_name or api_name in full_name:
+                        # Double check it doesn't match opponent's full name better
+                        if api_name == opponent_short or api_name == opponent_full:
+                            continue
+                        best_match = score
+                        break
+                return best_match or ""
+
+            t1_score_str = find_score_for_team(db_t1, db_t1_full, db_t2, db_t2_full)
+            t2_score_str = find_score_for_team(db_t2, db_t2_full, db_t1, db_t1_full)
+            
+            # CRITICAL LOGGING: To debut interchanged scores
+            print(f"[{datetime.now().strftime('%H:%M:%S')}] NEXUS MAP: DB({db_t1}/{db_t1_full}) -> {t1_score_str} | DB({db_t2}/{db_t2_full}) -> {t2_score_str}")
 
             if match_state == "Complete":
-                print(f"[{datetime.now().strftime('%H:%M:%S')}] \033[92mNEXUS: Match {match_id} officially COMPLETE. Recording scores & closing.\033[0m")
+                # Normalize winner_team to short name for frontend highlighting
+                db_winner = None
+                if winning_team:
+                    wt_upper = winning_team.strip().upper()
+                    if wt_upper == db_t1 or (db_t1_full and wt_upper == db_t1_full) or (db_t1_full and db_t1_full in wt_upper) or (wt_upper in db_t1_full):
+                        db_winner = match.get('team1')
+                    elif wt_upper == db_t2 or (db_t2_full and wt_upper == db_t2_full) or (db_t2_full and db_t2_full in wt_upper) or (wt_upper in db_t2_full):
+                        db_winner = match.get('team2')
+                    else:
+                        db_winner = winning_team # Fallback (draws, unknown results)
+
+                print(f"[{datetime.now().strftime('%H:%M:%S')}] \033[92mNEXUS: Match {match_id} officially COMPLETE. Winner: {db_winner}. Recording scores & closing.\033[0m")
                 await db.matches.update_one(
                     {"match_id": match_id},
                     {"$set": {
@@ -283,7 +325,7 @@ async def run_cricbuzz_pulse():
                         "api_status": official_status,
                         "team1_final_score": t1_score_str,
                         "team2_final_score": t2_score_str,
-                        "winner_team": winning_team
+                        "winner_team": db_winner
                     }}
                 )
                 # Final backfill for both innings
