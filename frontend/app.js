@@ -108,59 +108,54 @@ function showDashboard() {
 }
 
 window.switchNexusView = (view) => {
-    const dashboard = document.getElementById('dashboard');
-    const changelog = document.getElementById('changelog-section');
-    const history = document.getElementById('history-section');
-    const squad = document.getElementById('squad-section');
-    const navLinks = document.querySelectorAll('#nexus-links a');
-    
-    // Reset state
-    navLinks.forEach(l => {
-        l.style.opacity = '0.6';
-        l.style.color = 'white';
-        l.style.borderBottom = 'none';
-        l.style.fontWeight = '400';
+    const views = {
+        dashboard: document.getElementById('dashboard'),
+        squad: document.getElementById('squad-section'),
+        history: document.getElementById('history-section'),
+        changelog: document.getElementById('changelog-section')
+    };
+
+    const navLinks = {
+        dashboard: document.getElementById('nav-arena'),
+        squad: document.getElementById('nav-squad'),
+        history: document.getElementById('nav-history'),
+        changelog: document.getElementById('nav-changelog')
+    };
+
+    // 1. Hide all views and reset nav links
+    Object.values(views).forEach(v => v && v.classList.add('hidden'));
+    Object.values(navLinks).forEach(l => {
+        if (l) {
+            l.style.opacity = '0.6';
+            l.style.color = 'white';
+            l.style.fontWeight = '400';
+        }
     });
 
-    dashboard.classList.add('hidden');
-    changelog.classList.add('hidden');
-    if (history) history.classList.add('hidden');
-    if (squad) squad.classList.add('hidden');
-
-    const activeLink = document.getElementById(`nav-${view}`);
-    if (activeLink) {
-        activeLink.style.opacity = '1';
-        activeLink.style.color = 'var(--nexus-primary)';
-        activeLink.style.fontWeight = '800';
+    // 2. Show active view and highlight link
+    if (views[view]) views[view].classList.remove('hidden');
+    if (navLinks[view]) {
+        navLinks[view].style.opacity = '1';
+        navLinks[view].style.color = 'var(--nexus-primary)';
+        navLinks[view].style.fontWeight = '800';
     }
 
+    // 3. View-specific actions
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
     if (view === 'dashboard') {
-        dashboard.classList.remove('hidden');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        if (!liveScoreInterval) {
-            liveScoreInterval = setInterval(refreshLiveScores, 10000);
-        }
-        if (navLinks[1]) {
-            navLinks[1].style.opacity = '1';
-            navLinks[1].style.color = 'var(--nexus-primary)';
-        }
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        fetchUserHistory();
+        if (!liveScoreInterval) liveScoreInterval = setInterval(refreshLiveScores, 10000);
+    } else {
+        // Pause live score polling when not in Arena to save resources
         if (liveScoreInterval) {
             clearInterval(liveScoreInterval);
             liveScoreInterval = null;
         }
-    } else if (view === 'changelog') {
-        changelog.classList.remove('hidden');
-        if (navLinks[2]) {
-            navLinks[2].style.opacity = '1';
-            navLinks[2].style.color = 'var(--nexus-primary)';
-        }
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        // Pause polling when not on Arena
-        if (liveScoreInterval) {
-            clearInterval(liveScoreInterval);
-            liveScoreInterval = null;
+
+        if (view === 'squad') {
+            updateMultiplierStats(); // Ensure fresh squad data
+        } else if (view === 'history') {
+            fetchUserHistory();
         }
     }
 };
