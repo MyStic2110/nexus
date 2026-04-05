@@ -172,6 +172,58 @@
             </div>
         </section>
 
+        <!-- SQUAD HUB PORTAL -->
+        <section id="squad-section" class="nexus-view hidden">
+            <div style="margin-bottom: 2.5rem; display: flex; align-items: center; justify-content: space-between;">
+                <div>
+                    <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem;">Your Squad</h2>
+                    <p style="color: var(--nexus-text-muted);">Manage your referrals and viral multiplier status</p>
+                </div>
+                <button onclick="switchNexusView('dashboard')" style="background: rgba(255,255,255,0.05); color: white; border: 1px solid var(--nexus-border); padding: 0.75rem 1.5rem; border-radius: 12px; font-weight: 700; cursor: pointer;">← BACK TO ARENA</button>
+            </div>
+
+            <!-- Squad Referral Management -->
+            <div class="referral-banner" style="margin-bottom: 2rem; display: block;">
+                <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; justify-content: space-between; width: 100%;">
+                    <div>
+                        <h4 style="font-size: 1.1rem; margin-bottom: 0.25rem;">Grow Your Nexus Squad</h4>
+                        <p style="font-size: 0.8rem; color: var(--nexus-text-muted);">Invite friends → they predict → your multiplier grows (20 friends = 20x points!)</p>
+                    </div>
+                    <div style="display: flex; gap: 0.5rem; background: rgba(0,0,0,0.2); padding: 0.5rem; border-radius: 12px; border: 1px solid var(--nexus-border); flex-grow: 1; max-width: 500px;">
+                        <code id="referral-link-display" style="font-family: monospace; color: var(--nexus-primary); font-size: 0.85rem; padding: 0 1rem; align-self: center; flex-grow: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">nexus-ipl.com?ref=NEXUS</code>
+                        <button onclick="copyReferralLink()" class="btn-nexus" style="padding: 0.6rem 1.5rem; font-size: 0.75rem;">COPY LINK</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comprehensive Squad Insights -->
+            <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--nexus-border); border-radius: 24px; padding: 2rem;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; border-bottom: 1px solid var(--nexus-border); padding-bottom: 1rem;">
+                    <h3 style="font-size: 1.2rem; font-weight: 800; display: flex; align-items: center; gap: 1rem;">
+                        MEMBERS <span id="squad-count-badge" style="background: var(--nexus-primary); color: black; padding: 4px 12px; border-radius: 8px; font-size: 1rem;">0</span>
+                    </h3>
+                    <div style="display: flex; align-items: center; gap: 1.5rem;">
+                        <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem;">
+                            <div class="status-dot live"></div> <span style="color: var(--nexus-text-muted);">LIVE (Active Points Booster)</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem;">
+                            <div class="status-dot flagged"></div> <span style="color: var(--nexus-text-muted);">FLAGGED (Fingerprint Duplicate)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="squad-list" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem;">
+                    <!-- Squad items injected here -->
+                </div>
+                
+                <div id="no-squad-msg" class="hidden" style="text-align: center; padding: 4rem 2rem; color: var(--nexus-text-muted);">
+                    <div style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.3;">👥</div>
+                    <p style="font-size: 1.1rem;">You don't have any squad members yet.</p>
+                    <p style="font-size: 0.8rem; margin-top: 0.5rem;">Share your referral link to start building your 20x multiplier!</p>
+                </div>
+            </div>
+        </section>
+
         <!-- Changelog View -->
         <section id="changelog-section" class="hidden">
             <div style="margin-bottom: 3rem; text-align: center;">

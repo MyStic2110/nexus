@@ -76,7 +76,7 @@ function showDashboard() {
     document.getElementById('user-points').textContent = currentUser.score || 0;
     
     document.getElementById('nexus-links').classList.remove('hidden');
-    document.getElementById('referral-section').classList.remove('hidden');
+    document.getElementById('referral-cta').classList.remove('hidden');
     document.getElementById('multiplier-status-card').classList.remove('hidden');
 
     // Initialize Referral UI
