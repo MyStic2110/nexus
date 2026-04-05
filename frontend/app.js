@@ -869,11 +869,31 @@ async function updateMultiplierStats() {
         
         const mVal = data.multiplier || 1;
         const friendsCount = data.active_today || 0;
+        const referrals = data.referral_count || 0;
         
         document.getElementById('multiplier-val').textContent = `${mVal}x`;
         document.getElementById('multiplier-live').textContent = `${mVal}x`;
         document.getElementById('friends-count').textContent = `${friendsCount} FRIENDS ACTIVE`;
         
+        // Render Squad List
+        const squadContainer = document.getElementById('squad-container');
+        const squadList = document.getElementById('squad-list');
+        const countBadge = document.getElementById('squad-count-badge');
+        
+        if (referrals > 0) {
+            squadContainer.classList.remove('hidden');
+            countBadge.textContent = referrals;
+            
+            squadList.innerHTML = data.squad_members.map(member => `
+                <div class="squad-member ${member.active_today ? 'active' : ''}" title="${member.is_fraud ? 'Shared/Duplicate Hardware Detected' : ''}">
+                    <div class="status-dot ${member.is_fraud ? 'flagged' : (member.active_today ? 'live' : '')}"></div>
+                    ${member.username}
+                </div>
+            `).join('');
+        } else {
+            squadContainer.classList.add('hidden');
+        }
+
         const badge = document.getElementById('multiplier-badge');
         if (mVal > 1) {
             badge.style.display = 'flex';

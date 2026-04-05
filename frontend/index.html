@@ -100,6 +100,32 @@
                         <button onclick="copyReferralLink()" class="btn-nexus" style="padding: 0.4rem 1rem; font-size: 0.65rem;">COPY LINK</button>
                     </div>
                 </div>
+
+                <!-- Squad Members List -->
+                <div id="squad-container" class="hidden" style="margin-top: 1.5rem; border-top: 1px solid var(--nexus-border); padding-top: 1rem;">
+                    <div style="font-size: 0.65rem; color: var(--nexus-text-muted); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 800; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
+                        My Nexus Squad <span id="squad-count-badge" style="background: var(--nexus-primary); color: black; padding: 2px 6px; border-radius: 4px; font-size: 0.55rem;">0</span>
+                    </div>
+                    <div id="squad-list" style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                        <!-- Squad items injected here -->
+                    </div>
+
+                    <!-- Squad Legend -->
+                    <div style="margin-top: 1rem; display: flex; flex-direction: column; gap: 0.4rem; border-top: 1px dotted var(--nexus-border); padding-top: 0.75rem;">
+                        <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.6rem; color: var(--nexus-text-muted);">
+                            <div class="status-dot live"></div>
+                            <span><b>LIVE:</b> Friend predicted today and is currently boosting your multiplier.</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.6rem; color: var(--nexus-text-muted);">
+                            <div class="status-dot flagged"></div>
+                            <span><b>FLAGGED:</b> Account detected using same hardware as another member (Anti-Fraud).</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.6rem; color: var(--nexus-text-muted);">
+                            <div class="status-dot"></div>
+                            <span><b>INACTIVE:</b> Friend joined but has not predicted yet today.</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- Arena Tabs -->

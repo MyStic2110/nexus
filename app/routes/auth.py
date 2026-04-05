@@ -58,17 +58,22 @@ async def get_multiplier(user=Depends(get_current_user)):
 
     # Anti-fraud fingerprint tracking
     valid_referral_emails = []
+    squad_members = []
     seen_fingerprints = {user_doc.get("device_fingerprint")} # Exclude inviter's own device
     
     for ref in referrals:
         ref_email = ref["_id"]
+        ref_username = ref.get("username", ref_email.split("@")[0])
         ref_fp = ref.get("device_fingerprint")
         
+        is_active = False
+        is_fraud = False
+
         # Security Check: Skip if fingerprint matches inviter or another referral
         if ref_fp and ref_fp in seen_fingerprints:
-            continue
+            is_fraud = True
         
-        if ref_fp:
+        if not is_fraud and ref_fp:
             seen_fingerprints.add(ref_fp)
         
         # Check if they predicted today
@@ -77,8 +82,15 @@ async def get_multiplier(user=Depends(get_current_user)):
             "updated_at": {"$gte": datetime.now(ist).replace(hour=0, minute=0, second=0, microsecond=0)}
         })
         
-        if prediction:
+        if prediction and not is_fraud:
+            is_active = True
             valid_referral_emails.append(ref_email)
+
+        squad_members.append({
+            "username": ref_username.upper(),
+            "active_today": is_active,
+            "is_fraud": is_fraud
+        })
 
     active_count = len(valid_referral_emails)
     multiplier = max(1, active_count)
@@ -87,5 +99,6 @@ async def get_multiplier(user=Depends(get_current_user)):
         "multiplier": multiplier,
         "referral_count": len(referrals),
         "active_today": active_count,
-        "referral_code": user_doc.get("referral_code")
+        "referral_code": user_doc.get("referral_code"),
+        "squad_members": squad_members
     }

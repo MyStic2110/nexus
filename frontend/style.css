@@ -149,6 +149,41 @@ main {
 }
 
 /* Original styles continue... */
+.squad-member {
+    background: rgba(0,0,0,0.3);
+    border: 1px solid var(--nexus-border);
+    padding: 0.4rem 0.75rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--nexus-text-muted);
+}
+
+.squad-member.active {
+    border-color: var(--nexus-primary);
+    color: white;
+}
+
+.status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #475569;
+}
+
+.status-dot.live {
+    background: #22c55e;
+    box-shadow: 0 0 8px #22c55e;
+}
+
+.status-dot.flagged {
+    background: #ef4444;
+}
+
+/* Original styles continue... */
 .matches-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
