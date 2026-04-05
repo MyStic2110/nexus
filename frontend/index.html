@@ -22,9 +22,10 @@
         </div>
         <div id="user-profile" class="hidden">
             <div id="user-stats" style="margin-right: 1.5rem; display: flex; align-items: center; gap: 1.5rem;">
-                <div id="nexus-links" class="hidden" style="display: flex; gap: 1.5rem; font-size: 0.7rem; font-weight: 800; letter-spacing: 1px;">
-                    <a href="#" id="nav-arena" onclick="switchNexusView('dashboard')" style="color: var(--nexus-primary); text-decoration: none;">ARENA</a>
-                    <a href="#" id="nav-history" onclick="switchNexusView('history-section')" style="color: white; text-decoration: none; opacity: 0.6;">HISTORY</a>
+                <div id="nexus-links" class="nexus-nav hidden" style="display: flex; gap: 2.5rem; margin-right: 3rem;">
+                    <a href="#" id="nav-arena" onclick="switchNexusView('dashboard')" style="color: var(--nexus-primary); text-decoration: none; font-weight: 800;">ARENA</a>
+                    <a href="#" id="nav-squad" onclick="switchNexusView('squad')" style="color: white; text-decoration: none; opacity: 0.6;">SQUAD</a>
+                    <a href="#" id="nav-history" onclick="switchNexusView('history')" style="color: white; text-decoration: none; opacity: 0.6;">HISTORY</a>
                     <a href="#" id="nav-changelog" onclick="switchNexusView('changelog')" style="color: white; text-decoration: none; opacity: 0.6;">CHANGELOG</a>
                 </div>
                 <div style="display: flex; align-items: center; gap: 0.5rem;">
@@ -88,48 +89,25 @@
                 </div>
             </div>
 
-            <!-- Referral Link Section -->
-            <div id="referral-section" class="referral-banner hidden">
-                <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; justify-content: space-between; width: 100%;">
-                    <div>
-                        <h4 style="font-size: 0.9rem; margin-bottom: 0.25rem;">Grow Your Nexus Squad</h4>
-                        <p style="font-size: 0.7rem; color: var(--nexus-text-muted);">Invite friends → they predict → your multiplier grows (20 friends = 20x points!)</p>
-                    </div>
-                    <div style="display: flex; gap: 0.5rem; background: rgba(0,0,0,0.2); padding: 0.5rem; border-radius: 10px; border: 1px solid var(--nexus-border);">
-                        <code id="referral-link-display" style="font-family: monospace; color: var(--nexus-primary); font-size: 0.8rem; padding: 0 1rem; align-self: center;">nexus-ipl.com?ref=NEXUS</code>
-                        <button onclick="copyReferralLink()" class="btn-nexus" style="padding: 0.4rem 1rem; font-size: 0.65rem;">COPY LINK</button>
-                    </div>
-                </div>
-
-                <!-- Squad Members List -->
-                <div id="squad-container" class="hidden" style="margin-top: 1.5rem; border-top: 1px solid var(--nexus-border); padding-top: 1rem;">
-                    <div style="font-size: 0.65rem; color: var(--nexus-text-muted); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 800; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
-                        My Nexus Squad <span id="squad-count-badge" style="background: var(--nexus-primary); color: black; padding: 2px 6px; border-radius: 4px; font-size: 0.55rem;">0</span>
-                    </div>
-                    <div id="squad-list" style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-                        <!-- Squad items injected here -->
-                    </div>
-
-                    <!-- Squad Legend -->
-                    <div style="margin-top: 1rem; display: flex; flex-direction: column; gap: 0.4rem; border-top: 1px dotted var(--nexus-border); padding-top: 0.75rem;">
-                        <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.6rem; color: var(--nexus-text-muted);">
-                            <div class="status-dot live"></div>
-                            <span><b>LIVE:</b> Friend predicted today and is currently boosting your multiplier.</span>
+            <!-- Referral CTA Banner (Homepage Only) -->
+            <div id="referral-cta" class="referral-banner hidden" onclick="switchNexusView('squad')" style="cursor: pointer; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid rgba(56, 189, 248, 0.3); background: linear-gradient(135deg, rgba(56, 189, 248, 0.12) 0%, rgba(139, 92, 246, 0.08) 100%);">
+                <div style="display: flex; align-items: center; gap: 1.5rem; width: 100%; justify-content: space-between;">
+                    <div style="display: flex; align-items: center; gap: 1.25rem;">
+                        <div class="squad-icon-box" style="width: 50px; height: 50px; background: rgba(56, 189, 248, 0.15); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">👥</div>
+                        <div>
+                            <h4 style="font-size: 1rem; margin-bottom: 0.15rem; color: white;">Manage Your Nexus Squad</h4>
+                            <p style="font-size: 0.75rem; color: var(--nexus-text-muted);">You have <span id="cta-squad-count" style="color: var(--nexus-primary); font-weight: 800;">0 friends</span>. Grow your tribe to boost your multiplier!</p>
                         </div>
-                        <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.6rem; color: var(--nexus-text-muted);">
-                            <div class="status-dot flagged"></div>
-                            <span><b>FLAGGED:</b> Account detected using same hardware as another member (Anti-Fraud).</span>
-                        </div>
-                        <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.6rem; color: var(--nexus-text-muted);">
-                            <div class="status-dot"></div>
-                            <span><b>INACTIVE:</b> Friend joined but has not predicted yet today.</span>
-                        </div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="font-size: 0.55rem; color: var(--nexus-text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 800;">Current Multiplier</div>
+                        <div id="cta-multiplier-val" style="font-size: 1.5rem; font-weight: 900; color: #f59e0b;">1x</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Arena Tabs -->
-            <div class="arena-tabs" style="margin-bottom: 2rem; display: flex; gap: 1rem; border-bottom: 1px solid var(--nexus-border); padding-bottom: 1rem;">
+            <!-- Arena Tabs (Dashboard Only) -->
+            <div id="arena-tabs" style="display: flex; gap: 1rem; margin-bottom: 2rem; border-bottom: 1px solid var(--nexus-border); padding-bottom: 1rem;">
                 <button class="arena-tab active" onclick="switchArenaTab('all')">ALL MATCHES</button>
                 <button class="arena-tab" onclick="switchArenaTab('LIVE')">LIVE NOW</button>
                 <button class="arena-tab" onclick="switchArenaTab('UPCOMING')">UPCOMING</button>

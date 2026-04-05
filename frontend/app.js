@@ -111,31 +111,35 @@ window.switchNexusView = (view) => {
     const dashboard = document.getElementById('dashboard');
     const changelog = document.getElementById('changelog-section');
     const history = document.getElementById('history-section');
+    const squad = document.getElementById('squad-section');
     const navLinks = document.querySelectorAll('#nexus-links a');
     
     // Reset state
     navLinks.forEach(l => {
         l.style.opacity = '0.6';
         l.style.color = 'white';
+        l.style.borderBottom = 'none';
+        l.style.fontWeight = '400';
     });
 
     dashboard.classList.add('hidden');
     changelog.classList.add('hidden');
     if (history) history.classList.add('hidden');
+    if (squad) squad.classList.add('hidden');
+
+    const activeLink = document.getElementById(`nav-${view}`);
+    if (activeLink) {
+        activeLink.style.opacity = '1';
+        activeLink.style.color = 'var(--nexus-primary)';
+        activeLink.style.fontWeight = '800';
+    }
 
     if (view === 'dashboard') {
         dashboard.classList.remove('hidden');
-        if (navLinks[0]) {
-            navLinks[0].style.opacity = '1';
-            navLinks[0].style.color = 'var(--nexus-primary)';
-        }
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        // Resume polling when back on Arena
         if (!liveScoreInterval) {
             liveScoreInterval = setInterval(refreshLiveScores, 10000);
         }
-    } else if (view === 'history-section') {
-        if (history) history.classList.remove('hidden');
         if (navLinks[1]) {
             navLinks[1].style.opacity = '1';
             navLinks[1].style.color = 'var(--nexus-primary)';
@@ -868,37 +872,46 @@ async function updateMultiplierStats() {
         const data = await res.json();
         
         const mVal = data.multiplier || 1;
-        const friendsCount = data.active_today || 0;
+        const friendsActive = data.active_today || 0;
         const referrals = data.referral_count || 0;
         
+        // Update Header Multiplier
         document.getElementById('multiplier-val').textContent = `${mVal}x`;
-        document.getElementById('multiplier-live').textContent = `${mVal}x`;
-        document.getElementById('friends-count').textContent = `${friendsCount} FRIENDS ACTIVE`;
+        document.getElementById('multiplier-badge').style.display = mVal > 1 ? 'flex' : 'none';
         
-        // Render Squad List
-        const squadContainer = document.getElementById('squad-container');
-        const squadList = document.getElementById('squad-list');
-        const countBadge = document.getElementById('squad-count-badge');
-        
-        if (referrals > 0) {
-            squadContainer.classList.remove('hidden');
-            countBadge.textContent = referrals;
-            
-            squadList.innerHTML = data.squad_members.map(member => `
-                <div class="squad-member ${member.active_today ? 'active' : ''}" title="${member.is_fraud ? 'Shared/Duplicate Hardware Detected' : ''}">
-                    <div class="status-dot ${member.is_fraud ? 'flagged' : (member.active_today ? 'live' : '')}"></div>
-                    ${member.username}
-                </div>
-            `).join('');
-        } else {
-            squadContainer.classList.add('hidden');
+        // Update Homepage CTA
+        const cta = document.getElementById('referral-cta');
+        if (cta) {
+            cta.classList.remove('hidden');
+            document.getElementById('cta-multiplier-val').textContent = `${mVal}x`;
+            const friendLabel = referrals === 1 ? '1 friend' : `${referrals} friends`;
+            document.getElementById('cta-squad-count').textContent = friendLabel;
         }
 
-        const badge = document.getElementById('multiplier-badge');
-        if (mVal > 1) {
-            badge.style.display = 'flex';
+        // Update Dedicated Squad Hub
+        const squadList = document.getElementById('squad-list');
+        const countBadge = document.getElementById('squad-count-badge');
+        const noSquadMsg = document.getElementById('no-squad-msg');
+        
+        if (referrals > 0) {
+            if (noSquadMsg) noSquadMsg.classList.add('hidden');
+            if (countBadge) countBadge.textContent = referrals;
+            
+            if (squadList) {
+                squadList.innerHTML = data.squad_members.map(member => `
+                    <div class="squad-member ${member.active_today ? 'active' : ''}" style="justify-content: space-between; padding: 0.75rem 1rem;">
+                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                            <div class="status-dot ${member.is_fraud ? 'flagged' : (member.active_today ? 'live' : '')}"></div>
+                            ${member.username}
+                        </div>
+                        ${member.is_fraud ? '<span style="font-size: 0.55rem; color: #ef4444; font-weight: 800;">FRAUD</span>' : ''}
+                    </div>
+                `).join('');
+            }
         } else {
-            badge.style.display = 'none';
+            if (noSquadMsg) noSquadMsg.classList.remove('hidden');
+            if (countBadge) countBadge.textContent = "0";
+            if (squadList) squadList.innerHTML = '';
         }
     } catch (e) {
         console.warn('[Nexus] Multiplier sync failed');
