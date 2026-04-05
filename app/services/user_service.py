@@ -43,6 +43,14 @@ async def create_or_get_user(email: str, referred_by: str = None, fingerprint: s
     else:
         auth_logger.info(f"Existing profile found for {email}. Updating metadata.")
         update_data = {"last_login": datetime.utcnow()}
+        
+        # Backfill: Generate referral code for legacy users if they don't have one
+        if not user.get("referral_code"):
+            new_code = generate_referral_code()
+            update_data["referral_code"] = new_code
+            user["referral_code"] = new_code
+            auth_logger.info(f"Backfilled missing referral code for {email}: {new_code}")
+
         if fingerprint:
             update_data["device_fingerprint"] = fingerprint
         
