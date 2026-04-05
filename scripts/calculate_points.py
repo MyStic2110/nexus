@@ -37,6 +37,49 @@ def calculate_ball_points(predicted: str, actual: str) -> int:
 
     return 0
 
+async def get_user_multiplier(db, user_id, match_id):
+    """
+    Nexus Reward Engine: Returns the multiplier for a user on a specific match.
+    Multiplier = count of unique referrals who predicted for THIS match.
+    """
+    user_doc = await db.users.find_one({"_id": user_id})
+    if not user_doc:
+        return 1
+
+    # Find all users referred by current user
+    referrals_cursor = db.users.find({"referred_by": user_id})
+    referrals = await referrals_cursor.to_list(length=1000)
+    
+    if not referrals:
+        return 1
+
+    valid_referral_emails = []
+    seen_fingerprints = {user_doc.get("device_fingerprint")} # Anti-fraud: Exclude inviter's own device
+    
+    for ref in referrals:
+        ref_email = ref["_id"]
+        ref_fp = ref.get("device_fingerprint")
+        
+        # Security Check: Skip if fingerprint matches inviter or another referral
+        if ref_fp and ref_fp in seen_fingerprints:
+            print(f"[NEXUS-FRAUD] Referral {ref_email} shares fingerprint {ref_fp} with inviter {user_id}. Skipping multiplier.")
+            continue
+        
+        if ref_fp:
+            seen_fingerprints.add(ref_fp)
+        
+        # Check if they predicted THIS match
+        prediction = await db.predictions.find_one({
+            "user_id": ref_email,
+            "match_id": match_id
+        })
+        
+        if prediction:
+            valid_referral_emails.append(ref_email)
+
+    active_count = len(valid_referral_emails)
+    return max(1, active_count)
+
 
 async def run_for_match(db, match_id: str, session_id: int):
     # Governance: Check if session is truly finished before calculating points.
@@ -131,13 +174,22 @@ async def run_for_match(db, match_id: str, session_id: int):
                 "points": pts
             })
 
-        print(f"  -> User {user_id} | Session {session_id} | Points: {session_points}")
+        # Apply Multiplier logic
+        multiplier = await get_user_multiplier(db, user_id, match_id)
+        final_points = int(session_points * multiplier)
+        
+        if multiplier > 1:
+            print(f"  -> \033[92mBOOST: User {user_id} | Multiplier: {multiplier}x | Final Points: {final_points}\033[0m")
+        else:
+            print(f"  -> User {user_id} | Session {session_id} | Points: {final_points}")
 
         # Upsert session-level score record with breakdown
         await db.session_scores.update_one(
             {"match_id": match_id, "session_id": session_id, "user_id": user_id},
             {"$set": {
-                "points": session_points,
+                "points": final_points,
+                "base_points": session_points,
+                "multiplier": multiplier,
                 "breakdown": breakdown,
                 "updated_at": datetime.now()
             }},

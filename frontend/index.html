@@ -28,6 +28,9 @@
                     <a href="#" id="nav-changelog" onclick="switchNexusView('changelog')" style="color: white; text-decoration: none; opacity: 0.6;">CHANGELOG</a>
                 </div>
                 <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span id="multiplier-badge" class="nexus-chip" style="background: rgba(245, 158, 11, 0.1); color: #f59e0b; font-weight: 800; padding: 0.4rem 0.8rem; border-radius: 8px; border: 1px solid rgba(245, 158, 11, 0.2); display: none;">
+                        🔥 <span id="multiplier-val">1x</span>
+                    </span>
                     <span class="nexus-chip" style="background: rgba(244, 114, 182, 0.1); color: var(--nexus-accent); font-weight: 800; padding: 0.4rem 0.8rem; border-radius: 8px; border: 1px solid rgba(244, 114, 182, 0.2);">
                         <span id="user-points">0</span> PTS
                     </span>
@@ -71,8 +74,31 @@
                     <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem;">Arena</h2>
                     <p style="color: var(--nexus-text-muted);">Current live and scheduled matches</p>
                 </div>
-                <div style="background: rgba(56, 189, 248, 0.05); padding: 0.75rem 1.5rem; border-radius: 12px; border: 1px solid var(--nexus-border);">
-                    <span id="live-count" style="font-weight: 700; color: var(--nexus-primary);">0 LIVE</span>
+                <div style="display: flex; gap: 1rem; align-items: center;">
+                    <div id="multiplier-status-card" class="multiplier-card hidden">
+                        <div style="font-size: 0.6rem; color: var(--nexus-text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 800;">Reward Multiplier</div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 2px;">
+                            <span id="multiplier-live" style="font-size: 1.2rem; font-weight: 900; color: #f59e0b;">1x</span>
+                            <span id="friends-count" style="font-size: 0.65rem; color: var(--nexus-primary); background: rgba(56, 189, 248, 0.1); padding: 2px 6px; border-radius: 4px; font-weight: 800;">0 FRIENDS ACTIVE</span>
+                        </div>
+                    </div>
+                    <div style="background: rgba(56, 189, 248, 0.05); padding: 0.75rem 1.5rem; border-radius: 12px; border: 1px solid var(--nexus-border);">
+                        <span id="live-count" style="font-weight: 700; color: var(--nexus-primary);">0 LIVE</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Referral Link Section -->
+            <div id="referral-section" class="referral-banner hidden">
+                <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; justify-content: space-between; width: 100%;">
+                    <div>
+                        <h4 style="font-size: 0.9rem; margin-bottom: 0.25rem;">Grow Your Nexus Squad</h4>
+                        <p style="font-size: 0.7rem; color: var(--nexus-text-muted);">Invite friends → they predict → your multiplier grows (20 friends = 20x points!)</p>
+                    </div>
+                    <div style="display: flex; gap: 0.5rem; background: rgba(0,0,0,0.2); padding: 0.5rem; border-radius: 10px; border: 1px solid var(--nexus-border);">
+                        <code id="referral-link-display" style="font-family: monospace; color: var(--nexus-primary); font-size: 0.8rem; padding: 0 1rem; align-self: center;">nexus-ipl.com?ref=NEXUS</code>
+                        <button onclick="copyReferralLink()" class="btn-nexus" style="padding: 0.4rem 1rem; font-size: 0.65rem;">COPY LINK</button>
+                    </div>
                 </div>
             </div>
 
@@ -150,19 +176,33 @@
             </div>
 
             <div class="timeline" style="max-width: 800px; margin: 0 auto;">
-                <!-- Day 4: Consolidating Performance & Purity -->
+                <!-- Day 7: Viral Growth & Reward Multipliers -->
                 <div class="timeline-item" style="border-left: 2px solid var(--nexus-primary); padding-left: 2rem; margin-bottom: 2.5rem; position: relative;">
                     <div style="position: absolute; left: -9px; top: 0; width: 16px; height: 16px; border-radius: 50%; background: var(--nexus-primary); box-shadow: 0 0 10px var(--nexus-primary);"></div>
                     <div class="timeline-chip" style="display: inline-block; background: rgba(56, 189, 248, 0.1); color: var(--nexus-primary); padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.6rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: 1px;">DEPLOYED TODAY</div>
-                    <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">DAY 4 : NEXUS PURITY</h3>
-                    <p style="color: var(--nexus-text-muted); font-size: 0.9rem;">Architectural shift to a pure MongoDB stack; removed Redis for simplified reliability. Implemented autonomous scoring for early-finish matches and launched the "My Performance" historical analysis engine.</p>
+                    <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">DAY 7 : NEXUS VIRALITY</h3>
+                    <p style="color: var(--nexus-text-muted); font-size: 0.9rem;">Launched Dynamic Reward Multipliers and unique Hardware Fingerprinting for secure squad growth. Added a real-time squad dashboard with 1/2-session activity tracking.</p>
                 </div>
 
-                <!-- Current Session Milestone -->
+                <!-- Day 6: Result Integrity & Session Guards -->
+                <div class="timeline-item" style="border-left: 2px solid var(--nexus-border); padding-left: 2rem; margin-bottom: 2.5rem; position: relative; opacity: 0.9;">
+                    <div style="position: absolute; left: -9px; top: 0; width: 16px; height: 16px; border-radius: 50%; background: var(--nexus-border);"></div>
+                    <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">DAY 6 : NEXUS ACCURACY</h3>
+                    <p style="color: var(--nexus-text-muted); font-size: 0.9rem;">Implemented session completion guards and automated result rectification for edge-case match outcomes (LSG vs DC logic fix).</p>
+                </div>
+
+                <!-- Day 5: AI Insights & Oracle Launch -->
+                <div class="timeline-item" style="border-left: 2px solid var(--nexus-border); padding-left: 2rem; margin-bottom: 2.5rem; position: relative; opacity: 0.85;">
+                    <div style="position: absolute; left: -9px; top: 0; width: 16px; height: 16px; border-radius: 50%; background: var(--nexus-border);"></div>
+                    <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">DAY 5 : NEXUS INSIGHTS</h3>
+                    <p style="color: var(--nexus-text-muted); font-size: 0.9rem;">Integrated deeper Cricbuzz metadata for playoff probability modeling and real-time scorecard performance metrics.</p>
+                </div>
+
+                <!-- Day 4: Consolidating Performance & Purity -->
                 <div class="timeline-item" style="border-left: 2px solid var(--nexus-border); padding-left: 2rem; margin-bottom: 2.5rem; position: relative; opacity: 0.8;">
                     <div style="position: absolute; left: -9px; top: 0; width: 16px; height: 16px; border-radius: 50%; background: var(--nexus-border);"></div>
-                    <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">DAY 3 : NEXUS RESILIENCE</h3>
-                    <p style="color: var(--nexus-text-muted); font-size: 0.9rem;">API inconsistencies bypassed via autonomous scripting & sub-agents; implemented fluid UI/UX for optimized mobile & desktop fluidity.</p>
+                    <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">DAY 4 : NEXUS PURITY</h3>
+                    <p style="color: var(--nexus-text-muted); font-size: 0.9rem;">Architectural shift to a pure MongoDB stack; launched the "My Performance" historical analysis engine and early-finish automated scoring triggers.</p>
                 </div>
 
                 <div class="timeline-item" style="border-left: 2px solid var(--nexus-border); padding-left: 2rem; margin-bottom: 2rem; position: relative; opacity: 0.8;">

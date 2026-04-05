@@ -9,9 +9,21 @@ let liveScoreInterval = null; // 10-second live refresh handle
 let activeArenaTab = 'all'; // Default tab
 let cachedMatches = []; // Store matches for frontend filtering
 
+let multiplierInterval = null;
+
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Nexus IPL Initialized');
+    
+    // Referral Tracking: Extract ref from URL and persist in localStorage
+    const urlParams = new URLSearchParams(window.location.search);
+    const refCode = urlParams.get('ref');
+    if (refCode) {
+        localStorage.setItem('nexus_ref', refCode);
+        console.log(`[Nexus] Referral Code detected and persisted: ${refCode}`);
+        // Clean URL for aesthetics
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
 });
 
 // Google Sign-In Callback
@@ -25,13 +37,21 @@ async function loginWithBackend(token) {
     const loginBtn = document.querySelector('.g_id_signin');
     if (loginBtn) loginBtn.style.opacity = '0.5';
 
+    // Anti-Fraud: Generate unique device fingerprint
+    const fingerprint = getDeviceFingerprint();
+    const storedRef = localStorage.getItem('nexus_ref');
+
     try {
         const res = await fetch(`${API_BASE}/auth/login`, {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}` 
-            }
+            },
+            body: JSON.stringify({
+                ref: storedRef,
+                fingerprint: fingerprint
+            })
         });
         
         if (!res.ok) throw new Error('Nexus Auth Failed');
@@ -56,6 +76,13 @@ function showDashboard() {
     document.getElementById('user-points').textContent = currentUser.score || 0;
     
     document.getElementById('nexus-links').classList.remove('hidden');
+    document.getElementById('referral-section').classList.remove('hidden');
+    document.getElementById('multiplier-status-card').classList.remove('hidden');
+
+    // Initialize Referral UI
+    const refCode = currentUser.referral_code || 'NEXUS';
+    const refLink = `${window.location.origin}?ref=${refCode}`;
+    document.getElementById('referral-link-display').textContent = refLink;
 
     // Play Welcome Sound for first-time login
     if (currentUser.is_new_user) {
@@ -68,11 +95,16 @@ function showDashboard() {
     
     fetchMatches();
     fetchGlobalLeaderboard();
+    updateMultiplierStats();
     
-    // Start 10-second live score polling
+    // Start live polling
     if (liveScoreInterval) clearInterval(liveScoreInterval);
     liveScoreInterval = setInterval(refreshLiveScores, 10000);
-    console.log('[Nexus] Live score polling started (10s interval)');
+    
+    if (multiplierInterval) clearInterval(multiplierInterval);
+    multiplierInterval = setInterval(updateMultiplierStats, 30000); // 30s for multiplier
+    
+    console.log('[Nexus] Live polling initialized (10s Scores / 30s Multiplier)');
 }
 
 window.switchNexusView = (view) => {
@@ -802,4 +834,67 @@ function renderOverSummary(summary) {
 // Logout
 document.getElementById('logout-btn').onclick = () => {
     location.reload();
+};
+function getDeviceFingerprint() {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const txt = 'Nexus-IPL-Fingerprint-2026';
+    ctx.textBaseline = "top";
+    ctx.font = "14px 'Arial'";
+    ctx.textBaseline = "alphabetic";
+    ctx.fillStyle = "#f60";
+    ctx.fillRect(125,1,62,20);
+    ctx.fillStyle = "#069";
+    ctx.fillText(txt, 2, 15);
+    ctx.fillStyle = "rgba(102, 204, 0, 0.7)";
+    ctx.fillText(txt, 4, 17);
+    
+    const b64 = canvas.toDataURL().replace("data:image/png;base64,","");
+    const bin = atob(b64);
+    let crc = 0;
+    for (let i = 0; i < bin.length; i++) {
+        crc = (crc << 5) - crc + bin.charCodeAt(i);
+        crc |= 0;
+    }
+    return Math.abs(crc).toString(16);
+}
+
+async function updateMultiplierStats() {
+    if (!authToken) return;
+    try {
+        const res = await fetch(`${API_BASE}/auth/multiplier`, {
+            headers: { 'Authorization': `Bearer ${authToken}` }
+        });
+        const data = await res.json();
+        
+        const mVal = data.multiplier || 1;
+        const friendsCount = data.active_today || 0;
+        
+        document.getElementById('multiplier-val').textContent = `${mVal}x`;
+        document.getElementById('multiplier-live').textContent = `${mVal}x`;
+        document.getElementById('friends-count').textContent = `${friendsCount} FRIENDS ACTIVE`;
+        
+        const badge = document.getElementById('multiplier-badge');
+        if (mVal > 1) {
+            badge.style.display = 'flex';
+        } else {
+            badge.style.display = 'none';
+        }
+    } catch (e) {
+        console.warn('[Nexus] Multiplier sync failed');
+    }
+}
+
+window.copyReferralLink = () => {
+    const link = document.getElementById('referral-link-display').textContent;
+    navigator.clipboard.writeText(link).then(() => {
+        const btn = document.querySelector('.referral-banner button');
+        const originalText = btn.textContent;
+        btn.textContent = 'COPIED!';
+        btn.style.background = '#22c55e';
+        setTimeout(() => {
+            btn.textContent = originalText;
+            btn.style.background = '';
+        }, 2000);
+    });
 };

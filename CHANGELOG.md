@@ -1,19 +1,42 @@
 # Nexus IPL 2026 Changelog
 
+## [Day 7] - NEXUS VIRALITY
+### Added
+- **Reward Multipliers**: Launched dynamic scoring boosts based on real-time squad activity (Multiplier = Active Referrals).
+- **Squad Fingerprinting**: Integrated canvas-based hardware signatures to prevent self-referral fraud and ensure fair play.
+- **Referral Engine**: Unique high-entropy referral token generation and seamless URL parameter tracking (`?ref=CODE`).
+- **Live Multiplier Dashboard**: New UI component with 30s polling for real-time squad participation status.
+
+---
+
+## [Day 6] - NEXUS ACCURACY
+### Added
+- **Scoring Completion Guards**: Implemented logic to prevent premature point distribution until an innings is statistically finalized.
+- **Automated Result Rectification**: Deployed governance scripts to correct interchanged match results from high-volume API ingestions (e.g., LSG vs DC fix).
+- **Session Data Resilience**: Enhanced ball-by-ball reporting to handle inconsistent API markers (e.g., Extras vs Legal balls for session 1/2).
+
+---
+
+## [Day 5] - NEXUS INSIGHTS
+### Added
+- **Playoff Probability Integration**: Extended Cricbuzz metadata to include official Points Table and playoff modeling.
+- **Deeper Scorecard Analytics**: Real-time batting/bowling performance metrics integrated directly into the live match arena.
+- **Growth Framework**: Initial architectural support for the Nexus Squads referral sequence.
+
+---
+
 ## [Day 4] - NEXUS PURITY
 ### Added
 - **My Performance History**: Created a dedicated user history dashboard showing match participation, session ID, and performance points linked directly to individual score breakdowns.
-- **Autonomous Early-Finish Support**: Implemented new scoring distribution triggers to automatically assign points when matches end prematurely (prior to completely finishing the 20th over).
-- **History Tracking API (`/users/me/history`)**: Added a backend endpoint that seamlessly aggregates prediction performance `session_scores` with official match intelligence.
+- **Autonomous Early-Finish Support**: Implemented new scoring distribution triggers to automatically assign points when matches end prematurely.
+- **History Tracking API (`/users/me/history`)**: Added a backend endpoint that aggregates prediction performance.
 
 ### Changed
-- **Pure MongoDB Architecture**: Completed full architectural transition away from Redis. Live leaderboard queries, prediction caching, and session storage now query MongoDB directly, ensuring enhanced persistence and eliminating connection instability.
+- **Pure MongoDB Architecture**: Completed full architectural transition away from Redis. Caching and session storage now query MongoDB directly, ensuring enhanced persistence.
 
 ### Removed
-- Removed `redis` and `redis.asyncio` dependencies from the codebase.
-- Deactivated Redis Pub/Sub mechanisms in WebSocket operations.
-- Cleaned the main `scripts/` directory by archiving 9 debug/utility tools into a dedicated `tools/` folder.
-- Purged temporary diagnostic scripts and log leftovers for production deployment readiness.
+- Removed `redis` and `redis.asyncio` dependencies.
+- Purged temporary diagnostic scripts and archived tools for production readiness.
 
 ---
 

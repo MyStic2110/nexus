@@ -117,6 +117,38 @@ main {
 }
 
 /* Match Grid */
+.multiplier-card {
+    background: rgba(245, 158, 11, 0.05);
+    border: 1px solid rgba(245, 158, 11, 0.2);
+    padding: 0.5rem 1rem;
+    border-radius: 12px;
+    min-width: 140px;
+    animation: slideInRight 0.5s ease-out;
+}
+
+.referral-banner {
+    background: linear-gradient(135deg, rgba(56, 189, 248, 0.08) 0%, rgba(139, 92, 246, 0.08) 100%);
+    border: 1px solid var(--nexus-border);
+    padding: 1.25rem 1.5rem;
+    border-radius: 20px;
+    margin-bottom: 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    animation: fadeIn 0.8s ease-out;
+}
+
+.referral-banner h4 {
+    color: white;
+    font-weight: 800;
+}
+
+@keyframes slideInRight {
+    from { transform: translateX(20px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+/* Original styles continue... */
 .matches-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
