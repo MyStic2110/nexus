@@ -4,9 +4,28 @@ from fastapi.staticfiles import StaticFiles
 from app.routes import auth, match, websocket
 from app.db.mongo import init_indexes
 from app.logger import main_logger
+from app.config import settings
+from livekit import api
+import time
 import os
 
+from fastapi.middleware.cors import CORSMiddleware
+
 app = FastAPI(title="IPL Nexus Backend")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+@app.middleware("http")
+async def add_frame_options_header(request: Request, call_next):
+    response = await call_next(request)
+    response.headers["X-Frame-Options"] = "ALLOWALL"
+    return response
 
 # Global Exception Handler for Production-level Logging
 @app.exception_handler(Exception)

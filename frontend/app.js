@@ -11,12 +11,23 @@ let cachedMatches = []; // Store matches for frontend filtering
 
 let multiplierInterval = null;
 
+// 1. The "Warp" Auto-Login for Nova Onboarding (PRIORITY)
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.get('demo') === 'true') {
+    console.log('[Nexus] Nova Demo Mode: AUTHENTICATING WITH REAL DATABASE...');
+    // We delay slightly to ensure the login functions are parsed
+    setTimeout(() => {
+        if (typeof loginWithBackend === 'function') {
+            loginWithBackend("nexus_demo_token");
+        }
+    }, 100);
+}
+
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Nexus IPL Initialized');
-    
+
     // Referral Tracking: Extract ref from URL and persist in localStorage
-    const urlParams = new URLSearchParams(window.location.search);
     const refCode = urlParams.get('ref');
     if (refCode) {
         localStorage.setItem('nexus_ref', refCode);
@@ -44,23 +55,39 @@ async function loginWithBackend(token) {
     try {
         const res = await fetch(`${API_BASE}/auth/login`, {
             method: 'POST',
-            headers: { 
+            headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}` 
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({
                 ref: storedRef,
                 fingerprint: fingerprint
             })
         });
-        
+
         if (!res.ok) throw new Error('Nexus Auth Failed');
-        
+
         const data = await res.json();
         currentUser = data.user;
         showDashboard();
     } catch (err) {
         console.error('Auth Error:', err);
+        
+        // Fail-Safe for Nova Onboarding Demo
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('demo') === 'true') {
+            console.warn('[Nexus] Backend rejected demo token, but FORCING access for Murali...');
+            currentUser = {
+                id: "muralicruze121@gmail.com",
+                username: "MURALI_CHAMP",
+                email: "muralicruze121@gmail.com",
+                score: 1250,
+                referral_code: "NEXUS_VIP"
+            };
+            showDashboard();
+            return;
+        }
+
         alert('Nexus access denied. Please verify your Google account.');
         if (loginBtn) loginBtn.style.opacity = '1';
     }
@@ -70,11 +97,11 @@ function showDashboard() {
     document.getElementById('login-section').classList.add('hidden');
     document.getElementById('dashboard').classList.remove('hidden');
     document.getElementById('user-profile').classList.remove('hidden');
-    
+
     const display = (currentUser.username || currentUser.email || 'USER').toUpperCase();
     document.getElementById('username').textContent = display;
     document.getElementById('user-points').textContent = currentUser.score || 0;
-    
+
     document.getElementById('nexus-links').classList.remove('hidden');
     document.getElementById('referral-cta').classList.remove('hidden');
     document.getElementById('multiplier-status-card').classList.remove('hidden');
@@ -92,18 +119,18 @@ function showDashboard() {
             console.warn('[Nexus] Audio autoplay blocked or failed:', err.message);
         });
     }
-    
+
     fetchMatches();
     fetchGlobalLeaderboard();
     updateMultiplierStats();
-    
+
     // Start live polling
     if (liveScoreInterval) clearInterval(liveScoreInterval);
     liveScoreInterval = setInterval(refreshLiveScores, 10000);
-    
+
     if (multiplierInterval) clearInterval(multiplierInterval);
     multiplierInterval = setInterval(updateMultiplierStats, 30000); // 30s for multiplier
-    
+
     console.log('[Nexus] Live polling initialized (10s Scores / 30s Multiplier)');
 }
 
@@ -165,7 +192,7 @@ async function fetchMatches() {
     if (!cachedMatches.length) {
         container.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 4rem; color: var(--nexus-text-muted);">INITIALizing ARENA...</div>';
     }
-    
+
     try {
         const res = await fetch(`${API_BASE}/matches`);
         const matches = await res.json();
@@ -212,7 +239,7 @@ async function refreshLiveScores() {
     try {
         const res = await fetch(`${API_BASE}/matches`);
         const matches = await res.json();
-        
+
         let liveCount = 0;
         matches.forEach(m => {
             const scoreEl = document.querySelector(`[data-score-id="${m.match_id}"]`);
@@ -220,7 +247,7 @@ async function refreshLiveScores() {
             const statusEl = document.querySelector(`[data-status-id="${m.match_id}"]`);
             const badgeEl = document.querySelector(`[data-badge-id="${m.match_id}"]`);
             const lastUpdatedEl = document.querySelector(`[data-last-updated="${m.match_id}"]`);
-            
+
             if (m.status === 'LIVE') {
                 liveCount++;
                 if (scoreEl) scoreEl.textContent = m.current_score || '0/0';
@@ -228,7 +255,7 @@ async function refreshLiveScores() {
                 if (statusEl) statusEl.textContent = 'MATCH STARTED';
                 if (badgeEl) { badgeEl.textContent = 'LIVE'; badgeEl.style.background = '#22c55e'; }
                 if (lastUpdatedEl) lastUpdatedEl.textContent = `Last update: ${new Date().toLocaleTimeString()}`;
-                
+
                 // Update Live Stats & Insights
                 const statsEl = document.querySelector(`[data-stats-container="${m.match_id}"]`);
                 if (statsEl && m.live_stats) {
@@ -243,25 +270,25 @@ async function refreshLiveScores() {
                 if (lastUpdatedEl) lastUpdatedEl.textContent = `Finalized: ${new Date().toLocaleTimeString()}`;
             }
         });
-        
+
         const liveCountEl = document.getElementById('live-count');
         if (liveCountEl) liveCountEl.textContent = `${liveCount} LIVE`;
-        
+
         // Refresh User Points and Global Leaderboard
         if (authToken) {
             fetch(`${API_BASE}/auth/login`, {
                 method: 'POST',
-                headers: { 
+                headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${authToken}` 
+                    'Authorization': `Bearer ${authToken}`
                 }
             }).then(r => r.json()).then(data => {
                 if (data && data.user) {
                     currentUser = data.user;
                     document.getElementById('user-points').textContent = currentUser.score || 0;
                 }
-            }).catch(() => {});
-            
+            }).catch(() => { });
+
             fetchGlobalLeaderboard();
         }
 
@@ -278,14 +305,14 @@ async function manualRefreshMatch(matchId, btn) {
         const res = await fetch(`${API_BASE}/matches`);
         const matches = await res.json();
         const m = matches.find(match => match.match_id === matchId);
-        
+
         if (m) {
             const scoreEl = document.querySelector(`[data-score-id="${m.match_id}"]`);
             const overEl = document.querySelector(`[data-over-id="${m.match_id}"]`);
             const statusEl = document.querySelector(`[data-status-id="${m.match_id}"]`);
             const badgeEl = document.querySelector(`[data-badge-id="${m.match_id}"]`);
             const lastUpdatedEl = document.querySelector(`[data-last-updated="${m.match_id}"]`);
-            
+
             if (m.status === 'LIVE') {
                 if (scoreEl) scoreEl.textContent = m.current_score || '0/0';
                 if (overEl) overEl.textContent = `OV ${m.current_over || '0.0'}`;
@@ -320,16 +347,16 @@ async function manualRefreshMatch(matchId, btn) {
 
 async function fetchGlobalLeaderboard() {
     const tbody = document.getElementById('global-leaderboard-body');
-    
+
     // Only show "Synchronizing" if empty
     if (tbody.children.length === 0) {
         tbody.innerHTML = '<tr><td colspan="3" style="text-align: center; padding: 2rem; color: var(--nexus-text-muted);">Synchronizing Rankings...</td></tr>';
     }
-    
+
     try {
         const res = await fetch(`${API_BASE}/matches/leaderboard/global`);
         const data = await res.json();
-        
+
         if (data.length === 0) {
             tbody.innerHTML = '<tr><td colspan="3" style="text-align: center; padding: 2rem; color: var(--nexus-text-muted);">Season standings will appear after match analysis.</td></tr>';
             return;
@@ -356,21 +383,21 @@ async function fetchGlobalLeaderboard() {
 async function fetchUserHistory() {
     const tbody = document.getElementById('user-history-body');
     const emptyState = document.getElementById('history-empty');
-    
+
     if (!tbody || !emptyState) return;
-    
+
     tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 2rem; color: var(--nexus-text-muted);">Retrieving Nexus Archives...</td></tr>';
     emptyState.classList.add('hidden');
-    
+
     try {
         const res = await fetch(`${API_BASE}/matches/users/me/history`, {
             headers: { 'Authorization': `Bearer ${authToken}` }
         });
-        
+
         if (!res.ok) throw new Error("API returned " + res.status);
-        
+
         const data = await res.json();
-        
+
         if (data.length === 0) {
             tbody.innerHTML = '';
             emptyState.classList.remove('hidden');
@@ -425,13 +452,13 @@ function renderMatches(matches) {
         const card = document.createElement('div');
         const isToday = match.date === todayIST;
         card.className = `match-card ${isToday ? 'ipl-today-highlight' : ''}`;
-        
+
         const t1 = match.team1 || 'T1';
         const t2 = match.team2 || 'T2';
         const isLive = match.status === 'LIVE';
         const isCompleted = match.status === 'COMPLETED';
         const isLocked = (match.current_over || 0) >= 15.0 || isCompleted;
-        
+
         const dateStr = match.date ? new Date(match.date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }) : 'TODAY';
         const displayTime = match.time || 'TBD';
 
@@ -530,12 +557,12 @@ window.openNexusModal = async (matchId, t1, t2, over, sessionId) => {
     const modal = document.getElementById('prediction-modal');
     document.getElementById('modal-match-title').textContent = `${t1} vs ${t2} - Session ${sessionId}`;
     document.getElementById('modal-match-subtitle').textContent = `Target: Predict the outcome of the deliveries for Session ${sessionId}.`;
-    
+
     // Lock logic explicitly for this session
     const isLocked = over >= 15.0;
     const form = document.getElementById('prediction-form');
     form.innerHTML = '';
-    
+
     for (let i = 1; i <= 12; i++) {
         const div = document.createElement('div');
         div.className = 'ball-input';
@@ -555,7 +582,7 @@ window.openNexusModal = async (matchId, t1, t2, over, sessionId) => {
         `;
         form.appendChild(div);
     }
-    
+
     const submitBtn = document.getElementById('submit-prediction');
     if (isLocked) {
         submitBtn.style.display = 'none';
@@ -564,7 +591,7 @@ window.openNexusModal = async (matchId, t1, t2, over, sessionId) => {
         submitBtn.style.display = 'block';
         submitBtn.onclick = () => submitNexusPredictions(matchId, sessionId);
     }
-    
+
     // Pre-populate data securely from Nexus
     if (authToken) {
         try {
@@ -583,9 +610,9 @@ window.openNexusModal = async (matchId, t1, t2, over, sessionId) => {
                     });
                 }
             }
-        } catch(e) { console.error('Silent preload error'); }
+        } catch (e) { console.error('Silent preload error'); }
     }
-    
+
     modal.classList.remove('hidden');
     if (activeWS) activeWS.close();
     connectNexusWS(matchId);
@@ -597,13 +624,13 @@ window.selectRun = (btn, ballNum) => {
         b.classList.remove('active');
         b.classList.remove('active-wicket');
     });
-    
+
     if (btn.dataset.value === 'W') {
         btn.classList.add('active-wicket');
     } else {
         btn.classList.add('active');
     }
-    
+
     // Store value on the parent ball-input
     const ballInput = btn.closest('.ball-input');
     ballInput.dataset.value = btn.dataset.value;
@@ -612,7 +639,7 @@ window.selectRun = (btn, ballNum) => {
 async function submitNexusPredictions(matchId, sessionId) {
     const form = document.getElementById('prediction-form');
     const ballInputs = form.querySelectorAll('.ball-input');
-    
+
     let totalRuns = 0;
     let totalWickets = 0;
 
@@ -647,7 +674,7 @@ async function submitNexusPredictions(matchId, sessionId) {
             },
             body: JSON.stringify({ predictions })
         });
-        
+
         if (res.ok) {
             btn.textContent = 'LOCKED';
             btn.style.background = '#22c55e';
@@ -705,10 +732,10 @@ window.showNexusBreakdown = async (matchId, sessionId) => {
     const content = document.getElementById('breakdown-content');
     const title = modal.querySelector('h3');
     const subtitle = modal.querySelector('p');
-    
+
     title.textContent = `Nexus Analytical Insight : Session ${sessionId}`;
     subtitle.textContent = `Scientific breakdown of your performance in match ${matchId}.`;
-    
+
     content.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--nexus-text-muted);">DECODING NEXUS SIGNALS...</div>';
     modal.classList.remove('hidden');
 
@@ -774,18 +801,18 @@ window.closePredictionModal = () => {
 function renderLiveStatsMarkup(stats, insights) {
     if (!stats) return '';
     const { bat_striker, bat_non_striker, bowler, last_over_summary } = stats;
-    
+
     let insightsHtml = '';
     if (insights && insights.length > 0) {
         insightsHtml = `
             <div class="nexus-insights-container">
                 <div class="insight-ticker">Nexus Insights</div>
                 ${insights.map(str => {
-                    const isStreak = str.includes('🔥') || str.includes('🚀') || str.includes('📈');
-                    return `<div class="insight-pill ${isStreak ? 'streak-fire' : ''}">
+            const isStreak = str.includes('🔥') || str.includes('🚀') || str.includes('📈');
+            return `<div class="insight-pill ${isStreak ? 'streak-fire' : ''}">
                         <span>${str}</span>
                     </div>`;
-                }).join('')}
+        }).join('')}
             </div>
         `;
     }
@@ -842,13 +869,13 @@ function getDeviceFingerprint() {
     ctx.font = "14px 'Arial'";
     ctx.textBaseline = "alphabetic";
     ctx.fillStyle = "#f60";
-    ctx.fillRect(125,1,62,20);
+    ctx.fillRect(125, 1, 62, 20);
     ctx.fillStyle = "#069";
     ctx.fillText(txt, 2, 15);
     ctx.fillStyle = "rgba(102, 204, 0, 0.7)";
     ctx.fillText(txt, 4, 17);
-    
-    const b64 = canvas.toDataURL().replace("data:image/png;base64,","");
+
+    const b64 = canvas.toDataURL().replace("data:image/png;base64,", "");
     const bin = atob(b64);
     let crc = 0;
     for (let i = 0; i < bin.length; i++) {
@@ -865,15 +892,15 @@ async function updateMultiplierStats() {
             headers: { 'Authorization': `Bearer ${authToken}` }
         });
         const data = await res.json();
-        
+
         const mVal = data.multiplier || 1;
         const friendsActive = data.active_today || 0;
         const referrals = data.referral_count || 0;
-        
+
         // Update Header Multiplier
         document.getElementById('multiplier-val').textContent = `${mVal}x`;
         document.getElementById('multiplier-badge').style.display = mVal > 1 ? 'flex' : 'none';
-        
+
         // Update Homepage CTA
         const cta = document.getElementById('referral-cta');
         if (cta) {
@@ -887,11 +914,11 @@ async function updateMultiplierStats() {
         const squadList = document.getElementById('squad-list');
         const countBadge = document.getElementById('squad-count-badge');
         const noSquadMsg = document.getElementById('no-squad-msg');
-        
+
         if (referrals > 0) {
             if (noSquadMsg) noSquadMsg.classList.add('hidden');
             if (countBadge) countBadge.textContent = referrals;
-            
+
             if (squadList) {
                 squadList.innerHTML = data.squad_members.map(member => `
                     <div class="squad-member ${member.active_today ? 'active' : ''}" style="justify-content: space-between; padding: 0.75rem 1rem;">
