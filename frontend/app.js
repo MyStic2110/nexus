@@ -15,6 +15,7 @@ let multiplierInterval = null;
 const urlParams = new URLSearchParams(window.location.search);
 if (urlParams.get('demo') === 'true') {
     console.log('[Nexus] Nova Demo Mode: AUTHENTICATING WITH REAL DATABASE...');
+    window.NOVA_MODE = true; // Enable Nova's "Super User" mode for UI automation
     // We delay slightly to ensure the login functions are parsed
     setTimeout(() => {
         if (typeof loginWithBackend === 'function') {
@@ -657,8 +658,14 @@ async function submitNexusPredictions(matchId, sessionId) {
         };
     });
 
-    const confirmed = confirm(`You are predicting ${totalRuns} Runs and ${totalWickets} Wickets across these 12 deliveries.\n\nLock these metrics into the Nexus?`);
-    if (!confirmed) return;
+    // Bypass confirmation if Nova is driving the UI
+    if (!window.NOVA_MODE) {
+        const confirmed = confirm(`You are predicting ${totalRuns} Runs and ${totalWickets} Wickets across these 12 deliveries.\n\nLock these metrics into the Nexus?`);
+        if (!confirmed) return;
+    } else {
+        console.log(`[Nexus:NOVA] Auto-confirming prediction: ${totalRuns} runs, ${totalWickets} wickets.`);
+    }
+
 
     const btn = document.getElementById('submit-prediction');
     const originalText = btn.textContent;
@@ -697,6 +704,9 @@ async function submitNexusPredictions(matchId, sessionId) {
         }, 2000);
     }
 }
+
+// Expose for Nova Bridge
+window.submitNexusPredictions = submitNexusPredictions;
 
 function connectNexusWS(matchId) {
     if (!authToken) return;
