@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nexus IPL | Premium Match Predictions</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="/static/style.css">
     <link rel="manifest" href="/static/manifest.json">
     <link rel="icon" type="image/png" href="/static/icon-512.png">
@@ -15,6 +17,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
+
 <body>
     <header>
         <div class="logo-container">
@@ -23,16 +26,22 @@
         <div id="user-profile" class="hidden">
             <div id="user-stats" style="margin-right: 1.5rem; display: flex; align-items: center; gap: 1.5rem;">
                 <div id="nexus-links" class="nexus-nav hidden" style="display: flex; gap: 2.5rem; margin-right: 3rem;">
-                    <a href="#" id="nav-arena" onclick="switchNexusView('dashboard')" style="color: var(--nexus-primary); text-decoration: none; font-weight: 800;">ARENA</a>
-                    <a href="#" id="nav-squad" onclick="switchNexusView('squad')" style="color: white; text-decoration: none; opacity: 0.6;">SQUAD</a>
-                    <a href="#" id="nav-history" onclick="switchNexusView('history')" style="color: white; text-decoration: none; opacity: 0.6;">HISTORY</a>
-                    <a href="#" id="nav-changelog" onclick="switchNexusView('changelog')" style="color: white; text-decoration: none; opacity: 0.6;">CHANGELOG</a>
+                    <a href="#" id="nav-arena" onclick="switchNexusView('dashboard')"
+                        style="color: var(--nexus-primary); text-decoration: none; font-weight: 800;">ARENA</a>
+                    <a href="#" id="nav-squad" onclick="switchNexusView('squad')"
+                        style="color: white; text-decoration: none; opacity: 0.6;">SQUAD</a>
+                    <a href="#" id="nav-history" onclick="switchNexusView('history')"
+                        style="color: white; text-decoration: none; opacity: 0.6;">HISTORY</a>
+                    <a href="#" id="nav-changelog" onclick="switchNexusView('changelog')"
+                        style="color: white; text-decoration: none; opacity: 0.6;">CHANGELOG</a>
                 </div>
                 <div style="display: flex; align-items: center; gap: 0.5rem;">
-                    <span id="multiplier-badge" class="nexus-chip" style="background: rgba(245, 158, 11, 0.1); color: #f59e0b; font-weight: 800; padding: 0.4rem 0.8rem; border-radius: 8px; border: 1px solid rgba(245, 158, 11, 0.2); display: none;">
+                    <span id="multiplier-badge" class="nexus-chip"
+                        style="background: rgba(245, 158, 11, 0.1); color: #f59e0b; font-weight: 800; padding: 0.4rem 0.8rem; border-radius: 8px; border: 1px solid rgba(245, 158, 11, 0.2); display: none;">
                         🔥 <span id="multiplier-val">1x</span>
                     </span>
-                    <span class="nexus-chip" style="background: rgba(244, 114, 182, 0.1); color: var(--nexus-accent); font-weight: 800; padding: 0.4rem 0.8rem; border-radius: 8px; border: 1px solid rgba(244, 114, 182, 0.2);">
+                    <span class="nexus-chip"
+                        style="background: rgba(244, 114, 182, 0.1); color: var(--nexus-accent); font-weight: 800; padding: 0.4rem 0.8rem; border-radius: 8px; border: 1px solid rgba(244, 114, 182, 0.2);">
                         <span id="user-points">0</span> PTS
                     </span>
                     <span id="username" style="font-weight: 700; color: white;"></span>
@@ -45,69 +54,84 @@
     <main>
         <!-- Auth View -->
         <section id="login-section" class="login-container">
-            <div class="hero-chip" style="background: rgba(56, 189, 248, 0.1); color: var(--nexus-primary); padding: 0.5rem 1rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; margin-bottom: 2rem;">AI-POWERED PREDICTION ENGINE</div>
+            <div class="hero-chip"
+                style="background: rgba(56, 189, 248, 0.1); color: var(--nexus-primary); padding: 0.5rem 1rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; margin-bottom: 2rem;">
+                AI-POWERED PREDICTION ENGINE</div>
             <h2>Predict the Death Overs. <br> Rule the Leaderboard.</h2>
-            <p style="max-width: 600px; margin: 0 auto 3rem; font-size: 1.1rem; color: var(--nexus-text-muted);">Step into the AI-driven nexus of cricket analytics. Secure your predictions for the high-stakes final 12 balls of every match and dominate global standings.</p>
-            
+            <p style="max-width: 600px; margin: 0 auto 3rem; font-size: 1.1rem; color: var(--nexus-text-muted);">Step
+                into the AI-driven nexus of cricket analytics. Secure your predictions for the high-stakes final 12
+                balls of every match and dominate global standings.</p>
+
             <div class="auth-box">
                 <div id="g_id_onload"
                     data-client_id="1069339886211-enuj59sf1ng4v6e7u9pcogagnqbc3mpd.apps.googleusercontent.com"
-                    data-context="signin"
-                    data-ux_mode="popup"
-                    data-callback="handleCredentialResponse"
+                    data-context="signin" data-ux_mode="popup" data-callback="handleCredentialResponse"
                     data-auto_prompt="false">
                 </div>
-                <div class="g_id_signin" 
-                    data-type="standard" 
-                    data-shape="pill" 
-                    data-theme="outline" 
-                    data-text="signin_with" 
-                    data-size="large" 
-                    data-logo_alignment="left">
+                <div class="g_id_signin" data-type="standard" data-shape="pill" data-theme="outline"
+                    data-text="signin_with" data-size="large" data-logo_alignment="left">
                 </div>
             </div>
         </section>
 
         <!-- Match Dashboard -->
         <section id="dashboard" class="hidden">
-            <div class="dashboard-header" style="margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: flex-end;">
+            <div class="dashboard-header"
+                style="margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: flex-end;">
                 <div>
                     <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem;">Arena</h2>
                     <p style="color: var(--nexus-text-muted);">Current live and scheduled matches</p>
                 </div>
                 <div style="display: flex; gap: 1rem; align-items: center;">
                     <div id="multiplier-status-card" class="multiplier-card hidden">
-                        <div style="font-size: 0.6rem; color: var(--nexus-text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 800;">Reward Multiplier</div>
+                        <div
+                            style="font-size: 0.6rem; color: var(--nexus-text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 800;">
+                            Reward Multiplier</div>
                         <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 2px;">
-                            <span id="multiplier-live" style="font-size: 1.2rem; font-weight: 900; color: #f59e0b;">1x</span>
-                            <span id="friends-count" style="font-size: 0.65rem; color: var(--nexus-primary); background: rgba(56, 189, 248, 0.1); padding: 2px 6px; border-radius: 4px; font-weight: 800;">0 FRIENDS ACTIVE</span>
+                            <span id="multiplier-live"
+                                style="font-size: 1.2rem; font-weight: 900; color: #f59e0b;">1x</span>
+                            <span id="friends-count"
+                                style="font-size: 0.65rem; color: var(--nexus-primary); background: rgba(56, 189, 248, 0.1); padding: 2px 6px; border-radius: 4px; font-weight: 800;">0
+                                FRIENDS ACTIVE</span>
                         </div>
                     </div>
-                    <div style="background: rgba(56, 189, 248, 0.05); padding: 0.75rem 1.5rem; border-radius: 12px; border: 1px solid var(--nexus-border);">
+                    <div
+                        style="background: rgba(56, 189, 248, 0.05); padding: 0.75rem 1.5rem; border-radius: 12px; border: 1px solid var(--nexus-border);">
                         <span id="live-count" style="font-weight: 700; color: var(--nexus-primary);">0 LIVE</span>
                     </div>
                 </div>
             </div>
 
             <!-- Referral CTA Banner (Homepage Only) -->
-            <div id="referral-cta" class="referral-banner hidden" onclick="switchNexusView('squad')" style="cursor: pointer; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid rgba(56, 189, 248, 0.3); background: linear-gradient(135deg, rgba(56, 189, 248, 0.12) 0%, rgba(139, 92, 246, 0.08) 100%);">
-                <div style="display: flex; align-items: center; gap: 1.5rem; width: 100%; justify-content: space-between;">
+            <div id="referral-cta" class="referral-banner hidden" onclick="switchNexusView('squad')"
+                style="cursor: pointer; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid rgba(56, 189, 248, 0.3); background: linear-gradient(135deg, rgba(56, 189, 248, 0.12) 0%, rgba(139, 92, 246, 0.08) 100%);">
+                <div
+                    style="display: flex; align-items: center; gap: 1.5rem; width: 100%; justify-content: space-between;">
                     <div style="display: flex; align-items: center; gap: 1.25rem;">
-                        <div class="squad-icon-box" style="width: 50px; height: 50px; background: rgba(56, 189, 248, 0.15); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">👥</div>
+                        <div class="squad-icon-box"
+                            style="width: 50px; height: 50px; background: rgba(56, 189, 248, 0.15); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
+                            👥</div>
                         <div>
-                            <h4 style="font-size: 1rem; margin-bottom: 0.15rem; color: white;">Manage Your Nexus Squad</h4>
-                            <p style="font-size: 0.75rem; color: var(--nexus-text-muted);">You have <span id="cta-squad-count" style="color: var(--nexus-primary); font-weight: 800;">0 friends</span>. Grow your tribe to boost your multiplier!</p>
+                            <h4 style="font-size: 1rem; margin-bottom: 0.15rem; color: white;">Manage Your Nexus Squad
+                            </h4>
+                            <p style="font-size: 0.75rem; color: var(--nexus-text-muted);">You have <span
+                                    id="cta-squad-count" style="color: var(--nexus-primary); font-weight: 800;">0
+                                    friends</span>. Grow your tribe to boost your multiplier!</p>
                         </div>
                     </div>
                     <div style="text-align: right;">
-                        <div style="font-size: 0.55rem; color: var(--nexus-text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 800;">Current Multiplier</div>
-                        <div id="cta-multiplier-val" style="font-size: 1.5rem; font-weight: 900; color: #f59e0b;">1x</div>
+                        <div
+                            style="font-size: 0.55rem; color: var(--nexus-text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 800;">
+                            Current Multiplier</div>
+                        <div id="cta-multiplier-val" style="font-size: 1.5rem; font-weight: 900; color: #f59e0b;">1x
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Arena Tabs (Dashboard Only) -->
-            <div id="arena-tabs" style="display: flex; gap: 1rem; margin-bottom: 2rem; border-bottom: 1px solid var(--nexus-border); padding-bottom: 1rem;">
+            <div id="arena-tabs"
+                style="display: flex; gap: 1rem; margin-bottom: 2rem; border-bottom: 1px solid var(--nexus-border); padding-bottom: 1rem;">
                 <button class="arena-tab active" onclick="switchArenaTab('all')">ALL MATCHES</button>
                 <button class="arena-tab" onclick="switchArenaTab('LIVE')">LIVE NOW</button>
                 <button class="arena-tab" onclick="switchArenaTab('UPCOMING')">UPCOMING</button>
@@ -121,14 +145,18 @@
             <!-- Global Leaderboard -->
             <div class="global-leaderboard-section" style="margin-top: 5rem; animation: fadeIn 1s ease-out;">
                 <div style="border-top: 1px solid var(--nexus-border); padding-top: 4rem; margin-bottom: 2.5rem;">
-                    <h2 style="font-size: 2.2rem; font-weight: 900; background: linear-gradient(to right, white, var(--nexus-text-muted)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">NEXUS GLOBAL STANDINGS</h2>
+                    <h2
+                        style="font-size: 2.2rem; font-weight: 900; background: linear-gradient(to right, white, var(--nexus-text-muted)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+                        NEXUS GLOBAL STANDINGS</h2>
                     <p style="color: var(--nexus-text-muted);">Real-time performance metrics for the current season</p>
                 </div>
-                
-                <div style="background: var(--nexus-card-bg); border: 1px solid var(--nexus-border); border-radius: 20px; padding: 1.5rem; backdrop-filter: var(--glass-blur);">
+
+                <div
+                    style="background: var(--nexus-card-bg); border: 1px solid var(--nexus-border); border-radius: 20px; padding: 1.5rem; backdrop-filter: var(--glass-blur);">
                     <table style="width: 100%; border-collapse: separate; border-spacing: 0 0.75rem;">
                         <thead>
-                            <tr style="text-align: left; color: var(--nexus-text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">
+                            <tr
+                                style="text-align: left; color: var(--nexus-text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">
                                 <th style="padding: 1rem;">Rank</th>
                                 <th style="padding: 1rem;">Nexus Identity</th>
                                 <th style="padding: 1rem; text-align: right;">Performance Points</th>
@@ -144,17 +172,20 @@
 
         <!-- User Performance History -->
         <section id="history-section" class="hidden">
-            <div class="dashboard-header" style="margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: flex-end;">
+            <div class="dashboard-header"
+                style="margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: flex-end;">
                 <div>
                     <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem;">My Performance</h2>
                     <p style="color: var(--nexus-text-muted);">Historical analysis of your predictions and results</p>
                 </div>
             </div>
 
-            <div id="history-container" style="background: var(--nexus-card-bg); border: 1px solid var(--nexus-border); border-radius: 20px; padding: 1.5rem; backdrop-filter: var(--glass-blur);">
+            <div id="history-container"
+                style="background: var(--nexus-card-bg); border: 1px solid var(--nexus-border); border-radius: 20px; padding: 1.5rem; backdrop-filter: var(--glass-blur);">
                 <table style="width: 100%; border-collapse: separate; border-spacing: 0 0.75rem;">
                     <thead>
-                        <tr style="text-align: left; color: var(--nexus-text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">
+                        <tr
+                            style="text-align: left; color: var(--nexus-text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">
                             <th style="padding: 1rem;">Match</th>
                             <th style="padding: 1rem;">Date</th>
                             <th style="padding: 1rem;">Session</th>
@@ -167,7 +198,8 @@
                     </tbody>
                 </table>
                 <div id="history-empty" class="hidden" style="text-align: center; padding: 4rem 2rem;">
-                    <p style="color: var(--nexus-text-muted); font-size: 1.1rem;">You haven't participated in any match simulations yet.</p>
+                    <p style="color: var(--nexus-text-muted); font-size: 1.1rem;">You haven't participated in any match
+                        simulations yet.</p>
                 </div>
             </div>
         </section>
@@ -179,47 +211,62 @@
                     <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem;">Your Squad</h2>
                     <p style="color: var(--nexus-text-muted);">Manage your referrals and viral multiplier status</p>
                 </div>
-                <button onclick="switchNexusView('dashboard')" style="background: rgba(255,255,255,0.05); color: white; border: 1px solid var(--nexus-border); padding: 0.75rem 1.5rem; border-radius: 12px; font-weight: 700; cursor: pointer;">← BACK TO ARENA</button>
+                <button onclick="switchNexusView('dashboard')"
+                    style="background: rgba(255,255,255,0.05); color: white; border: 1px solid var(--nexus-border); padding: 0.75rem 1.5rem; border-radius: 12px; font-weight: 700; cursor: pointer;">←
+                    BACK TO ARENA</button>
             </div>
 
             <!-- Squad Referral Management -->
             <div class="referral-banner" style="margin-bottom: 2rem; display: block;">
-                <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; justify-content: space-between; width: 100%;">
+                <div
+                    style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; justify-content: space-between; width: 100%;">
                     <div>
                         <h4 style="font-size: 1.1rem; margin-bottom: 0.25rem;">Grow Your Nexus Squad</h4>
-                        <p style="font-size: 0.8rem; color: var(--nexus-text-muted);">Invite friends → they predict → your multiplier grows (20 friends = 20x points!)</p>
+                        <p style="font-size: 0.8rem; color: var(--nexus-text-muted);">Invite friends → they predict →
+                            your multiplier grows (20 friends = 20x points!)</p>
                     </div>
-                    <div style="display: flex; gap: 0.5rem; background: rgba(0,0,0,0.2); padding: 0.5rem; border-radius: 12px; border: 1px solid var(--nexus-border); flex-grow: 1; max-width: 500px;">
-                        <code id="referral-link-display" style="font-family: monospace; color: var(--nexus-primary); font-size: 0.85rem; padding: 0 1rem; align-self: center; flex-grow: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">nexus-ipl.com?ref=NEXUS</code>
-                        <button onclick="copyReferralLink()" class="btn-nexus" style="padding: 0.6rem 1.5rem; font-size: 0.75rem;">COPY LINK</button>
+                    <div
+                        style="display: flex; gap: 0.5rem; background: rgba(0,0,0,0.2); padding: 0.5rem; border-radius: 12px; border: 1px solid var(--nexus-border); flex-grow: 1; max-width: 500px;">
+                        <code id="referral-link-display"
+                            style="font-family: monospace; color: var(--nexus-primary); font-size: 0.85rem; padding: 0 1rem; align-self: center; flex-grow: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">nexus-ipl.com?ref=NEXUS</code>
+                        <button onclick="copyReferralLink()" class="btn-nexus"
+                            style="padding: 0.6rem 1.5rem; font-size: 0.75rem;">COPY LINK</button>
                     </div>
                 </div>
             </div>
 
             <!-- Comprehensive Squad Insights -->
-            <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--nexus-border); border-radius: 24px; padding: 2rem;">
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; border-bottom: 1px solid var(--nexus-border); padding-bottom: 1rem;">
+            <div
+                style="background: rgba(255,255,255,0.02); border: 1px solid var(--nexus-border); border-radius: 24px; padding: 2rem;">
+                <div
+                    style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; border-bottom: 1px solid var(--nexus-border); padding-bottom: 1rem;">
                     <h3 style="font-size: 1.2rem; font-weight: 800; display: flex; align-items: center; gap: 1rem;">
-                        MEMBERS <span id="squad-count-badge" style="background: var(--nexus-primary); color: black; padding: 4px 12px; border-radius: 8px; font-size: 1rem;">0</span>
+                        MEMBERS <span id="squad-count-badge"
+                            style="background: var(--nexus-primary); color: black; padding: 4px 12px; border-radius: 8px; font-size: 1rem;">0</span>
                     </h3>
                     <div style="display: flex; align-items: center; gap: 1.5rem;">
                         <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem;">
-                            <div class="status-dot live"></div> <span style="color: var(--nexus-text-muted);">LIVE (Active Points Booster)</span>
+                            <div class="status-dot live"></div> <span style="color: var(--nexus-text-muted);">LIVE
+                                (Active Points Booster)</span>
                         </div>
                         <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem;">
-                            <div class="status-dot flagged"></div> <span style="color: var(--nexus-text-muted);">FLAGGED (Fingerprint Duplicate)</span>
+                            <div class="status-dot flagged"></div> <span style="color: var(--nexus-text-muted);">FLAGGED
+                                (Fingerprint Duplicate)</span>
                         </div>
                     </div>
                 </div>
 
-                <div id="squad-list" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem;">
+                <div id="squad-list"
+                    style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem;">
                     <!-- Squad items injected here -->
                 </div>
-                
-                <div id="no-squad-msg" class="hidden" style="text-align: center; padding: 4rem 2rem; color: var(--nexus-text-muted);">
+
+                <div id="no-squad-msg" class="hidden"
+                    style="text-align: center; padding: 4rem 2rem; color: var(--nexus-text-muted);">
                     <div style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.3;">👥</div>
                     <p style="font-size: 1.1rem;">You don't have any squad members yet.</p>
-                    <p style="font-size: 0.8rem; margin-top: 0.5rem;">Share your referral link to start building your 20x multiplier!</p>
+                    <p style="font-size: 0.8rem; margin-top: 0.5rem;">Share your referral link to start building your
+                        20x multiplier!</p>
                 </div>
             </div>
         </section>
@@ -227,56 +274,90 @@
         <!-- Changelog View -->
         <section id="changelog-section" class="hidden">
             <div style="margin-bottom: 3rem; text-align: center;">
-                <h2 style="font-size: 2rem; font-weight: 900; background: linear-gradient(to right, white, var(--nexus-text-muted)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">NEXUS EVOLUTION</h2>
+                <h2
+                    style="font-size: 2rem; font-weight: 900; background: linear-gradient(to right, white, var(--nexus-text-muted)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+                    NEXUS EVOLUTION</h2>
                 <p style="color: var(--nexus-text-muted);">System iterations and lifecycle updates</p>
             </div>
 
             <div class="timeline" style="max-width: 800px; margin: 0 auto;">
                 <!-- Day 7: Viral Growth & Reward Multipliers -->
-                <div class="timeline-item" style="border-left: 2px solid var(--nexus-primary); padding-left: 2rem; margin-bottom: 2.5rem; position: relative;">
-                    <div style="position: absolute; left: -9px; top: 0; width: 16px; height: 16px; border-radius: 50%; background: var(--nexus-primary); box-shadow: 0 0 10px var(--nexus-primary);"></div>
-                    <div class="timeline-chip" style="display: inline-block; background: rgba(56, 189, 248, 0.1); color: var(--nexus-primary); padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.6rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: 1px;">DEPLOYED TODAY</div>
+                <div class="timeline-item"
+                    style="border-left: 2px solid var(--nexus-primary); padding-left: 2rem; margin-bottom: 2.5rem; position: relative;">
+                    <div
+                        style="position: absolute; left: -9px; top: 0; width: 16px; height: 16px; border-radius: 50%; background: var(--nexus-primary); box-shadow: 0 0 10px var(--nexus-primary);">
+                    </div>
+                    <div class="timeline-chip"
+                        style="display: inline-block; background: rgba(56, 189, 248, 0.1); color: var(--nexus-primary); padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.6rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: 1px;">
+                        DEPLOYED TODAY</div>
                     <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">DAY 7 : NEXUS VIRALITY</h3>
-                    <p style="color: var(--nexus-text-muted); font-size: 0.9rem;">Launched Dynamic Reward Multipliers and unique Hardware Fingerprinting for secure squad growth. Added a real-time squad dashboard with 1/2-session activity tracking.</p>
+                    <p style="color: var(--nexus-text-muted); font-size: 0.9rem;">Launched Dynamic Reward Multipliers
+                        and unique Hardware Fingerprinting for secure squad growth. Added a real-time squad dashboard
+                        with 1/2-session activity tracking.</p>
                 </div>
 
                 <!-- Day 6: Result Integrity & Session Guards -->
-                <div class="timeline-item" style="border-left: 2px solid var(--nexus-border); padding-left: 2rem; margin-bottom: 2.5rem; position: relative; opacity: 0.9;">
-                    <div style="position: absolute; left: -9px; top: 0; width: 16px; height: 16px; border-radius: 50%; background: var(--nexus-border);"></div>
+                <div class="timeline-item"
+                    style="border-left: 2px solid var(--nexus-border); padding-left: 2rem; margin-bottom: 2.5rem; position: relative; opacity: 0.9;">
+                    <div
+                        style="position: absolute; left: -9px; top: 0; width: 16px; height: 16px; border-radius: 50%; background: var(--nexus-border);">
+                    </div>
                     <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">DAY 6 : NEXUS ACCURACY</h3>
-                    <p style="color: var(--nexus-text-muted); font-size: 0.9rem;">Implemented session completion guards and automated result rectification for edge-case match outcomes (LSG vs DC logic fix).</p>
+                    <p style="color: var(--nexus-text-muted); font-size: 0.9rem;">Implemented session completion guards
+                        and automated result rectification for edge-case match outcomes (LSG vs DC logic fix).</p>
                 </div>
 
                 <!-- Day 5: AI Insights & Oracle Launch -->
-                <div class="timeline-item" style="border-left: 2px solid var(--nexus-border); padding-left: 2rem; margin-bottom: 2.5rem; position: relative; opacity: 0.85;">
-                    <div style="position: absolute; left: -9px; top: 0; width: 16px; height: 16px; border-radius: 50%; background: var(--nexus-border);"></div>
+                <div class="timeline-item"
+                    style="border-left: 2px solid var(--nexus-border); padding-left: 2rem; margin-bottom: 2.5rem; position: relative; opacity: 0.85;">
+                    <div
+                        style="position: absolute; left: -9px; top: 0; width: 16px; height: 16px; border-radius: 50%; background: var(--nexus-border);">
+                    </div>
                     <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">DAY 5 : NEXUS INSIGHTS</h3>
-                    <p style="color: var(--nexus-text-muted); font-size: 0.9rem;">Integrated deeper Cricbuzz metadata for playoff probability modeling and real-time scorecard performance metrics.</p>
+                    <p style="color: var(--nexus-text-muted); font-size: 0.9rem;">Integrated deeper Cricbuzz metadata
+                        for playoff probability modeling and real-time scorecard performance metrics.</p>
                 </div>
 
                 <!-- Day 4: Consolidating Performance & Purity -->
-                <div class="timeline-item" style="border-left: 2px solid var(--nexus-border); padding-left: 2rem; margin-bottom: 2.5rem; position: relative; opacity: 0.8;">
-                    <div style="position: absolute; left: -9px; top: 0; width: 16px; height: 16px; border-radius: 50%; background: var(--nexus-border);"></div>
+                <div class="timeline-item"
+                    style="border-left: 2px solid var(--nexus-border); padding-left: 2rem; margin-bottom: 2.5rem; position: relative; opacity: 0.8;">
+                    <div
+                        style="position: absolute; left: -9px; top: 0; width: 16px; height: 16px; border-radius: 50%; background: var(--nexus-border);">
+                    </div>
                     <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">DAY 4 : NEXUS PURITY</h3>
-                    <p style="color: var(--nexus-text-muted); font-size: 0.9rem;">Architectural shift to a pure MongoDB stack; launched the "My Performance" historical analysis engine and early-finish automated scoring triggers.</p>
+                    <p style="color: var(--nexus-text-muted); font-size: 0.9rem;">Architectural shift to a pure MongoDB
+                        stack; launched the "My Performance" historical analysis engine and early-finish automated
+                        scoring triggers.</p>
                 </div>
 
-                <div class="timeline-item" style="border-left: 2px solid var(--nexus-border); padding-left: 2rem; margin-bottom: 2rem; position: relative; opacity: 0.8;">
-                    <div style="position: absolute; left: -9px; top: 0; width: 16px; height: 16px; border-radius: 50%; background: var(--nexus-border);"></div>
+                <div class="timeline-item"
+                    style="border-left: 2px solid var(--nexus-border); padding-left: 2rem; margin-bottom: 2rem; position: relative; opacity: 0.8;">
+                    <div
+                        style="position: absolute; left: -9px; top: 0; width: 16px; height: 16px; border-radius: 50%; background: var(--nexus-border);">
+                    </div>
                     <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">V2 : AUTONOMOUS INTELLIGENCE</h3>
-                    <p style="color: var(--nexus-text-muted); font-size: 0.9rem;">Cricbuzz Fallback Surveillance, Real-time Arena Tabulation & PWA Integration.</p>
+                    <p style="color: var(--nexus-text-muted); font-size: 0.9rem;">Cricbuzz Fallback Surveillance,
+                        Real-time Arena Tabulation & PWA Integration.</p>
                 </div>
 
-                <div class="timeline-item" style="border-left: 2px solid var(--nexus-border); padding-left: 2rem; margin-bottom: 2rem; position: relative; opacity: 0.6;">
-                    <div style="position: absolute; left: -9px; top: 0; width: 16px; height: 16px; border-radius: 50%; background: var(--nexus-border);"></div>
+                <div class="timeline-item"
+                    style="border-left: 2px solid var(--nexus-border); padding-left: 2rem; margin-bottom: 2rem; position: relative; opacity: 0.6;">
+                    <div
+                        style="position: absolute; left: -9px; top: 0; width: 16px; height: 16px; border-radius: 50%; background: var(--nexus-border);">
+                    </div>
                     <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">DAY 2 : INFRASTRUCTURE & SPEED</h3>
-                    <p style="color: var(--nexus-text-muted); font-size: 0.9rem;">Redis Caching, Nexus Production Logger & Death Over Governance.</p>
+                    <p style="color: var(--nexus-text-muted); font-size: 0.9rem;">Redis Caching, Nexus Production Logger
+                        & Death Over Governance.</p>
                 </div>
 
-                <div class="timeline-item" style="border-left: 2px solid var(--nexus-border); padding-left: 2rem; position: relative; opacity: 0.4;">
-                    <div style="position: absolute; left: -9px; top: 0; width: 16px; height: 16px; border-radius: 50%; background: var(--nexus-border);"></div>
+                <div class="timeline-item"
+                    style="border-left: 2px solid var(--nexus-border); padding-left: 2rem; position: relative; opacity: 0.4;">
+                    <div
+                        style="position: absolute; left: -9px; top: 0; width: 16px; height: 16px; border-radius: 50%; background: var(--nexus-border);">
+                    </div>
                     <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">DAY 1 : THE FOUNDATION</h3>
-                    <p style="color: var(--nexus-text-muted); font-size: 0.9rem;">Google OAuth2 Migration, MongoDB Warehouse & Nexus Design System.</p>
+                    <p style="color: var(--nexus-text-muted); font-size: 0.9rem;">Google OAuth2 Migration, MongoDB
+                        Warehouse & Nexus Design System.</p>
                 </div>
             </div>
         </section>
@@ -285,14 +366,18 @@
     <!-- Prediction Modal -->
     <div id="prediction-modal" class="nexus-modal hidden">
         <div class="nexus-modal-content">
-            <button class="close-btn" onclick="closePredictionModal()" style="position: absolute; top: 2rem; right: 2rem; background: none; border: none; color: var(--nexus-text-muted); font-size: 1.5rem; cursor: pointer;">&times;</button>
-            <h3 id="modal-match-title" style="font-size: 1.8rem; font-weight: 800; margin-bottom: 0.5rem; color: white;">Predict Match</h3>
-            <p id="modal-match-subtitle" style="color: var(--nexus-text-muted); font-size: 0.9rem; margin-bottom: 2rem;">Secure your predictions for the next 12 balls.</p>
-            
+            <button class="close-btn" onclick="closePredictionModal()"
+                style="position: absolute; top: 2rem; right: 2rem; background: none; border: none; color: var(--nexus-text-muted); font-size: 1.5rem; cursor: pointer;">&times;</button>
+            <h3 id="modal-match-title"
+                style="font-size: 1.8rem; font-weight: 800; margin-bottom: 0.5rem; color: white;">Predict Match</h3>
+            <p id="modal-match-subtitle"
+                style="color: var(--nexus-text-muted); font-size: 0.9rem; margin-bottom: 2rem;">Secure your predictions
+                for the next 12 balls.</p>
+
             <div id="prediction-form" class="prediction-grid">
                 <!-- Inputs generated dynamically -->
             </div>
-            
+
             <button id="submit-prediction" class="btn-nexus" style="margin-top: 1rem;">Lock All Predictions</button>
         </div>
     </div>
@@ -300,19 +385,26 @@
     <!-- Breakdown Analytics Modal -->
     <div id="breakdown-modal" class="nexus-modal hidden">
         <div class="nexus-modal-content" style="max-width: 800px; max-height: 90vh; overflow-y: auto;">
-            <button class="close-btn" onclick="document.getElementById('breakdown-modal').classList.add('hidden')" style="position: absolute; top: 2rem; right: 2rem; background: none; border: none; color: var(--nexus-text-muted); font-size: 1.5rem; cursor: pointer;">&times;</button>
-            <h3 style="font-size: 1.8rem; font-weight: 800; margin-bottom: 0.5rem; color: white;">Nexus Analytical Insight</h3>
-            <p style="color: var(--nexus-text-muted); font-size: 0.9rem; margin-bottom: 2rem;">Scientific breakdown of your prediction performance.</p>
-            
+            <button class="close-btn" onclick="document.getElementById('breakdown-modal').classList.add('hidden')"
+                style="position: absolute; top: 2rem; right: 2rem; background: none; border: none; color: var(--nexus-text-muted); font-size: 1.5rem; cursor: pointer;">&times;</button>
+            <h3 style="font-size: 1.8rem; font-weight: 800; margin-bottom: 0.5rem; color: white;">Nexus Analytical
+                Insight</h3>
+            <p style="color: var(--nexus-text-muted); font-size: 0.9rem; margin-bottom: 2rem;">Scientific breakdown of
+                your prediction performance.</p>
+
             <div id="breakdown-content">
                 <!-- Analysis table injected via JS -->
             </div>
-            
-            <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(56, 189, 248, 0.05); border-radius: 16px; border: 1px solid rgba(56, 189, 248, 0.1);">
-                <h4 style="font-size: 0.8rem; margin-bottom: 1rem; color: var(--nexus-primary); font-weight: 800; text-transform: uppercase;">Scoring Logic</h4>
+
+            <div
+                style="margin-top: 2rem; padding: 1.5rem; background: rgba(56, 189, 248, 0.05); border-radius: 16px; border: 1px solid rgba(56, 189, 248, 0.1);">
+                <h4
+                    style="font-size: 0.8rem; margin-bottom: 1rem; color: var(--nexus-primary); font-weight: 800; text-transform: uppercase;">
+                    Scoring Logic</h4>
                 <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
                     <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem;">
-                        <span class="ball-indicator indicator-hit">H</span> <span>Wicket Match (+25) / Run Match (+10)</span>
+                        <span class="ball-indicator indicator-hit">H</span> <span>Wicket Match (+25) / Run Match
+                            (+10)</span>
                     </div>
                     <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; opacity: 0.5;">
                         <span class="ball-indicator indicator-miss">M</span> <span>Mismatch (+0)</span>
@@ -335,4 +427,5 @@
         }
     </script>
 </body>
+
 </html>

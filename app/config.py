@@ -19,6 +19,7 @@ class Settings(BaseSettings):
     SCORING_EXACT: int = 10
     SCORING_NEAR: int = 5
     MAX_PREDICTIONS_PER_USER: int = 24
+    LIVEKIT_URL: str = "ws://localhost:7880"
     LIVEKIT_API_KEY: str = "devkey"
     LIVEKIT_API_SECRET: str = "secret"
 
